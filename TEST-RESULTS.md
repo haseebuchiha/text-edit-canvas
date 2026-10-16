@@ -634,3 +634,30 @@ Only the 26 rewrite-document cases ran, one trial each, judged by gpt-6.1-sol at
 - Eval issues seen, not fixed: `all-translated` read "Servicezeiten: … außer an gesetzlichen Feiertagen in Baden-Württemberg" (run 3) and "[PERSON_4], Leiter/in IT" (run 6) as English; `figures-kept` counted "seventy" → "70" and "one" → "1" as invented figures (run 8s); the translation grader failed unlocalized "EUR 150,000" in run 2 and localized "18.000" in run 6s.
 - Unit tests: `tests/services/document-transform.test.ts` now has 13 tests (term sheet per part, change marks and hints, repair, restore on failed repair, failed check, lost number, placeholder, translated fix, label strip, check model, token counts, failed term sheet), and `tests/services/document-edit.test.ts` 2 new heading tests. `yarn format`, `yarn lint`, `yarn tsc --noEmit` and `yarn test` (294 tests) pass.
 - Quota: 48% before the first experiment, 56% before `yarn evals`, 57% after it.
+
+## 21. Cheaper check models for whole-document rewrites
+
+Code: unchanged from round 20. Only the check and repair model changed, through `LLM_CHECK_MODEL`. gpt-6-luna still wrote every part. The grader stayed on gpt-6.1-sol at medium effort.
+
+The proxy serves seven text models: gpt-6.1-sol, gpt-6-sol, gpt-6-luna, gpt-6-astra, gpt-5.6-sol, gpt-5.6-terra and gpt-5.6-luna. It refused every older name we tried, such as gpt-5.5, gpt-5-mini, gpt-4.1, gpt-4o, o3 and o4-mini. All four candidates accepted structured output and medium effort. gpt-6-astra was never run.
+
+**Screen**: the 8 cases that failed most often in round 20 (LF, 05-rewrite, LG, 16-rewrite, L7, 15-rewrite, SF, 08-rewrite), 4 at a time through the scratch harness. **Full**: `yarn evals rewrite-document`, 26 cases. **Tokens**: per rewrite, gpt-6-luna plus the check model, on the full run. **Cost**: per 1,000 rewrites at Vercel AI Gateway list prices, read on 2026-10-16. **Sec**: per rewrite on the full run.
+
+| Check model | Price in / out per 1M | Screen | Full | Tokens (luna + check) | Cost | Sec | Errors |
+|---|---|--:|--:|--:|--:|--:|---|
+| gpt-6-luna (round 20) | $0.10 / $0.50 | 0–3/8 | 11–15 | 36,300–41,900 in all | $7.60–8.90 | 41–46 | none |
+| gpt-5.6-luna | $0.20 / $1.20 | 1/8 | not run | | | | none |
+| gpt-6.1-sol (round 20) | $2 / $10 | 3/8, 4/8 | 20, 21 | 21,700 + 17,500 | $55 | 48 | 2 check timeouts, 1 part timeout |
+| gpt-6-sol | $2 / $10 | 3/8 | 12 | 21,800 + 19,600 | $70 | 47 | 1 check 503, 1 part timeout |
+| gpt-5.6-terra | $2 / $12 | not run | not run | | | | |
+| gpt-5.6-sol | $4 / $20 | not run | not run | | | | |
+
+- The gpt-6-luna row comes from round 20 runs on earlier versions of the code. It wasn't run again.
+- No check model on the proxy reached about 80% for less than gpt-6.1-sol. gpt-6.1-sol stays the cheapest that does.
+- gpt-5.6-luna passed only SF on the screen. It let 4 meaning slips and 3 translation errors through. On the 8 screen cases it cost $23 per 1,000 rewrites.
+- gpt-6-sol matched gpt-6.1-sol on the screen but passed only 12 of 26 cases in the full run: 5 meaning, 4 tone, 4 translation and 1 length failure. It costs the same per token, but it wrote about 1.8 times as many output tokens per check call (369 against 201), so it cost more.
+- gpt-5.6-terra wasn't run. It costs at least as much per token as gpt-6.1-sol, so it would need fewer output tokens than gpt-6.1-sol, the leanest model here. It was also the weakest of the gpt-5.6 models on rewrites in round 15.
+- gpt-5.6-sol wasn't run. Its input tokens alone would cost about $63 per 1,000 rewrites.
+- The grader is gpt-6.1-sol, so it may favour its own checks. gpt-6-sol's 12 is below every gpt-6.1-sol run in round 20 (17 to 22), so that bias doesn't seem to explain the whole gap.
+- A screen score of 3/8 didn't predict the full result. Eight hard cases are too few to tell close models apart.
+- Quota: 57% before the first screen, 58% before the full run, 59% at the end.
