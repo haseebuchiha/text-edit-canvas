@@ -125,7 +125,7 @@ The types (`ChatSession`, `ChatMessage` and so on) are derived from the Mongoose
 2. Otherwise it uses `@ai-sdk/openai` with `LLM_BASE_URL`, `LLM_MODEL` and the optional `LLM_API_KEY`, through OpenAI's Responses API. Without `LLM_API_KEY` it sends an empty key, and never falls back to `OPENAI_API_KEY`.
 3. If neither is complete, `/api/chat` answers 503 with a message naming the settings to fill in.
 
-A whole-document rewrite checks each rewritten part on a second model, the check model, which also repairs the blocks whose meaning changed. It is `AI_GATEWAY_CHECK_MODEL` on the gateway (default `openai/gpt-6.1-sol`) or `LLM_CHECK_MODEL` on the other path (default `gpt-6.1-sol`). Set it to the chat model for a cheaper, less accurate rewrite.
+A whole-document rewrite checks each rewritten part on a second model, the check model, which also repairs the blocks whose meaning changed. It is `AI_GATEWAY_CHECK_MODEL` on the gateway (default `openai/gpt-6-luna`) or `LLM_CHECK_MODEL` on the other path (default `gpt-6-luna`). A stronger check model such as gpt-6.1-sol makes rewrites more accurate at about ten times the cost.
 
 Every model call, the chat call and each section call of a whole-document rewrite, sends the same OpenAI options on both paths (`createModelOptions` in `services/llm.ts`; the gateway passes them on to OpenAI): medium reasoning effort, medium text verbosity, `store: false`, the chat session ID as the prompt cache key, and parallel tool calls allowed. With `store: false` the SDK asks for the model's reasoning in encrypted form and sends it back on the next step, so reasoning carries across tool calls without being stored.
 

@@ -22,7 +22,7 @@ export type Grade = { grader: GraderName; verdict: "pass" | "fail" | "unknown"; 
 
 type AnswerBrief = { instruction: string; reference: string; criteria: string[] }
 
-export const GRADER_MODEL = "gpt-6.1-sol"
+export const GRADER_MODEL = "gpt-6-luna"
 export const GRADER_EFFORT = "medium"
 const PROXY_BASE_URL = "http://127.0.0.1:10531/v1"
 const PROXY_PROVIDER_NAME = "llm"
@@ -33,7 +33,9 @@ const GRADER_INSTRUCTIONS = [
   "You grade one aspect of an AI assistant's work on a business document, against the criteria you are given.",
   "Judge only those criteria. Other aspects are graded separately.",
   "Placeholders such as [ORG_1] or [PERSON_2] stand for real names. They are correct as written.",
-  "Write your reasoning first: go through each criterion and quote the words that decide it. Then give the verdict.",
+  "Be strict. For a rewrite, go through every changed block one by one: quote the original sentence and the rewritten sentence, and test each criterion on that pair.",
+  "Judge each pair on its own. Don't excuse a change because another sentence elsewhere seems to cover it.",
+  "Write your reasoning first, as the full list of pairs and the words that decide each criterion. Give the verdict only after the full list.",
   "Answer pass when every criterion is met, fail when any is not, and unknown only when the material doesn't let you decide.",
 ].join("\n")
 

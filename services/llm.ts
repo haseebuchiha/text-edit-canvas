@@ -4,8 +4,8 @@ import { readGatewayApiKey, readGatewayEnvironment, readProxyEnvironment } from 
 
 const PROXY_PROVIDER_NAME = "llm"
 const NO_API_KEY = ""
-const DEFAULT_PROXY_CHECK_MODEL = "gpt-6.1-sol"
-const DEFAULT_GATEWAY_CHECK_MODEL = "openai/gpt-6.1-sol"
+const DEFAULT_PROXY_CHECK_MODEL = "gpt-6-luna"
+const DEFAULT_GATEWAY_CHECK_MODEL = "openai/gpt-6-luna"
 const REASONING_EFFORT = "medium"
 const TEXT_VERBOSITY = "medium"
 
