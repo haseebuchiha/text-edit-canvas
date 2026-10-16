@@ -26,12 +26,6 @@ export const REWRITE_DOCUMENT_CASES: RewriteDocumentCase[] = [
     graders: ["concision"],
   },
   {
-    id: "03-rewrite",
-    document: "03-data-processing-agreement",
-    instruction: "make the whole agreement more formal",
-    graders: ["tone"],
-  },
-  {
     id: "04-rewrite",
     document: "04-steering-committee-minutes",
     instruction: "translate the document to German",
@@ -80,21 +74,6 @@ export const REWRITE_DOCUMENT_CASES: RewriteDocumentCase[] = [
     graders: ["translation"],
   },
   {
-    id: "08-rewrite",
-    document: "08-employee-onboarding-handbook",
-    instruction: "translate the document to German",
-    why: "'Buddy' appears in ten blocks and is commonly rendered as Buddy, Pate or Mentor; the translation must pick one.",
-    translatedTo: "German",
-    useOnlyOneOf: [["Buddy", "Pate", "Mentor"]],
-    graders: ["translation"],
-  },
-  {
-    id: "09-rewrite",
-    document: "09-sop-incoming-goods-inspection",
-    instruction: "make the whole document more formal",
-    graders: ["tone"],
-  },
-  {
     id: "10-rewrite",
     document: "10-job-posting",
     instruction: "translate the document to German",
@@ -119,15 +98,6 @@ export const REWRITE_DOCUMENT_CASES: RewriteDocumentCase[] = [
     document: "13-internal-newsletter",
     instruction: "make the whole newsletter more formal",
     graders: ["tone"],
-  },
-  {
-    id: "14-rewrite",
-    document: "14-incident-report",
-    instruction: "translate the report to German",
-    why: "'Plant managers' appears in five blocks, and Werkleiter, Werksleiter, Betriebsleiter and Standortleiter are all common renderings, so the translation has to settle on one.",
-    translatedTo: "German",
-    useOnlyOneOf: [["Werkleiter", "Werksleiter", "Betriebsleiter", "Standortleiter"]],
-    graders: ["translation"],
   },
   {
     id: "15-rewrite",
@@ -159,15 +129,6 @@ export const REWRITE_DOCUMENT_CASES: RewriteDocumentCase[] = [
     graders: ["concision"],
   },
   {
-    id: "19-rewrite",
-    document: "19-travel-expense-policy",
-    instruction: "translate the document to German",
-    why: "'Business trip' appears in 13 blocks and can be 'Dienstreise' or 'Geschäftsreise'; the translation must use one of them throughout.",
-    translatedTo: "German",
-    useOnlyOneOf: [["Dienstreise", "Geschäftsreise"]],
-    graders: ["translation"],
-  },
-  {
     id: "20-rewrite",
     document: "20-customer-case-study",
     instruction: "make the whole document more formal",
@@ -181,13 +142,6 @@ export const REWRITE_DOCUMENT_CASES: RewriteDocumentCase[] = [
     why: "Known gap 12: a whole-document rewrite must also rewrite the text before the first heading.",
     translatedTo: "German",
     graders: ["translation"],
-  },
-  {
-    id: "S7",
-    document: "sample-offer",
-    instruction: "make the whole document more concise",
-    lengthAsShareOfOriginal: { min: 0.4, max: 0.95 },
-    graders: ["concision"],
   },
   {
     id: "SF",

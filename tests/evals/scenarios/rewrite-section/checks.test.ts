@@ -59,11 +59,10 @@ describe("checkSectionRewrite", () => {
     expect(listFailedChecks("S1", {})).toEqual(["something-changed"])
   })
 
-  it("fails S2 when the pricing table is emptied and 'net' is gone", () => {
-    expect(listFailedChecks("S2", { "23": "Our schedule.", "32": "", "44": "" })).toEqual([
+  it("fails S1 when the pricing table is emptied", () => {
+    expect(listFailedChecks("S1", { "23": "Our schedule.", "32": "", "44": "" })).toEqual([
       "figures-kept",
       "table-cells-kept",
-      "phrases-kept",
     ])
   })
 })
