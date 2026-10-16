@@ -48,19 +48,7 @@ Built in `lib/review-diff.ts`, with the `diff` package (jsdiff, BSD-3-Clause). I
 
 When fewer than half of a block's words stay, the whole block shows as replaced instead. We picked the cutoff from real model outputs. `FINDINGS.md` has the numbers.
 
-### 3. Which edit strategies to build
-
-The brief asks us to compare three:
-
-- A: full rewrite
-- B: highlighted sections only
-- C: JSON patch operations
-
-Plan: build C first, because the review UI depends on its operation format. A and B come after and feed into the same diff path. A full rewrite gets diffed against the current document and turned into operations. Not confirmed yet.
-
-All three should meet one contract. They take the same input (the instruction, the document and the focus highlights) and return the same output: a list of edit operations plus token usage, for example `{ "op": "replace_text", "nodeId": "p-8", "find": "The customer", "replace": "The client" }`. Then the diff display only has to understand one format, and the test run can call all three the same way. The contract's Zod schema would live in `lib/edit-operations.ts`, with one file per strategy in `services/edit-strategies/`.
-
-### 3b. Short node IDs
+### 3. Short node IDs
 
 The editor gives every block a stable ID, using Tiptap's UniqueID extension with its default UUIDs for now. Every edit operation and every outline entry the model sees repeats these IDs. A UUID is 36 characters (around 20 tokens), while the brief's examples use short IDs like `p-7`. Shorter IDs (or a short alias the server maps back to the real ID) would cut input and output tokens on every request. Measure this during the test run.
 
@@ -84,10 +72,9 @@ Before we build it: teach the user how evals work (what we measure, how an AI ju
 This is the largest piece of work after the app itself. It's close to the app in size.
 
 - Test data: about 20 made-up business documents, 1 to 10 pages each, with 5 typical instructions per document. Synthetic data only. Personal data appears as placeholders like `[PERSON_1]`.
-- Every instruction runs through each edit strategy.
 - Each result is measured on four things:
   - whether the instruction was carried out (an AI judge, plus manual spot checks)
   - the unintended-change rate, meaning edits outside the intended scope
   - time to first visible change, and total time
   - input and output tokens per edit
-- The results go into `FINDINGS.md`: results per strategy, a recommendation, known limits (tables, lists, very long documents), and a final section called "Open items and path to production".
+- The results go into `FINDINGS.md`: the results, a recommendation, known limits (tables, lists, very long documents), and a final section called "Open items and path to production".

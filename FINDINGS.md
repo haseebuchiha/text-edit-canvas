@@ -324,6 +324,39 @@ Results on gpt-6-luna, full suite, against the re-graded baseline (round 16 in `
 - "Bulky goods" to "oversized goods" went from 1/3 to 3/3, "customer" to "client" on the IT offer from 1/3 to 2/3, and "trade fair" to "trade show" from 0/3 to 1/3.
 - L3 went from 0/10 to 1/10, and 2/10 in the separate run. Block 260 is now right in every run. Blocks 3 and 78 still keep one "customer". The model sends find "customers", which occurs once, and the other word is the singular in "our customer contracts". That is different text, so the check can't see it. The other everywhere failures are the same kind: "The customer's" next to "the customer wants", "trade fairs" next to "trade fair", and 'the "Main Agreement"' next to a lowercase "main agreement".
 
+## Other forms of the same word
+
+`edit_document` now also looks for other forms of each find text in its block, after the block's edits are applied. Code cuts the ending off every word, so "customers", "customer's" and "customer" all become "customer", and compares the find text's words with every run of words in the block. When they match, it rejects the whole call:
+
+```
+Not applied. Block 3 still has "customer", another form of "customers". Send one edit per occurrence, or add surrounding words if only some should change. Send all changes again in one edit_document call.
+```
+
+Code only finds the leftover; the model makes the fix. Editors that replace word forms themselves get it wrong. Word's "Find all word forms" covers English only and misses forms, and a WordPerfect-era patent describes replacing the noun "saw" with "hammer", which also turned "I saw" into "I hammered". Tiptap's example replace-all tool for its AI Toolkit swaps the exact text only.
+
+Search engines match word forms with stemmers, which cut words down to a common stem:
+
+- English: the full stemmers, Porter and Snowball, cut "customer" to "custom" in every JavaScript package we tried, so "custom fields" would block a customer-to-client change. We use the minimal stemmer that Elasticsearch offers as `minimal_english`, from Harman's "How effective is suffixing?" (1991). It only removes plural endings ("policies" to "policy", "fairs" to "fair"), and we drop a possessive 's first. It's a few lines in `lib/word-forms.ts`, with no package. It misses -es plurals of words ending in s, x, ch or sh ("processes" and "process") and irregular plurals.
+- German: the Snowball German stemmer from `@orama/stemmers` (Apache-2.0, no dependencies, last release July 2026). It matches "Kunde" and "Kunden", and "Vertrag", "Verträge" and "Vertrags". Like every German stemmer we tried, it also matches "Lage" and "Lager", and it doesn't link "Kundin" to "Kunde". `natural`, the most downloaded option, pulls in mongoose, pg and redis, and `snowball-stemmers` hasn't had a release since 2022.
+- The language comes from the whole document: German when it has more common German words (der, die, und, …) than common English ones (the, and, of, …). All 23 test documents are English, so only unit tests cover German.
+
+Results on gpt-6-luna, change-text scenario, one run each, against the suite's first run:
+
+| | Before | After |
+|---|--:|--:|
+| Cases passed | 45 of 52 (86.5%) | 48 of 52 (92.3%) |
+| Everywhere and throughout cases passed | 11 of 15 | 15 of 15 |
+| App input tokens | 163,686 | 167,746 |
+| Time | 4 min 54 s | 5 min 13 s |
+
+- The four failures left aren't about word forms. Three are a figure whose second mention or total stayed the same (04, 11, 14), and in 05 the model reworded the sentence instead of making the expected change.
+- Three more runs of the 15 everywhere and throughout cases passed 39 of 45 (87%). With a further 3 runs each of L3 and the IT offer, the check rejected an edit in 10 runs, every time for a real leftover. In 8 of them the model's next edit was accepted and the case passed.
+- Across the new runs, "trade fair" to "trade show" and "Main Agreement" to "Master Agreement" passed 4 of 4, and L3 4 of 7, against 1/10 and 2/10 in round 16. The IT offer passed 4 of 7: 0 of 3 in one batch with no word-form rejection, whose cause we didn't record, then 3 of 3.
+- A rejected run used 7,000 to 11,100 input tokens instead of 3,000 to 4,000.
+- In 2 L3 runs the model kept resending block 3 without a second edit, was rejected again and used up its 4 model calls. Nothing was applied. Before, most blocks would have changed.
+- In 1 L3 run the model sent find "our customers entrust to us". The check compares the whole find text, so "our customer contracts" didn't match it and stayed. Adding surrounding words is also how the model keeps a form on purpose, so this one stays open.
+- A rejection that quotes the words around the leftover, such as "customer" in "our customer contracts", would give the model text to copy into its next edit. Not built yet.
+
 ## Requests for a part the document doesn't have
 
 Asked for a part that isn't there, gpt-6-luna usually changed something nearby. The warehouse proposal opens with a submission line ("Submitted by [ORG_1] to [ORG_2], attention of [PERSON_2], …") and an executive summary, and has no cover letter. "Shorten the cover letter" went to `transform_document` in 3 of 3 baseline runs and shortened 61 to 88 blocks of the proposal. "Add an entry for transaction log to the glossary" changed the report's approval paragraph in 3 of 3. The seven missing-part cases other than "edit the appendix" passed 7 of 21.

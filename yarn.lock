@@ -1280,6 +1280,11 @@
   resolved "https://registry.yarnpkg.com/@nolyfill/is-core-module/-/is-core-module-1.0.39.tgz#3dc35ba0f1e66b403c00b39344f870298ebb1c8e"
   integrity sha512-nn5ozdjYQpUCZlWGuxcJY/KpxkWQs4DcbMCmKojjyrYDEAGy4Ce19NN4v5MduafTwJlbKc99UA8YhSVqq9yPZA==
 
+"@orama/stemmers@3.1.18":
+  version "3.1.18"
+  resolved "https://registry.yarnpkg.com/@orama/stemmers/-/stemmers-3.1.18.tgz#2d1250bdbebbcaef35685f433421b97433b6a0f1"
+  integrity sha512-xXs5fpiUvBs4jJZtnayJmUSomdxxiwwwvTbAzPHSyI6geLM7bxXHgpVlYz4JeMBycHX8bHF7j9m7F35BxhuZ8g==
+
 "@oxc-parser/binding-android-arm-eabi@0.148.0":
   version "0.148.0"
   resolved "https://registry.yarnpkg.com/@oxc-parser/binding-android-arm-eabi/-/binding-android-arm-eabi-0.148.0.tgz#f205d200d346358e0169c49e41f0fd90dad12b82"

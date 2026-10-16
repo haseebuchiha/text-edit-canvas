@@ -46,6 +46,12 @@ const repeatedWordDocument: DocumentSnapshot["document"] = {
   blocks: [{ nodeId: "3", type: "paragraph", text: REPEATED_WORD_TEXT }],
 }
 
+const singleBlockDocument = (text: string): DocumentSnapshot["document"] => ({
+  outline: [],
+  sections: [],
+  blocks: [{ nodeId: "3", type: "paragraph", text }],
+})
+
 const replaceInBlock = (find: string, replace: string): EditOperation => ({
   op: "replace_text",
   nodeId: "3",
@@ -164,5 +170,45 @@ describe("document edit tools", () => {
     const checked = await editDocument(repeatedWordDocument, operations)
 
     expect(checked).toEqual({ accepted: true })
+  })
+
+  it("rejects a replace_text that leaves another form of its word in the block", async () => {
+    const document = singleBlockDocument("Our customers sign our customer contracts.")
+
+    const checked = await editDocument(document, [replaceInBlock("customers", "clients")])
+
+    expect(checked).toEqual({
+      accepted: false,
+      problem:
+        'Not applied. Block 3 still has "customer", another form of "customers". Send one edit per occurrence, or add surrounding words if only some should change. Send all changes again in one edit_document call.',
+    })
+  })
+
+  it("accepts replace_text operations that change every form of the word", async () => {
+    const document = singleBlockDocument("Our customers sign our customer contracts.")
+    const operations = [
+      replaceInBlock("customers", "clients"),
+      replaceInBlock("customer contracts", "client contracts"),
+    ]
+
+    const checked = await editDocument(document, operations)
+
+    expect(checked).toEqual({ accepted: true })
+  })
+
+  it("accepts a replace_text when the block only has a word that starts the same", async () => {
+    const document = singleBlockDocument("Our customers use custom fields.")
+
+    const checked = await editDocument(document, [replaceInBlock("customers", "clients")])
+
+    expect(checked).toEqual({ accepted: true })
+  })
+
+  it("rejects a replace_text that leaves another form of a German word", async () => {
+    const document = singleBlockDocument("Die Kunden zahlen, und der Kunde unterschreibt den Vertrag.")
+
+    const checked = await editDocument(document, [replaceInBlock("Kunden", "Auftraggeber")])
+
+    expect(checked).toMatchObject({ accepted: false, problem: expect.stringContaining('still has "Kunde"') })
   })
 })

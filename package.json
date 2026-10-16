@@ -16,6 +16,7 @@
     "@ai-sdk/openai": "4.0.93",
     "@ai-sdk/react": "^4.0.142",
     "@base-ui/react": "^1.9.0",
+    "@orama/stemmers": "3.1.18",
     "@shadcn/react": "^0.3.1",
     "@tiptap/extension-table": "^3.32.0",
     "@tiptap/extension-unique-id": "^3.32.0",

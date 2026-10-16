@@ -25,6 +25,7 @@ import {
   type ReplaceTextOperation,
 } from "@/lib/edit-operations"
 import { containsMatchingText, findMatchingSpan } from "@/lib/text-match"
+import { detectWordLanguage, findWordForm, type WordLanguage } from "@/lib/word-forms"
 
 export const READ_SECTION_TOOL = "read_section"
 export const FIND_TEXT_TOOL = "find_text"
@@ -52,6 +53,7 @@ const EDITED_MARK = "\u{E000}"
 type SnapshotDocument = DocumentSnapshot["document"]
 type MessagePart = ChatUIMessage["parts"][number]
 type FoundBlock = { block: Section; heading?: OutlineEntry }
+type LeftoverCheck = { blocks: Section[]; textOperations: ReplaceTextOperation[]; language: WordLanguage }
 
 const EMPTY_DOCUMENT: SnapshotDocument = { outline: [], sections: [], blocks: [] }
 const VERIFIED_ANSWER = { verified: true }
@@ -249,25 +251,36 @@ const countMatches = (text: string, operation: ReplaceTextOperation): number => 
 
 const describeEditCount = (count: number) => (count === 1 ? "1 edit" : `${count} edits`)
 
-const describeRepeatedMatch = (
-  blocks: Section[],
-  textOperations: ReplaceTextOperation[],
-  operation: ReplaceTextOperation,
-) => {
-  const blockOperations = textOperations.filter(({ nodeId }) => nodeId === operation.nodeId)
+const markBlockEdits = ({ blocks, textOperations }: LeftoverCheck, nodeId: string) =>
+  textOperations
+    .filter((operation) => operation.nodeId === nodeId)
+    .reduce(markFirstMatch, readBlockText(blocks, nodeId))
+
+const describeRepeatedMatch = ({ blocks, textOperations }: LeftoverCheck, operation: ReplaceTextOperation) => {
   const blockText = readBlockText(blocks, operation.nodeId)
-  if (!containsMatchingText(blockOperations.reduce(markFirstMatch, blockText), operation.find)) return []
-  const sentCount = blockOperations.filter(({ find }) => find === operation.find).length
+  const isSameEdit = ({ nodeId, find }: ReplaceTextOperation) => nodeId === operation.nodeId && find === operation.find
+  const sentCount = textOperations.filter(isSameEdit).length
   return [
     `"${operation.find}" appears ${countMatches(blockText, operation)} times in block ${operation.nodeId}, you sent ${describeEditCount(sentCount)}.`,
   ]
 }
 
-const describeRepeatedMatches = (blocks: Section[], operations: EditOperation[]) => {
-  const textOperations = operations.filter(isReplaceText)
-  const problems = new Set(
-    textOperations.flatMap((operation) => describeRepeatedMatch(blocks, textOperations, operation)),
-  )
+const describeOtherWordForm = (editedText: string, { nodeId, find }: ReplaceTextOperation, language: WordLanguage) => {
+  const wordForm = findWordForm(editedText, find, language)
+  if (wordForm === undefined) return []
+  return [`Block ${nodeId} still has "${wordForm}", another form of "${find}".`]
+}
+
+const describeLeftover = (check: LeftoverCheck, operation: ReplaceTextOperation) => {
+  const editedText = markBlockEdits(check, operation.nodeId)
+  if (containsMatchingText(editedText, operation.find)) return describeRepeatedMatch(check, operation)
+  return describeOtherWordForm(editedText, operation, check.language)
+}
+
+const describeLeftovers = (blocks: Section[], operations: EditOperation[]) => {
+  const language = detectWordLanguage(blocks.map(({ text }) => text))
+  const check = { blocks, textOperations: operations.filter(isReplaceText), language }
+  const problems = new Set(check.textOperations.flatMap((operation) => describeLeftover(check, operation)))
   return problems.size > 0 ? [...problems, ONE_EDIT_PER_MATCH_HINT] : []
 }
 
@@ -276,7 +289,7 @@ const describeTargetProblems = (problems: string[]) => [NOT_APPLIED, ...problems
 const checkEdit = ({ outline, blocks }: SnapshotDocument, operations: EditOperation[]) => {
   const targetProblems = [
     ...operations.flatMap((operation) => describeMissingTarget(blocks, operation)),
-    ...describeRepeatedMatches(blocks, operations),
+    ...describeLeftovers(blocks, operations),
   ]
   if (targetProblems.length > 0) return { accepted: false, problem: describeTargetProblems(targetProblems) }
   const brokenIds = operations
