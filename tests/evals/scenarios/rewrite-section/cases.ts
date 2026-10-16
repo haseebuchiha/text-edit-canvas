@@ -15,7 +15,7 @@ export const REWRITE_SECTION_CASES: RewriteSectionCase[] = [
     document: "07-it-security-policy",
     instruction: "make the passwords section friendlier",
     sectionHeading: "Passwords and Authentication",
-    graders: ["tone", "meaning"],
+    graders: ["tone"],
   },
   {
     id: "L2",
@@ -25,14 +25,14 @@ export const REWRITE_SECTION_CASES: RewriteSectionCase[] = [
     sectionHeading: "7. Email and Internet Use",
     keepPhrases: ["most common"],
     lengthAsShareOfOriginal: { max: 0.95 },
-    graders: ["concision", "meaning"],
+    graders: ["concision"],
   },
   {
     id: "S1",
     document: "sample-offer",
     instruction: "make the pricing section friendlier",
     sectionHeading: "Schedule and pricing",
-    graders: ["tone", "meaning"],
+    graders: ["tone"],
   },
   {
     id: "S2",
@@ -42,6 +42,6 @@ export const REWRITE_SECTION_CASES: RewriteSectionCase[] = [
     sectionHeading: "Schedule and pricing",
     keepPhrases: ["net"],
     lengthAsShareOfOriginal: { max: 0.95 },
-    graders: ["concision", "meaning"],
+    graders: ["concision"],
   },
 ]

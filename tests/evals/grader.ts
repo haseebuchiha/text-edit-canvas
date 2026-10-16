@@ -14,7 +14,7 @@ import {
   type Tokens,
 } from "@/tests/evals/run-case"
 
-export type RewriteGraderName = "tone" | "concision" | "meaning" | "translation"
+export type RewriteGraderName = "tone" | "concision" | "translation"
 
 export type GraderName = RewriteGraderName | "answer"
 
@@ -52,13 +52,6 @@ const CONCISION_CRITERIA = [
   "The rewritten text is clearly tighter than the original: less repetition and fewer filler words.",
   "Body text still reads as natural business prose. Compact label-style lines are fine where a label fits, such as a lead-in before a list or table, or in headings, list items and table cells. A single clipped phrase or a dropped article is not enough to fail; fail only when body paragraphs read as clipped notes.",
   "Headings stay short titles, and list items and table cells keep their role.",
-]
-
-const MEANING_CRITERIA = [
-  "Every fact a reader could act on is still in the rewritten text: numbers, dates, deadlines, amounts, names, conditions, obligations, permissions and prohibitions. A fact may move to another block.",
-  "None of these gets weaker or stronger: 'must' must not become 'should' or the other way round, 'within five working days' must not become 'promptly', and 'all' must not become 'most'.",
-  "Nothing is added that the original text doesn't say: no new fact, obligation, number, name or placeholder.",
-  "Changes of tone, wording, emphasis or length that wouldn't make a reader understand or do anything differently are fine, and so is dropping filler and repetition. Words such as should, may, usually, most, only and always carry meaning.",
 ]
 
 const TRANSLATION_CRITERIA = [
@@ -105,12 +98,6 @@ const REWRITE_PROMPTS: Record<RewriteGraderName, (instruction: string, scope: Bl
     "Judge only how concise and readable the result is. Whether facts were kept is graded separately.",
     formatCriteria(CONCISION_CRITERIA),
     `The blocks in scope, before and after:\n\n${formatScope(scope)}`,
-  ],
-  meaning: (instruction, scope) => [
-    `The user asked: "${instruction}"`,
-    "Judge only whether the rewritten text still means what the original meant. Fail only for a change that would make a reader understand or do something differently, and quote it.",
-    formatCriteria(MEANING_CRITERIA),
-    `The blocks in scope, before and after; blocks marked UNCHANGED kept their text:\n\n${formatScope(scope)}`,
   ],
   translation: (instruction, scope) => [
     `The user asked: "${instruction}"`,

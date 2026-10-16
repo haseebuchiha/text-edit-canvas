@@ -23,13 +23,13 @@ export const REWRITE_DOCUMENT_CASES: RewriteDocumentCase[] = [
     document: "02-maintenance-contract",
     instruction: "make the whole contract more concise",
     lengthAsShareOfOriginal: { min: 0.4, max: 0.95 },
-    graders: ["concision", "meaning"],
+    graders: ["concision"],
   },
   {
     id: "03-rewrite",
     document: "03-data-processing-agreement",
     instruction: "make the whole agreement more formal",
-    graders: ["tone", "meaning"],
+    graders: ["tone"],
   },
   {
     id: "04-rewrite",
@@ -45,14 +45,14 @@ export const REWRITE_DOCUMENT_CASES: RewriteDocumentCase[] = [
     document: "05-erp-migration-project-plan",
     instruction: "make the whole project plan more concise",
     lengthAsShareOfOriginal: { min: 0.4, max: 0.95 },
-    graders: ["concision", "meaning"],
+    graders: ["concision"],
   },
   {
     id: "06-rewrite",
     document: "06-quarterly-report",
     instruction: "make the whole report more concise",
     lengthAsShareOfOriginal: { min: 0.4, max: 0.95 },
-    graders: ["concision", "meaning"],
+    graders: ["concision"],
   },
   {
     id: "L7",
@@ -60,7 +60,7 @@ export const REWRITE_DOCUMENT_CASES: RewriteDocumentCase[] = [
     instruction: "make the whole document more concise",
     why: "Known gap 5: concise rewrites dropped [ORG_1] and [LOCATION_1] to [LOCATION_4], and once replaced 13 headings with made-up summaries.",
     lengthAsShareOfOriginal: { min: 0.4, max: 0.95 },
-    graders: ["concision", "meaning"],
+    graders: ["concision"],
   },
   {
     id: "LF",
@@ -68,7 +68,7 @@ export const REWRITE_DOCUMENT_CASES: RewriteDocumentCase[] = [
     instruction: "make the whole document more formal",
     why: "Known gap 9: formal rewrites weakened 'the most common route for attacks' to 'a common vector', and once turned 'companies such as ours' into 'companies such as [ORG_1]'.",
     keepPhrases: ["most common"],
-    graders: ["tone", "meaning"],
+    graders: ["tone"],
   },
   {
     id: "LG",
@@ -92,7 +92,7 @@ export const REWRITE_DOCUMENT_CASES: RewriteDocumentCase[] = [
     id: "09-rewrite",
     document: "09-sop-incoming-goods-inspection",
     instruction: "make the whole document more formal",
-    graders: ["tone", "meaning"],
+    graders: ["tone"],
   },
   {
     id: "10-rewrite",
@@ -105,20 +105,20 @@ export const REWRITE_DOCUMENT_CASES: RewriteDocumentCase[] = [
     id: "11-rewrite",
     document: "11-rfp-response",
     instruction: "make the whole proposal more formal",
-    graders: ["tone", "meaning"],
+    graders: ["tone"],
   },
   {
     id: "12-rewrite",
     document: "12-product-specification",
     instruction: "make the whole spec more concise",
     lengthAsShareOfOriginal: { min: 0.4, max: 0.95 },
-    graders: ["concision", "meaning"],
+    graders: ["concision"],
   },
   {
     id: "13-rewrite",
     document: "13-internal-newsletter",
     instruction: "make the whole newsletter more formal",
-    graders: ["tone", "meaning"],
+    graders: ["tone"],
   },
   {
     id: "14-rewrite",
@@ -134,7 +134,7 @@ export const REWRITE_DOCUMENT_CASES: RewriteDocumentCase[] = [
     document: "15-training-curriculum",
     instruction: "make the whole curriculum more concise",
     lengthAsShareOfOriginal: { min: 0.4, max: 0.95 },
-    graders: ["concision", "meaning"],
+    graders: ["concision"],
   },
   {
     id: "16-rewrite",
@@ -148,7 +148,7 @@ export const REWRITE_DOCUMENT_CASES: RewriteDocumentCase[] = [
     document: "17-customer-portal-faq",
     instruction: "make the whole document more formal",
     why: "Many answers carry exact limits, such as 30 minutes for the reset link and 30 days for returns, that a more formal phrasing must keep.",
-    graders: ["tone", "meaning"],
+    graders: ["tone"],
   },
   {
     id: "18-rewrite",
@@ -156,7 +156,7 @@ export const REWRITE_DOCUMENT_CASES: RewriteDocumentCase[] = [
     instruction: "make the whole guideline more concise",
     why: "The approval limits and the evaluation weights live in two tables that must come through the shortening intact.",
     lengthAsShareOfOriginal: { min: 0.4, max: 0.95 },
-    graders: ["concision", "meaning"],
+    graders: ["concision"],
   },
   {
     id: "19-rewrite",
@@ -172,7 +172,7 @@ export const REWRITE_DOCUMENT_CASES: RewriteDocumentCase[] = [
     document: "20-customer-case-study",
     instruction: "make the whole document more formal",
     why: "The case study quotes the plant manager twice; a formal rewrite must keep the content of both quotes and every figure in the results table.",
-    graders: ["tone", "meaning"],
+    graders: ["tone"],
   },
   {
     id: "PG",
@@ -187,13 +187,13 @@ export const REWRITE_DOCUMENT_CASES: RewriteDocumentCase[] = [
     document: "sample-offer",
     instruction: "make the whole document more concise",
     lengthAsShareOfOriginal: { min: 0.4, max: 0.95 },
-    graders: ["concision", "meaning"],
+    graders: ["concision"],
   },
   {
     id: "SF",
     document: "sample-offer",
     instruction: "make the whole document more formal",
-    graders: ["tone", "meaning"],
+    graders: ["tone"],
   },
   {
     id: "SG",

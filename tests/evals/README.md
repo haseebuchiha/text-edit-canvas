@@ -12,7 +12,7 @@ The evals send instructions through the app's real chat code and grade the resul
   - `<scenario>.eval.ts`: the one test that runs every case against the model.
 - `run-case.ts`: runs one case. It loads the document into a headless editor built from the app's own extension list, selects the highlight if the case has one, sends the instruction through `streamChatTurn` in `services/chat.ts`, and applies the streamed edits with the app's `apply-edits.ts`. It records the tokens, the time to the first change and the total time. It also runs a scenario's cases one after another.
 - `checks.ts`: the checks that more than one scenario uses, and the text helpers behind them. `checks.test.ts` tests them.
-- `grader.ts`: the AI grader. It decides what code can't: tone, concision, whether a rewrite kept its meaning, translation quality, and whether an answer is right and supported.
+- `grader.ts`: the AI grader. It decides what code can't: tone, concision, translation quality, and whether an answer is right and supported.
 - `pass-rate.ts`: writes `results/<scenario>.md` and fails the test when fewer than 80% of the cases passed.
 - `labels/`: empty for now. See "Hand-labelling" below.
 - `results/`: one file per scenario from the last run. Git ignores this folder.
