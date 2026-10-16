@@ -357,6 +357,48 @@ Results on gpt-6-luna, change-text scenario, one run each, against the suite's f
 - In 1 L3 run the model sent find "our customers entrust to us". The check compares the whole find text, so "our customer contracts" didn't match it and stayed. Adding surrounding words is also how the model keeps a form on purpose, so this one stays open.
 - A rejection that quotes the words around the leftover, such as "customer" in "our customer contracts", would give the model text to copy into its next edit. Not built yet.
 
+## Figures that follow from a change
+
+Three change-text cases failed because one figure changed and a figure tied to it didn't:
+
+- 04, "correct the interface test result: 220 of 236 test cases passed, not 214": the model changed 214 to 220 and left "the remaining 22 cases" in the same paragraph and in an action item, where 16 is now right. It had the paragraph in front of it.
+- 11, "extend the stabilisation phase to month 15": the model changed the phase and left the project length in the summary at 14 months. It read only the Phases section.
+- 14, "it was actually 25 delayed customer orders, not 23": the summary and the impact section both say 23. The model searched for "23 orders", which found only the summary.
+
+A fourth case guards the other side. 08, "shorten the probation period to four months", must keep a review "after three months" and a notice "at least four weeks before the probation period ends".
+
+There are two changes. First, `edit_document` checks figures. When an edit removes a number of two or more digits from a block, and the number still appears anywhere in the document after the edit, the call is rejected once with every place quoted:
+
+```
+Not applied. You changed 14 in block 162. 14 also appears in block 5: "…stem and introduced in three waves over 14 months. The solution covers goods recei…"; block 11: "…stead of custom development: 13 of your 14 must-have requirements are met by stand…"; … Change each one that states the same fact or follows from your change, such as a total or a remaining count, and leave the ones that state something else. Send all changes again in one edit_document call.
+```
+
+Code can't tell which 14 is the project length, so it lists up to six places and the model decides. A second edit in the same request skips the check. Single digits and numbers inside placeholders such as [PERSON_12] are skipped, and numbers written as words, such as "six months", aren't seen.
+
+Second, the chat's system prompt has one new line: "When the instruction changes a number, date or other fact, also change every other mention of the same fact and every figure calculated from it, such as a remaining count or a total. Find them with `find_text`, searching for the old value on its own, such as "23" or "14". Don't adjust any other figure, even one that seems to scale with the change, such as a deadline or a check-in date within a changed period."
+
+It took three wordings. The first said "figures that follow from it, such as a remaining count, a total, a duration or an end date", and in the full suite 08 then moved the review to two months and the notice to two weeks. The second ended with "Leave every other figure as it is, including periods, deadlines and amounts that are set on their own". The last sentence of the third was written against 08, so 08's result partly measures its own fix.
+
+Results on gpt-6-luna, repeated runs of the four cases:
+
+| | 04 | 08 | 11 | 14 |
+|---|--:|--:|--:|--:|
+| Before | 0 of 3 | 2 of 2 in full runs | 0 of 3 | 2 of 3 |
+| Prompt line only, first wording | 1 of 5 | | 1 of 5 | 5 of 5 |
+| Check and prompt line, first wording | 4 of 5 | 0 of 1 in a full run | 4 of 5 | 5 of 5 |
+| Check and prompt line, second wording | 5 of 5 | 3 of 5 | 5 of 5 | 5 of 5 |
+| Check only | 0 of 6 | 3 of 6 | 6 of 6 | 6 of 6 |
+| Check and prompt line, third wording | 4 of 6 | 5 of 6 | 5 of 6 | 6 of 6 |
+
+- 04 is arithmetic, and the check can't help: 214 appears nowhere else. Without the prompt line it passed 0 of 9 runs, and with the check and the prompt line 13 of 16.
+- The check fired in all 22 runs of 11 that had it, and 20 passed. No run changed the other 14s ("14 must-have requirements", "14 years", "14:00"). With the prompt line alone, 11 passed 1 of 5.
+- With the prompt line, 14 searched for "23" on its own and changed both blocks in one call in all 16 runs, so the check never had to fire. With the check only, it fired in 2 of 6.
+- 08 fails without either change too: with the check only, 3 of 6 runs moved the notice to two weeks or the review to two months. The prompt line's last sentence lowers that to 1 of 6.
+- A rejected run costs one more model call: 11 used 5,400 to 8,800 input tokens, against about 3,400.
+- The check also fires when the old number only appears with another meaning, such as "14:00" or a code like "F-14", and it sent back one 11 run that had already changed both mentions, because other 14s were left. That costs a call but changed nothing.
+
+The full change-text scenario on the final version passed 51 of 52 (98.1%), against 48 of 52 after the word-form check and 45 of 52 in the suite's first run. The one failure was 08: the model moved the review to two months and cut the buddy programme from six months to four. App input tokens rose from 167,746 to 213,848 (+27%), from the prompt line on every call and the extra call after each rejection. With the first wording, answer-question passed 37 of 37 (36 before), rewrite-section 2 of 4 (2 before) and missing-part 6 of 9 (7 before). The new missing-part failure was "shorten the cover letter" editing the submission line, the known luna failure from "Requests for a part the document doesn't have", with no figure involved.
+
 ## Requests for a part the document doesn't have
 
 Asked for a part that isn't there, gpt-6-luna usually changed something nearby. The warehouse proposal opens with a submission line ("Submitted by [ORG_1] to [ORG_2], attention of [PERSON_2], …") and an executive summary, and has no cover letter. "Shorten the cover letter" went to `transform_document` in 3 of 3 baseline runs and shortened 61 to 88 blocks of the proposal. "Add an entry for transaction log to the glossary" changed the report's approval paragraph in 3 of 3. The seven missing-part cases other than "edit the appendix" passed 7 of 21.

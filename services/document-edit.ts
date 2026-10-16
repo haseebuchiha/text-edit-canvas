@@ -49,6 +49,14 @@ const NOT_APPLIED = "Not applied."
 const RESEND_HINT = `Send all changes again in one ${EDIT_DOCUMENT_TOOL} call.`
 const ONE_EDIT_PER_MATCH_HINT = "Send one edit per occurrence, or add surrounding words if only some should change."
 const EDITED_MARK = "\u{E000}"
+const FIGURE = /(?<![\p{L}\p{N}_.,])\d+(?:[.,]\d+)*(?![\p{L}\p{N}_])/gu
+const NON_DIGIT = /\D/gu
+const MIN_FIGURE_DIGITS = 2
+const MAX_FIGURE_MENTIONS = 6
+const QUOTE_CONTEXT = 40
+const FIGURE_MENTION_PHRASE = "also appears in"
+const FIGURE_HINT =
+  "Change each one that states the same fact or follows from your change, such as a total or a remaining count, and leave the ones that state something else."
 
 type SnapshotDocument = DocumentSnapshot["document"]
 type MessagePart = ChatUIMessage["parts"][number]
@@ -167,10 +175,12 @@ const checkQuotes = (blocks: Section[], quotes: AnswerQuote[]) => {
 
 const isFindTextResult = (part: ToolContent[number]) => part.type === "tool-result" && part.toolName === FIND_TEXT_TOOL
 
-const hasSearchedThisRequest = (messages: ModelMessage[]) =>
+const hasToolResultThisRequest = (messages: ModelMessage[], isWanted: (part: ToolContent[number]) => boolean) =>
   messages
     .slice(messages.findLastIndex(({ role }) => role === "user"))
-    .some((message) => message.role === "tool" && message.content.some(isFindTextResult))
+    .some((message) => message.role === "tool" && message.content.some(isWanted))
+
+const hasSearchedThisRequest = (messages: ModelMessage[]) => hasToolResultThisRequest(messages, isFindTextResult)
 
 const quotesOnlyShownBlocks = (sections: Section[], quotes: AnswerQuote[]) =>
   quotes.every(({ nodeId }) => sections.some((section) => section.nodeId === nodeId))
@@ -286,7 +296,52 @@ const describeLeftovers = (blocks: Section[], operations: EditOperation[]) => {
 
 const describeTargetProblems = (problems: string[]) => [NOT_APPLIED, ...problems, RESEND_HINT].join(" ")
 
-const checkEdit = ({ outline, blocks }: SnapshotDocument, operations: EditOperation[]) => {
+const listFigures = (text: string) =>
+  new Set((text.match(FIGURE) ?? []).filter((figure) => figure.replaceAll(NON_DIGIT, "").length >= MIN_FIGURE_DIGITS))
+
+const applyBlockEdits = (operations: EditOperation[], block: Section): Section => ({
+  ...block,
+  text: operations.filter(({ nodeId }) => nodeId === block.nodeId).reduce(editBlockText, block.text),
+})
+
+const quoteFigure = ({ nodeId, text }: Section, figure: string) => {
+  const match = [...text.matchAll(FIGURE)].find(({ 0: found }) => found === figure)
+  if (!match) return []
+  const quote = text.slice(Math.max(0, match.index - QUOTE_CONTEXT), match.index + figure.length + QUOTE_CONTEXT)
+  return [`block ${nodeId}: "…${quote}…"`]
+}
+
+const describeFigureMentions = (editedBlocks: Section[], nodeId: string, figure: string) => {
+  const mentions = editedBlocks.flatMap((block) => quoteFigure(block, figure)).slice(0, MAX_FIGURE_MENTIONS)
+  if (mentions.length === 0) return []
+  return [`You changed ${figure} in block ${nodeId}. ${figure} ${FIGURE_MENTION_PHRASE} ${mentions.join("; ")}.`]
+}
+
+const describeFigureChange = (blocks: Section[], editedBlocks: Section[], nodeId: string) => {
+  const keptFigures = listFigures(readBlockText(editedBlocks, nodeId))
+  const changedFigures = [...listFigures(readBlockText(blocks, nodeId))].filter((figure) => !keptFigures.has(figure))
+  return changedFigures.flatMap((figure) => describeFigureMentions(editedBlocks, nodeId, figure))
+}
+
+const describeChangedFigures = (blocks: Section[], operations: EditOperation[]) => {
+  const editedBlocks = blocks.map((block) => applyBlockEdits(operations, block))
+  const editedIds = [...new Set(operations.map(({ nodeId }) => nodeId))]
+  return editedIds.flatMap((nodeId) => describeFigureChange(blocks, editedBlocks, nodeId))
+}
+
+const isFigureNotice = (part: ToolContent[number]) =>
+  part.type === "tool-result" &&
+  part.toolName === EDIT_DOCUMENT_TOOL &&
+  JSON.stringify(part.output).includes(FIGURE_MENTION_PHRASE)
+
+const checkFigures = (blocks: Section[], operations: EditOperation[], messages: ModelMessage[]) => {
+  if (hasToolResultThisRequest(messages, isFigureNotice)) return ACCEPTED_EDIT
+  const notices = describeChangedFigures(blocks, operations)
+  if (notices.length === 0) return ACCEPTED_EDIT
+  return { accepted: false, problem: [NOT_APPLIED, ...notices, FIGURE_HINT, RESEND_HINT].join(" ") }
+}
+
+const checkEdit = ({ outline, blocks }: SnapshotDocument, operations: EditOperation[], messages: ModelMessage[]) => {
   const targetProblems = [
     ...operations.flatMap((operation) => describeMissingTarget(blocks, operation)),
     ...describeLeftovers(blocks, operations),
@@ -295,15 +350,15 @@ const checkEdit = ({ outline, blocks }: SnapshotDocument, operations: EditOperat
   const brokenIds = operations
     .filter((operation) => isBrokenHeadingEdit(outline, operation))
     .map(({ nodeId }) => nodeId)
-  if (brokenIds.length === 0) return ACCEPTED_EDIT
-  return { accepted: false, problem: describeBrokenHeadings([...new Set(brokenIds)]) }
+  if (brokenIds.length > 0) return { accepted: false, problem: describeBrokenHeadings([...new Set(brokenIds)]) }
+  return checkFigures(blocks, operations, messages)
 }
 
 export const createDocumentEditTools = (fullDocument: SnapshotDocument = EMPTY_DOCUMENT) => ({
   [EDIT_DOCUMENT_TOOL]: tool({
     description: EDIT_DOCUMENT_DESCRIPTION,
     inputSchema: editDocumentInputSchema,
-    execute: ({ operations }) => checkEdit(fullDocument, operations),
+    execute: ({ operations }, { messages }) => checkEdit(fullDocument, operations, messages),
   }),
   [READ_SECTION_TOOL]: tool({
     description: READ_SECTION_DESCRIPTION,

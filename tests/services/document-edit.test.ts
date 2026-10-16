@@ -1,3 +1,4 @@
+import type { ModelMessage } from "ai"
 import type { DocumentSnapshot } from "@/lib/document-snapshot"
 import { EDIT_DOCUMENT_TOOL, type EditOperation } from "@/lib/edit-operations"
 import { createDocumentEditTools, editBlockText, FIND_TEXT_TOOL } from "@/services/document-edit"
@@ -51,6 +52,18 @@ const singleBlockDocument = (text: string): DocumentSnapshot["document"] => ({
   sections: [],
   blocks: [{ nodeId: "3", type: "paragraph", text }],
 })
+
+const lateOrdersDocument: DocumentSnapshot["document"] = {
+  outline: [],
+  sections: [],
+  blocks: [
+    { nodeId: "6", type: "paragraph", text: "Deliveries were delayed for 23 orders." },
+    { nodeId: "11", type: "paragraph", text: "We list 23 suppliers." },
+    { nodeId: "112", type: "paragraph", text: "Despite the extra shifts, 23 customer orders were late." },
+  ],
+}
+
+const changeLateOrders: EditOperation = { op: "replace_text", nodeId: "6", find: "23 orders", replace: "25 orders" }
 
 const replaceInBlock = (find: string, replace: string): EditOperation => ({
   op: "replace_text",
@@ -210,5 +223,65 @@ describe("document edit tools", () => {
     const checked = await editDocument(document, [replaceInBlock("Kunden", "Auftraggeber")])
 
     expect(checked).toMatchObject({ accepted: false, problem: expect.stringContaining('still has "Kunde"') })
+  })
+
+  it("rejects once an edit that changes a figure another block still states", async () => {
+    const checked = await editDocument(lateOrdersDocument, [changeLateOrders])
+
+    expect(checked).toEqual({
+      accepted: false,
+      problem:
+        'Not applied. You changed 23 in block 6. 23 also appears in block 11: "…We list 23 suppliers.…"; block 112: "…Despite the extra shifts, 23 customer orders were late.…". Change each one that states the same fact or follows from your change, such as a total or a remaining count, and leave the ones that state something else. Send all changes again in one edit_document call.',
+    })
+  })
+
+  it("accepts the figure edit sent again after the notice in the same request", async () => {
+    const tools = createDocumentEditTools(lateOrdersDocument)
+    const notice = { accepted: false, problem: "Not applied. You changed 23 in block 6. 23 also appears in block 112." }
+    const messages: ModelMessage[] = [
+      { role: "user", content: "it was 25 late orders, not 23" },
+      {
+        role: "tool",
+        content: [
+          {
+            type: "tool-result",
+            toolCallId: "1",
+            toolName: EDIT_DOCUMENT_TOOL,
+            output: { type: "json", value: notice },
+          },
+        ],
+      },
+    ]
+
+    const checked = await tools[EDIT_DOCUMENT_TOOL].execute?.(
+      { operations: [changeLateOrders], summary: "Test." },
+      { ...TOOL_OPTIONS, messages },
+    )
+
+    expect(checked).toEqual({ accepted: true })
+  })
+
+  it("accepts a figure edit when every mention changes in the same call", async () => {
+    const operations: EditOperation[] = [
+      changeLateOrders,
+      { op: "replace_text", nodeId: "112", find: "23 customer orders", replace: "25 customer orders" },
+    ]
+
+    const blocks = lateOrdersDocument.blocks.filter(({ nodeId }) => nodeId !== "11")
+
+    const checked = await editDocument({ ...lateOrdersDocument, blocks }, operations)
+
+    expect(checked).toEqual({ accepted: true })
+  })
+
+  it("ignores single-digit figures and the numbers inside placeholders", async () => {
+    const document = singleBlockDocument("[PERSON_12] needs 3 days.")
+    const otherBlock = { nodeId: "4", type: "paragraph", text: "[PERSON_12] spent 3 days on it." }
+
+    const checked = await editDocument({ ...document, blocks: [...document.blocks, otherBlock] }, [
+      replaceInBlock("[PERSON_12] needs 3 days", "[PERSON_12] needs 4 days"),
+    ])
+
+    expect(checked).toEqual({ accepted: true })
   })
 })
