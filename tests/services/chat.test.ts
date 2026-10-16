@@ -77,7 +77,16 @@ const readParagraphToRewrite = ({ prompt }: { prompt: unknown }) =>
 
 const sectionDelay = (callCount: number) => (callCount === 1 ? QUICK_SECTION_MS : SLOW_SECTION_MS)
 
-const isMeaningCheck = ({ prompt }: { prompt: unknown }) => JSON.stringify(prompt).includes("Rewritten blocks:")
+const isMeaningCheck = ({ prompt }: { prompt: unknown }) => JSON.stringify(prompt).includes("You check a rewrite")
+
+const isBrief = ({ prompt }: { prompt: unknown }) => JSON.stringify(prompt).includes("You prepare a rewrite")
+
+const SIDE_CALL_ANSWERS = [
+  { matches: isBrief, output: { terms: [], notes: [] } },
+  { matches: isMeaningCheck, output: { issues: [] } },
+]
+
+const answerSideCall = (call: { prompt: unknown }) => SIDE_CALL_ANSWERS.find(({ matches }) => matches(call))?.output
 
 const generatedJson = (output: object) => ({
   content: [{ type: "text" as const, text: JSON.stringify(output) }],
@@ -102,7 +111,8 @@ const createTransformModel = (sectionCalls: string[]) =>
       }),
     }),
     doGenerate: async (options) => {
-      if (isMeaningCheck(options)) return generatedJson({ corrections: [] })
+      const sideAnswer = answerSideCall(options)
+      if (sideAnswer) return generatedJson(sideAnswer)
       const nodeId = readParagraphToRewrite(options)
       sectionCalls.push(nodeId)
       await waitUnlessAborted(sectionDelay(sectionCalls.length), options.abortSignal ?? new AbortController().signal)
@@ -243,7 +253,9 @@ describe("chat service", () => {
     expect(callsAfterAbort).toBeLessThan(SECTION_COUNT)
     expect(sectionCalls).toHaveLength(callsAfterAbort)
     expect(model.doStreamCalls[0].providerOptions).toEqual(createModelOptions(id))
-    expect(model.doGenerateCalls.filter((call) => !isMeaningCheck(call))).toHaveLength(sectionCalls.length)
+    expect(model.doGenerateCalls.filter((call) => !isMeaningCheck(call) && !isBrief(call))).toHaveLength(
+      sectionCalls.length,
+    )
     expect(model.doGenerateCalls.map(({ providerOptions }) => providerOptions)).toEqual(
       model.doGenerateCalls.map(() => createModelOptions(id)),
     )
