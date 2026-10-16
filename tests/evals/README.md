@@ -25,7 +25,6 @@ The evals send instructions through the app's real chat code and grade the resul
 | `answer-question` | a question the document answers, a question it doesn't answer, or small talk | answer, for both kinds of question |
 | `missing-part` | to change a part the document doesn't have | none |
 | `rewrite-document` | to rewrite or translate the whole document | the ones the case lists |
-| `rewrite-section` | to rewrite one section; this goes through a different code path than a whole-document rewrite | the ones the case lists |
 
 ## How a case is graded
 
@@ -33,7 +32,7 @@ The evals send instructions through the app's real chat code and grade the resul
 2. The code checks run. The case fails when any check fails.
 3. If every check passed and the case needs the grader, the grader runs. The case fails when the grader says fail. It may also say unknown, which doesn't fail the case.
 
-A scenario passes when at least 80% of its cases pass. Jest runs the five scenarios in parallel.
+A scenario passes when at least 80% of its cases pass. Jest runs the four scenarios in parallel.
 
 The results file lists every failed case: the instruction, the document, the `why`, each failed check with the expected and the actual text, the grader's reasoning, and the reply. In a Difference line, ~~struck-through~~ words are expected but missing, and **bold** words were written by the model instead. At the end it gives the totals: cases, passed, pass rate, app tokens, grader tokens and time.
 
@@ -54,7 +53,7 @@ The results file lists every failed case: the instruction, the document, the `wh
 - `graders`: the grader questions to ask after the code checks passed.
 - `why`: one sentence on what the case proves.
 
-Every block a case doesn't name must stay exactly as it was. For `rewrite-section`, that means every block outside the section. Whole-document rewrites may change every block.
+Every block a case doesn't name must stay exactly as it was. Whole-document rewrites may change every block.
 
 ## Running
 
