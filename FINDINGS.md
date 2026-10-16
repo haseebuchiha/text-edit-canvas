@@ -472,6 +472,51 @@ What is left:
 - One call misses shifts it can see. We asked the check again on the final text of the 8 meaning failures from the one-trial run, using the blocks around each finding. It flagged the block the judge named in 5 of them. A stricter wording that went sentence by sentence flagged more blocks, but not more of the judge's findings, so it wasn't tried in a run.
 - The check can cost tone. In 2 of 3 formal runs on the sample offer, "The customer wants a workshop for 12 people" came out unchanged, and the tone judge failed both as not formal enough. Before the check, every run rewrote it, for example to "would like a workshop". The check most likely put back the original sentence instead of a formal one with the same meaning. This case went from 3 of 3 to 0 of 3.
 
+## Whole-document rewrites: a term sheet and a stronger check
+
+After round 18, whole-document rewrites passed 9 of 26 cases on gpt-6-luna. German translations mixed key terms, because each part is translated on its own. Concise and formal rewrites dropped or changed small words, such as "visitor" in "visitor badge". The grader fails a whole document for one such slip.
+
+A rewrite now runs in four steps:
+
+1. A term sheet. One call reads the whole document and lists the terms every part must word the same way, plus notes such as the form of address. Each part and its check get the terms that occur in that part.
+2. The part rewrites, as before, with the term sheet in the prompt.
+3. A meaning check per part. It sees each changed block as a word-level difference. Code adds hints when a word such as should, must, only or all changes its count, or when a number or placeholder is lost or added.
+4. A repair. Flagged English blocks go to one more call with the original, the rewrite and the problems. Translated blocks get the check's own find-and-replace fix. A lost number or changed placeholder always goes to repair; if the repair still has it, the block keeps its original text.
+
+The check and the repair run on gpt-6.1-sol by default (`LLM_CHECK_MODEL`, `AI_GATEWAY_CHECK_MODEL`). The rest stays on gpt-6-luna.
+
+One bug turned up: the heading guard rejected any heading that more than doubled in length, so "Air", "2. Scope" and some longer German headings stayed English. A heading may now grow to twice its length plus 20 characters.
+
+What didn't work:
+
+- gpt-6-luna as the checker. It let the same slips through in every run, such as "Nobody will face disciplinary consequences" becoming "No employee will …". It judges them harmless; the grader doesn't. The best luna-only variant passed 15 of 26.
+- Letting the check write its own fix. In one run, 3 of 7 meaning failures came from the fix itself, which dropped "early", "immediately" and "production IT".
+- Restoring the original of every flagged English block. Meaning failures fell from 7 to 2, but formal rewrites kept informal blocks and concise ones stayed too long.
+- Telling the rewriter to change only what the instruction needs. Formal rewrites left conversational headings, and the tone grader failed them.
+- A term-sheet note on number formats. The model wrote "1 working day" for "one working day", which the figure check counts as an invented number.
+- Before the term sheet was told to list everyday words with several translations, it listed 117 terms for the security policy but not "employee".
+
+Results on the 26 cases, one run each (round 20 in `TEST-RESULTS.md`):
+
+| Setup | Runs | Cases passed per run | Tokens per rewrite | Cost per 1,000 rewrites | Seconds per rewrite |
+|---|--:|---|--:|--:|--:|
+| Before: round 18 code, gpt-6-luna only | 1 | 9 | 25,800 | $5.20 | 19 |
+| New steps, gpt-6-luna only | 4 | 14, 14, 15, 11 | 36,300–41,900 | $7.60–8.90 | 41–46 |
+| New steps, check and repair on gpt-6.1-sol | 6 | 18, 22, 19, 17, 19, 21 | 36,200–38,100 | $49–54 | 40–45 |
+| Final code, `yarn evals` | 1 | 20 | 39,200 | $55 | 48 |
+| Everything on gpt-6.1-sol (earlier effort test) | 1 | 19 | 25,100 | $96 | 40 |
+
+With the stronger check, runs passed 17 to 22 cases, so 80% is about the average, not a floor. The final code passed 21 and then 20. Seconds come from runs with other cases alongside, so one rewrite alone is likely faster. The first change now shows after about 20 seconds instead of 9, mostly because the term sheet comes first.
+
+What is left: the project plan fails every run on one sentence, where "during the realisation phase" moves to the front and covers the whole staffing promise. Other failures change from run to run: one technical term in a translation, one conversational sentence left in a formal rewrite, or one subtle shift such as "require approval" becoming "may require approval".
+
+The eval suite has four problems, left as they are:
+
+- `all-translated` counts "in", "an" and "it" as English words, so "[PERSON_4], Leiter/in IT" counts as English.
+- `figures-kept` knows no number word above ten, so "seventy" written as "70" counts as an invented number.
+- The eval's token figures leave out the check model's calls, because `run-case.ts` records only the app model. The figures above come from a logging wrapper around both models.
+- The translation grader isn't consistent on number formats. One run failed "EUR 4.8 million" as wrong in German; another failed "18.000" because its criteria say numbers stay as written.
+
 ## Jest breaks the MongoDB driver from version 7.6
 
 Since version 7.6.0, the MongoDB Node.js driver loads Node's `os` module with a dynamic `import()` in `lib/runtime_adapters.js`. Version 7.5 used `require('os')`. Jest runs CommonJS code inside a VM context, and Node refuses dynamic imports there unless it was started with `--experimental-vm-modules`. The error is `ERR_VM_DYNAMIC_IMPORT_CALLBACK_MISSING_FLAG`.

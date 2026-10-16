@@ -22,6 +22,14 @@ const gatewayEnvironmentSchema = z.object({
     .string()
     .trim()
     .regex(GATEWAY_MODEL_PATTERN, "AI_GATEWAY_MODEL must be provider/model, like openai/gpt-5.6-luna"),
+  AI_GATEWAY_CHECK_MODEL: z.preprocess(
+    unsetWhenBlank,
+    z
+      .string()
+      .trim()
+      .regex(GATEWAY_MODEL_PATTERN, "AI_GATEWAY_CHECK_MODEL must be provider/model, like openai/gpt-6.1-sol")
+      .optional(),
+  ),
 })
 
 const paidEvalsSchema = z.object({ EVALS_ALLOW_PAID: optionalSetting })
@@ -30,6 +38,7 @@ const proxyEnvironmentSchema = z.object({
   LLM_BASE_URL: z.url(),
   LLM_API_KEY: optionalSetting,
   LLM_MODEL: z.string().trim().min(1),
+  LLM_CHECK_MODEL: optionalSetting,
 })
 
 export const readEnvironment = () => environmentSchema.parse(process.env)

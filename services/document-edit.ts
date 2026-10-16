@@ -44,6 +44,7 @@ const PARAGRAPH_TYPE = "paragraph"
 const MAX_FOUND_BLOCKS = 30
 const LINE_BREAK = "\n"
 const MAX_HEADING_GROWTH = 2
+const HEADING_LENGTH_ALLOWANCE = 20
 const MAX_LISTED_BLOCKS = 3
 const NOT_APPLIED = "Not applied."
 const RESEND_HINT = `Send all changes again in one ${EDIT_DOCUMENT_TOOL} call.`
@@ -212,7 +213,8 @@ const addsLineBreak = (before: string, after: string) => after.includes(LINE_BRE
 
 const breaksHeading = (heading: OutlineEntry, operation: EditOperation) => {
   const editedText = editBlockText(heading.text, operation)
-  return addsLineBreak(heading.text, editedText) || editedText.length > MAX_HEADING_GROWTH * heading.text.length
+  const lengthLimit = MAX_HEADING_GROWTH * heading.text.length + HEADING_LENGTH_ALLOWANCE
+  return addsLineBreak(heading.text, editedText) || editedText.length > lengthLimit
 }
 
 export const isBrokenHeadingEdit = (outline: OutlineEntry[], operation: EditOperation) => {

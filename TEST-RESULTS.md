@@ -597,3 +597,67 @@ Paired by case, the pass rate rose by 7.7 ±11.8 points (95%, clustered by docum
 - Unit tests: 5 new tests in `tests/services/document-transform.test.ts` (corrections replace the part's changes; an empty list leaves them as they were; a failed call keeps them; a correction for an unchanged block is ignored; the check's tokens are counted with the part calls). The abort test in `tests/services/chat.test.ts` now answers the check call with an empty list. `yarn format`, `yarn lint`, `yarn tsc --noEmit` and `yarn test` (179 tests) pass.
 - Browser (agent-browser, dev server, sample offer, new chat): "make the whole document more concise" finished in about 14 s with "Edited 7 blocks in 1 section." The changes appeared in the editor. Placeholders, the 12 people, the price table and the closing stayed as they were, and the text read correctly.
 - Infrastructure: no error and no retry. The 1-trial run took 3.5 minutes and the 3-trial run 9.5 minutes. The proxy reported 44% of its quota used after the first run and 45% at the end.
+
+## 20. A term sheet and a stronger check for whole-document rewrites
+
+Code: see "Whole-document rewrites: a term sheet and a stronger check" in `FINDINGS.md`. In short: a term-sheet call before the parts, a meaning check that sees word-level changes and code hints, a repair call for flagged English blocks, code guards for lost numbers and placeholders, a heading guard that allows twice the length plus 20 characters, and the check and repair on a separate check model.
+
+Only the 26 rewrite-document cases ran, one trial each, judged by gpt-6.1-sol at medium effort as usual. Experiments ran through a scratch harness that calls the eval's own `runCase`, checks and grader, 4 cases at once; the last row is `yarn evals`. **Hard** runs used only the hardest cases. **Meaning**, **Tone**, **Translation**: cases failed by that grader. **Code**: cases failed by a code check. **Tokens**: input plus output per rewrite, gpt-6-luna plus gpt-6.1-sol, from a logging wrapper around both models. **Cost**: per 1,000 rewrites at list prices ($0.10 / $0.50 and $2 / $10 per 1M tokens in / out). **Sec**: per rewrite, with other cases running alongside.
+
+| Run | Change | Check model | Passed | English | German | Meaning | Tone | Translation | Code | Tokens (luna + sol) | Cost | Sec |
+|---|---|---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
+| Round 18 code | none | luna | 9/26 | | | 8 | 0 | 6 | 3 | 25,800 | $5.20 | 19 |
+| Effort test A | check at high | luna | 12/26 | | | 6 | 2 | 4 | 2 | 27,300 | $5.90 | 32 |
+| Effort test B | rewrite at high, no check | luna | 8/26 | | | 7 | 1 | 4 | 6 | 15,900 | $4.10 | 24 |
+| Effort test C | everything on gpt-6.1-sol | sol | 19/26 | | | 0 | 0 | 3 | 4 | 0 + 25,100 | $96 | 40 |
+| Round 18 code, hard English | none | luna | 2/8 | 2/8 | | 5 | | | 1 | 35,400 | $7.10 | 30 |
+| 1, hard German | term sheet, placeholder guard, label strip, heading allowance, marked changes in the check | luna | 4/6 | | 4/6 | | | 1 | 1 | 46,600 | $8.30 | 40 |
+| 1b, hard English | 1, term sheet filtered per part | luna | 1/6 | 1/6 | | 4 | | | 1 | 54,800 | $10.80 | 45 |
+| 2, hard English | check returns problems with find-and-replace fixes, code hints, check at high | luna | 2/6 | 2/6 | | 4 | | | | 63,100 | $12.80 | 64 |
+| 2 | as above | luna | 14/26 | 8/16 | 6/10 | 7 | 3 | 3 | 1 | 36,700 | $7.70 | 44 |
+| 3 | flagged English blocks restored | luna | 14/26 | 7/16 | 7/10 | 2 | 5 | 2 | 4 | 36,300 | $7.60 | 41 |
+| 4 | flagged English blocks repaired | luna | 15/26 | 8/16 | 7/10 | 6 | 2 | 3 | 1 | 40,000 | $8.30 | 46 |
+| 5 | 4 with check and repair on sol, medium | sol | 18/26 | 10/16 | 8/10 | 3 | 3 | 2 | 0 | 20,000 + 16,200 | $48.60 | 40 |
+| 6 | no "change only what the instruction needs", translation checks | luna | 11/26 | 5/16 | 6/10 | 8 | 3 | 2 | 3 | 41,900 | $8.90 | 45 |
+| 6s | 6 | sol | 22/26 | 13/16 | 9/10 | 2 | 1 | 1 | 0 | 19,800 + 16,900 | $51.60 | 41 |
+| 7s | placeholder changes become hints, number-format line | sol | 19/26 | 11/16 | 8/10 | 4 | 1 | 1 | 1 | 20,400 + 17,700 | $54.10 | 42 |
+| 8s | heading allowance 2x + 20, core-noun terms, "keep wording that fits", number note in term sheet | sol | 17/26 | 11/16 | 6/10 | 2 | 1 | 3 | 3 | 20,300 + 17,600 | $53.70 | 45 |
+| 9s | lost numbers and placeholders always repaired, number guard, number note removed | sol | 19/26 | 12/16 | 7/10 | 2 | 2 | 2 | 1 | 19,800 + 17,100 | $53.10 | 45 |
+| 10s | term sheet lists everyday words first, "keep wording that fits" removed | sol | 21/26 | 13/16 | 8/10 | 3 | 0 | 2 | 0 | 20,100 + 17,400 | $53.20 | 43 |
+| Final, `yarn evals` | 10s with a configurable check model | sol | 20/26 | 12/16 | 8/10 | 2 | 2 | 2 | 0 | 21,700 + 17,500 | $55 | 48 |
+
+- Final run failures: 04-rewrite ("EUR 4.8 million" left in English notation), 05-rewrite (the realisation-phase sentence, failed in every run), LF ("require approval" became "may require approval"), 11-rewrite ("our offer is the right fit" left unchanged), 16-rewrite (one technical term translated two ways), SF ("The customer wants a workshop for 12 people" left unchanged).
+- The other scenarios in the same `yarn evals` run, against the first run of the suite: change-text 46/52, 88.5% (86.5%); answer-question 35/37, 94.6% (97.3%), both failures without a transform; missing-part 9/9, 100% (77.8%); rewrite-section 2/4, 50% (50%).
+- Calls in the final run: two check calls and one part call hit their time limit; the parts kept their unchecked or retried rewrite. The first change showed about 20 s after the request, against about 9 s in round 18.
+- Check and repair, run 10s: the check flagged 197 problems in 189 calls, and 72 repair calls rewrote 137 blocks.
+- The eval's App tokens line counts only gpt-6-luna (400,699 in and 164,639 out in the final run), because `run-case.ts` records only the app model.
+- Eval issues seen, not fixed: `all-translated` read "Servicezeiten: … außer an gesetzlichen Feiertagen in Baden-Württemberg" (run 3) and "[PERSON_4], Leiter/in IT" (run 6) as English; `figures-kept` counted "seventy" → "70" and "one" → "1" as invented figures (run 8s); the translation grader failed unlocalized "EUR 150,000" in run 2 and localized "18.000" in run 6s.
+- Unit tests: `tests/services/document-transform.test.ts` now has 13 tests (term sheet per part, change marks and hints, repair, restore on failed repair, failed check, lost number, placeholder, translated fix, label strip, check model, token counts, failed term sheet), and `tests/services/document-edit.test.ts` 2 new heading tests. `yarn format`, `yarn lint`, `yarn tsc --noEmit` and `yarn test` (294 tests) pass.
+- Quota: 48% before the first experiment, 56% before `yarn evals`, 57% after it.
+
+## 21. Cheaper check models for whole-document rewrites
+
+Code: unchanged from round 20. Only the check and repair model changed, through `LLM_CHECK_MODEL`. gpt-6-luna still wrote every part. The grader stayed on gpt-6.1-sol at medium effort.
+
+The proxy serves seven text models: gpt-6.1-sol, gpt-6-sol, gpt-6-luna, gpt-6-astra, gpt-5.6-sol, gpt-5.6-terra and gpt-5.6-luna. It refused every older name we tried, such as gpt-5.5, gpt-5-mini, gpt-4.1, gpt-4o, o3 and o4-mini. All four candidates accepted structured output and medium effort. gpt-6-astra was never run.
+
+**Screen**: the 8 cases that failed most often in round 20 (LF, 05-rewrite, LG, 16-rewrite, L7, 15-rewrite, SF, 08-rewrite), 4 at a time through the scratch harness. **Full**: `yarn evals rewrite-document`, 26 cases. **Tokens**: per rewrite, gpt-6-luna plus the check model, on the full run. **Cost**: per 1,000 rewrites at Vercel AI Gateway list prices, read on 2026-10-16. **Sec**: per rewrite on the full run.
+
+| Check model | Price in / out per 1M | Screen | Full | Tokens (luna + check) | Cost | Sec | Errors |
+|---|---|--:|--:|--:|--:|--:|---|
+| gpt-6-luna (round 20) | $0.10 / $0.50 | 0–3/8 | 11–15 | 36,300–41,900 in all | $7.60–8.90 | 41–46 | none |
+| gpt-5.6-luna | $0.20 / $1.20 | 1/8 | not run | | | | none |
+| gpt-6.1-sol (round 20) | $2 / $10 | 3/8, 4/8 | 20, 21 | 21,700 + 17,500 | $55 | 48 | 2 check timeouts, 1 part timeout |
+| gpt-6-sol | $2 / $10 | 3/8 | 12 | 21,800 + 19,600 | $70 | 47 | 1 check 503, 1 part timeout |
+| gpt-5.6-terra | $2 / $12 | not run | not run | | | | |
+| gpt-5.6-sol | $4 / $20 | not run | not run | | | | |
+
+- The gpt-6-luna row comes from round 20 runs on earlier versions of the code. It wasn't run again.
+- No check model on the proxy reached about 80% for less than gpt-6.1-sol. gpt-6.1-sol stays the cheapest that does.
+- gpt-5.6-luna passed only SF on the screen. It let 4 meaning slips and 3 translation errors through. On the 8 screen cases it cost $23 per 1,000 rewrites.
+- gpt-6-sol matched gpt-6.1-sol on the screen but passed only 12 of 26 cases in the full run: 5 meaning, 4 tone, 4 translation and 1 length failure. It costs the same per token, but it wrote about 1.8 times as many output tokens per check call (369 against 201), so it cost more.
+- gpt-5.6-terra wasn't run. It costs at least as much per token as gpt-6.1-sol, so it would need fewer output tokens than gpt-6.1-sol, the leanest model here. It was also the weakest of the gpt-5.6 models on rewrites in round 15.
+- gpt-5.6-sol wasn't run. Its input tokens alone would cost about $63 per 1,000 rewrites.
+- The grader is gpt-6.1-sol, so it may favour its own checks. gpt-6-sol's 12 is below every gpt-6.1-sol run in round 20 (17 to 22), so that bias doesn't seem to explain the whole gap.
+- A screen score of 3/8 didn't predict the full result. Eight hard cases are too few to tell close models apart.
+- Quota: 57% before the first screen, 58% before the full run, 59% at the end.

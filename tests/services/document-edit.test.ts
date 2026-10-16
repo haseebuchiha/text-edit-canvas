@@ -130,6 +130,26 @@ describe("document edit tools", () => {
     })
   })
 
+  it("accepts a heading edit up to twice the heading's length plus 20 characters", async () => {
+    const checked = await editDocument(classificationDocument, [
+      { op: "replace_node", nodeId: "1", text: "Einstufung von Informationen und Daten" },
+    ])
+
+    expect(checked).toEqual({ accepted: true })
+  })
+
+  it("rejects a heading edit that turns the heading into a sentence", async () => {
+    const checked = await editDocument(classificationDocument, [
+      {
+        op: "replace_node",
+        nodeId: "1",
+        text: "How we classify every piece of information, from public to confidential",
+      },
+    ])
+
+    expect(checked).toMatchObject({ accepted: false })
+  })
+
   it("accepts a replace_text that the forgiving matcher finds in its block", async () => {
     const operations: EditOperation[] = [
       { op: "replace_text", nodeId: "2", find: "Kick off call", replace: "first meeting" },
