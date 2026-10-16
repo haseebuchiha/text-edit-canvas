@@ -1,0 +1,550 @@
+{
+  "id": "10-job-posting",
+  "title": "Job Posting: Industrial Electrician (m/f/d) for Maintenance",
+  "approxPages": 1,
+  "wordCount": 680,
+  "content": {
+    "type": "doc",
+    "content": [
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 1
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "Job Posting: Industrial Electrician (m/f/d) for Maintenance"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "marks": [
+              {
+                "type": "bold"
+              }
+            ],
+            "text": "[ORG_1]"
+          },
+          {
+            "type": "text",
+            "text": " is looking for an industrial electrician (m/f/d) to join our maintenance team at the plant in [LOCATION_1] as soon as possible. The position is permanent and full-time, with 37.5 hours per week in a three-shift system."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "About Us"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "[ORG_1] is a family-owned company in its third generation, manufacturing plastic injection-moulded parts for the automotive, medical technology and household appliance industries. With around 480 employees and more than 90 injection moulding machines, we supply customers throughout Europe. Our production runs around the clock, which is why a reliable and well-organised maintenance team is at the heart of our plant."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Our maintenance team currently consists of 22 colleagues: electricians, industrial mechanics and automation technicians who look after our machines, robots, peripheral equipment and building services. We value short decision-making paths, a friendly working atmosphere and the willingness to try out new solutions. In the past two years, the maintenance team has introduced a digital maintenance planning system and condition monitoring for our largest machines, and we want to continue on this path with you."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "Your Responsibilities"
+          }
+        ]
+      },
+      {
+        "type": "bulletList",
+        "content": [
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Maintenance, inspection and repair of injection moulding machines, handling robots and peripheral equipment"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Troubleshooting electrical and electronic faults, including control systems, drives and sensors"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Carrying out preventive maintenance according to the maintenance plan and documenting all work in the maintenance software"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Installation and commissioning of new machines and equipment together with external service technicians"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Testing of electrical equipment in accordance with the applicable regulations of the German statutory accident insurance"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Contributing ideas for the continuous improvement of machine availability and energy efficiency"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Supporting the production team in setting up new moulds and resolving process problems"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "Your Profile"
+          }
+        ]
+      },
+      {
+        "type": "bulletList",
+        "content": [
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Completed vocational training as an industrial electrician, electronics technician for industrial engineering or a comparable qualification"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Several years of professional experience in the maintenance of production equipment, ideally in plastics processing"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Good knowledge of programmable logic controllers and the ability to read circuit diagrams confidently"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Willingness to work in three shifts and to take part in the on-call service of the maintenance team"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Good German language skills, both spoken and written; basic English is an advantage"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "The following qualifications are a plus:"
+                  }
+                ]
+              },
+              {
+                "type": "bulletList",
+                "content": [
+                  {
+                    "type": "listItem",
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "Further training as a master electrician or state-certified technician"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "listItem",
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "Experience with hydraulic and pneumatic systems"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "listItem",
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "Knowledge of robot programming"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "A structured, independent way of working and a sense of responsibility"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "What We Offer"
+          }
+        ]
+      },
+      {
+        "type": "bulletList",
+        "content": [
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "A permanent employment contract with a secure future in a growing family company"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Pay according to the collective agreement of the metal and electrical industry, plus shift allowances and holiday and Christmas bonuses"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ],
+                    "text": "30 days of annual leave"
+                  },
+                  {
+                    "type": "text",
+                    "text": " and a working time account for overtime"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "A company pension scheme with an employer contribution of 25 percent"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Regular further training at our in-house training centre and with machine manufacturers"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "A modern workshop and high-quality tools and measuring equipment"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Bicycle leasing, free drinks and a subsidised canteen"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "A structured onboarding with a personal mentor from the maintenance team"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "How to Apply"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Have we sparked your interest? Then we look forward to receiving your application, including your CV, certificates and your earliest possible starting date. Please apply online via our "
+          },
+          {
+            "type": "text",
+            "marks": [
+              {
+                "type": "link",
+                "attrs": {
+                  "href": "https://example.com/careers/industrial-electrician-maintenance"
+                }
+              }
+            ],
+            "text": "application portal"
+          },
+          {
+            "type": "text",
+            "text": ". We do not require a cover letter; a few sentences about why you would like to join us are enough."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "After reviewing your documents, we will invite you to a first interview with HR and the head of maintenance. In a second step, you will spend a trial day with the maintenance team to get to know the plant, the machines and your future colleagues. We aim to make a decision within three weeks of receiving your application."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "If you have any questions about the position, please contact [PERSON_1] from our HR department by email at [EMAIL_1] or by phone at [PHONE_1]. You are also welcome to visit us at our open day in the autumn and take a look at our maintenance workshop."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "We value diversity and welcome all applications, regardless of gender, nationality, ethnic and social origin, religion, disability, age or sexual identity. Applicants with severe disabilities are given preference if they are equally qualified."
+          }
+        ]
+      }
+    ]
+  }
+}

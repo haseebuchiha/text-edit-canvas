@@ -1,0 +1,202 @@
+import type { JSONContent } from "@tiptap/react"
+
+const sampleDocument: JSONContent = {
+  type: "doc",
+  content: [
+    {
+      type: "heading",
+      attrs: { level: 1 },
+      content: [{ type: "text", text: "Offer: Data Protection Workshop" }],
+    },
+    {
+      type: "paragraph",
+      content: [{ type: "text", text: "Prepared for [ORG_1], attention of [PERSON_1], by [ORG_2]." }],
+    },
+    {
+      type: "heading",
+      attrs: { level: 2 },
+      content: [{ type: "text", text: "Background" }],
+    },
+    {
+      type: "paragraph",
+      content: [
+        {
+          type: "text",
+          text: "We sat down with the customer and noticed there is still a lot to do, especially around AI.",
+        },
+      ],
+    },
+    {
+      type: "paragraph",
+      content: [
+        {
+          type: "text",
+          text: "Several teams already use AI tools to draft texts and summarise meetings, but there are no clear rules yet on which data may be shared with these tools. The records of processing activities and the deletion periods also need a review.",
+        },
+      ],
+    },
+    {
+      type: "paragraph",
+      content: [{ type: "text", text: "The customer wants a workshop for 12 people." }],
+    },
+    {
+      type: "paragraph",
+      content: [
+        {
+          type: "text",
+          text: "Participants come from management, HR, IT and customer service. [PERSON_2] coordinates the dates on the side of [ORG_1].",
+        },
+      ],
+    },
+    {
+      type: "heading",
+      attrs: { level: 2 },
+      content: [{ type: "text", text: "Services" }],
+    },
+    {
+      type: "paragraph",
+      content: [{ type: "text", text: "The offer covers the following services:" }],
+    },
+    {
+      type: "bulletList",
+      content: [
+        {
+          type: "listItem",
+          content: [
+            {
+              type: "paragraph",
+              content: [{ type: "text", text: "Kick-off call to agree on goals, participants and the agenda" }],
+            },
+          ],
+        },
+        {
+          type: "listItem",
+          content: [
+            {
+              type: "paragraph",
+              content: [{ type: "text", text: "One-day on-site workshop on GDPR basics and the safe use of AI tools" }],
+            },
+          ],
+        },
+        {
+          type: "listItem",
+          content: [
+            {
+              type: "paragraph",
+              content: [{ type: "text", text: "Review of the existing records of processing activities" }],
+            },
+          ],
+        },
+        {
+          type: "listItem",
+          content: [
+            {
+              type: "paragraph",
+              content: [{ type: "text", text: "Draft of an internal policy for the use of AI tools" }],
+            },
+          ],
+        },
+        {
+          type: "listItem",
+          content: [
+            {
+              type: "paragraph",
+              content: [{ type: "text", text: "Written summary with recommended next steps" }],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: "paragraph",
+      content: [
+        { type: "text", text: "All services are offered at a " },
+        { type: "text", marks: [{ type: "bold" }], text: "fixed price" },
+        { type: "text", text: " that includes preparation, travel and follow-up. The legal background is the " },
+        {
+          type: "text",
+          marks: [{ type: "link", attrs: { href: "https://eur-lex.europa.eu/eli/reg/2016/679/oj" } }],
+          text: "General Data Protection Regulation",
+        },
+        { type: "text", text: "." },
+      ],
+    },
+    {
+      type: "heading",
+      attrs: { level: 2 },
+      content: [{ type: "text", text: "Schedule and pricing" }],
+    },
+    {
+      type: "paragraph",
+      content: [{ type: "text", text: "We propose the following schedule. All prices are net." }],
+    },
+    {
+      type: "table",
+      content: [
+        {
+          type: "tableRow",
+          content: [
+            { type: "tableHeader", content: [{ type: "paragraph", content: [{ type: "text", text: "Phase" }] }] },
+            { type: "tableHeader", content: [{ type: "paragraph", content: [{ type: "text", text: "Timing" }] }] },
+            { type: "tableHeader", content: [{ type: "paragraph", content: [{ type: "text", text: "Price" }] }] },
+          ],
+        },
+        {
+          type: "tableRow",
+          content: [
+            { type: "tableCell", content: [{ type: "paragraph", content: [{ type: "text", text: "Kick-off call" }] }] },
+            { type: "tableCell", content: [{ type: "paragraph", content: [{ type: "text", text: "Week 1" }] }] },
+            { type: "tableCell", content: [{ type: "paragraph", content: [{ type: "text", text: "EUR 450" }] }] },
+          ],
+        },
+        {
+          type: "tableRow",
+          content: [
+            { type: "tableCell", content: [{ type: "paragraph", content: [{ type: "text", text: "Workshop" }] }] },
+            { type: "tableCell", content: [{ type: "paragraph", content: [{ type: "text", text: "Week 3" }] }] },
+            { type: "tableCell", content: [{ type: "paragraph", content: [{ type: "text", text: "EUR 3,600" }] }] },
+          ],
+        },
+        {
+          type: "tableRow",
+          content: [
+            {
+              type: "tableCell",
+              content: [{ type: "paragraph", content: [{ type: "text", text: "Policy and summary" }] }],
+            },
+            { type: "tableCell", content: [{ type: "paragraph", content: [{ type: "text", text: "Week 5" }] }] },
+            { type: "tableCell", content: [{ type: "paragraph", content: [{ type: "text", text: "EUR 1,200" }] }] },
+          ],
+        },
+        {
+          type: "tableRow",
+          content: [
+            { type: "tableCell", content: [{ type: "paragraph", content: [{ type: "text", text: "Total" }] }] },
+            { type: "tableCell", content: [{ type: "paragraph" }] },
+            { type: "tableCell", content: [{ type: "paragraph", content: [{ type: "text", text: "EUR 5,250" }] }] },
+          ],
+        },
+      ],
+    },
+    {
+      type: "heading",
+      attrs: { level: 2 },
+      content: [{ type: "text", text: "Next steps" }],
+    },
+    {
+      type: "paragraph",
+      content: [
+        {
+          type: "text",
+          text: "Please confirm the offer by [DATE_1]. Once confirmed, we will schedule the kick-off call and send the agenda one week before the workshop.",
+        },
+      ],
+    },
+    {
+      type: "paragraph",
+      content: [{ type: "text", text: "Kind regards, [PERSON_3], [ORG_2]" }],
+    },
+  ],
+}
+
+export default sampleDocument

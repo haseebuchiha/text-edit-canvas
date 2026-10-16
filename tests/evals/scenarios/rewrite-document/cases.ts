@@ -1,0 +1,205 @@
+import type { LengthRange } from "@/tests/evals/checks"
+import type { RewriteGraderName } from "@/tests/evals/grader"
+import type { EvalCase } from "@/tests/evals/run-case"
+
+export type RewriteDocumentCase = EvalCase & {
+  translatedTo?: "German"
+  useOnlyOneOf?: string[][]
+  keepPhrases?: string[]
+  lengthAsShareOfOriginal?: LengthRange
+  graders: RewriteGraderName[]
+}
+
+export const REWRITE_DOCUMENT_CASES: RewriteDocumentCase[] = [
+  {
+    id: "01-rewrite",
+    document: "01-it-support-offer",
+    instruction: "translate the document to German",
+    translatedTo: "German",
+    graders: ["translation"],
+  },
+  {
+    id: "02-rewrite",
+    document: "02-maintenance-contract",
+    instruction: "make the whole contract more concise",
+    lengthAsShareOfOriginal: { min: 0.4, max: 0.95 },
+    graders: ["concision", "meaning"],
+  },
+  {
+    id: "03-rewrite",
+    document: "03-data-processing-agreement",
+    instruction: "make the whole agreement more formal",
+    graders: ["tone", "meaning"],
+  },
+  {
+    id: "04-rewrite",
+    document: "04-steering-committee-minutes",
+    instruction: "translate the document to German",
+    why: "'Steering committee' appears in eight blocks and has several common German renderings; the translation must stick to one.",
+    translatedTo: "German",
+    useOnlyOneOf: [["Lenkungsausschuss", "Lenkungskreis", "Steuerungskreis", "Steuerkreis"]],
+    graders: ["translation"],
+  },
+  {
+    id: "05-rewrite",
+    document: "05-erp-migration-project-plan",
+    instruction: "make the whole project plan more concise",
+    lengthAsShareOfOriginal: { min: 0.4, max: 0.95 },
+    graders: ["concision", "meaning"],
+  },
+  {
+    id: "06-rewrite",
+    document: "06-quarterly-report",
+    instruction: "make the whole report more concise",
+    lengthAsShareOfOriginal: { min: 0.4, max: 0.95 },
+    graders: ["concision", "meaning"],
+  },
+  {
+    id: "L7",
+    document: "07-it-security-policy",
+    instruction: "make the whole document more concise",
+    why: "Known gap 5: concise rewrites dropped [ORG_1] and [LOCATION_1] to [LOCATION_4], and once replaced 13 headings with made-up summaries.",
+    lengthAsShareOfOriginal: { min: 0.4, max: 0.95 },
+    graders: ["concision", "meaning"],
+  },
+  {
+    id: "LF",
+    document: "07-it-security-policy",
+    instruction: "make the whole document more formal",
+    why: "Known gap 9: formal rewrites weakened 'the most common route for attacks' to 'a common vector', and once turned 'companies such as ours' into 'companies such as [ORG_1]'.",
+    keepPhrases: ["most common"],
+    graders: ["tone", "meaning"],
+  },
+  {
+    id: "LG",
+    document: "07-it-security-policy",
+    instruction: "translate the document to German",
+    why: "Known gap 7: every earlier run mixed 'Beschäftigte' and 'Mitarbeitende' for 'employees'.",
+    translatedTo: "German",
+    useOnlyOneOf: [["Beschäftigte", "Mitarbeitende", "Mitarbeiter"]],
+    graders: ["translation"],
+  },
+  {
+    id: "08-rewrite",
+    document: "08-employee-onboarding-handbook",
+    instruction: "translate the document to German",
+    why: "'Buddy' appears in ten blocks and is commonly rendered as Buddy, Pate or Mentor; the translation must pick one.",
+    translatedTo: "German",
+    useOnlyOneOf: [["Buddy", "Pate", "Mentor"]],
+    graders: ["translation"],
+  },
+  {
+    id: "09-rewrite",
+    document: "09-sop-incoming-goods-inspection",
+    instruction: "make the whole document more formal",
+    graders: ["tone", "meaning"],
+  },
+  {
+    id: "10-rewrite",
+    document: "10-job-posting",
+    instruction: "translate the document to German",
+    translatedTo: "German",
+    graders: ["translation"],
+  },
+  {
+    id: "11-rewrite",
+    document: "11-rfp-response",
+    instruction: "make the whole proposal more formal",
+    graders: ["tone", "meaning"],
+  },
+  {
+    id: "12-rewrite",
+    document: "12-product-specification",
+    instruction: "make the whole spec more concise",
+    lengthAsShareOfOriginal: { min: 0.4, max: 0.95 },
+    graders: ["concision", "meaning"],
+  },
+  {
+    id: "13-rewrite",
+    document: "13-internal-newsletter",
+    instruction: "make the whole newsletter more formal",
+    graders: ["tone", "meaning"],
+  },
+  {
+    id: "14-rewrite",
+    document: "14-incident-report",
+    instruction: "translate the report to German",
+    why: "'Plant managers' appears in five blocks, and Werkleiter, Werksleiter, Betriebsleiter and Standortleiter are all common renderings, so the translation has to settle on one.",
+    translatedTo: "German",
+    useOnlyOneOf: [["Werkleiter", "Werksleiter", "Betriebsleiter", "Standortleiter"]],
+    graders: ["translation"],
+  },
+  {
+    id: "15-rewrite",
+    document: "15-training-curriculum",
+    instruction: "make the whole curriculum more concise",
+    lengthAsShareOfOriginal: { min: 0.4, max: 0.95 },
+    graders: ["concision", "meaning"],
+  },
+  {
+    id: "16-rewrite",
+    document: "16-spare-parts-price-list",
+    instruction: "translate the price list to German",
+    translatedTo: "German",
+    graders: ["translation"],
+  },
+  {
+    id: "17-rewrite",
+    document: "17-customer-portal-faq",
+    instruction: "make the whole document more formal",
+    why: "Many answers carry exact limits, such as 30 minutes for the reset link and 30 days for returns, that a more formal phrasing must keep.",
+    graders: ["tone", "meaning"],
+  },
+  {
+    id: "18-rewrite",
+    document: "18-procurement-guideline",
+    instruction: "make the whole guideline more concise",
+    why: "The approval limits and the evaluation weights live in two tables that must come through the shortening intact.",
+    lengthAsShareOfOriginal: { min: 0.4, max: 0.95 },
+    graders: ["concision", "meaning"],
+  },
+  {
+    id: "19-rewrite",
+    document: "19-travel-expense-policy",
+    instruction: "translate the document to German",
+    why: "'Business trip' appears in 13 blocks and can be 'Dienstreise' or 'Geschäftsreise'; the translation must use one of them throughout.",
+    translatedTo: "German",
+    useOnlyOneOf: [["Dienstreise", "Geschäftsreise"]],
+    graders: ["translation"],
+  },
+  {
+    id: "20-rewrite",
+    document: "20-customer-case-study",
+    instruction: "make the whole document more formal",
+    why: "The case study quotes the plant manager twice; a formal rewrite must keep the content of both quotes and every figure in the results table.",
+    graders: ["tone", "meaning"],
+  },
+  {
+    id: "PG",
+    document: "sample-offer-with-draft-note",
+    instruction: "translate the document to German",
+    why: "Known gap 12: a whole-document rewrite must also rewrite the text before the first heading.",
+    translatedTo: "German",
+    graders: ["translation"],
+  },
+  {
+    id: "S7",
+    document: "sample-offer",
+    instruction: "make the whole document more concise",
+    lengthAsShareOfOriginal: { min: 0.4, max: 0.95 },
+    graders: ["concision", "meaning"],
+  },
+  {
+    id: "SF",
+    document: "sample-offer",
+    instruction: "make the whole document more formal",
+    graders: ["tone", "meaning"],
+  },
+  {
+    id: "SG",
+    document: "sample-offer",
+    instruction: "translate the document to German",
+    translatedTo: "German",
+    graders: ["translation"],
+  },
+]

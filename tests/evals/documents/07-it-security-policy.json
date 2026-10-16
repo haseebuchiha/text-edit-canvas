@@ -1,0 +1,2801 @@
+{
+  "id": "07-it-security-policy",
+  "title": "IT Security Policy",
+  "approxPages": 9,
+  "wordCount": 4745,
+  "content": {
+    "type": "doc",
+    "content": [
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 1
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "IT Security Policy"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "marks": [
+              {
+                "type": "bold"
+              }
+            ],
+            "text": "Document owner:"
+          },
+          {
+            "type": "text",
+            "text": " [PERSON_1], Chief Information Security Officer, [ORG_1]. "
+          },
+          {
+            "type": "text",
+            "marks": [
+              {
+                "type": "bold"
+              }
+            ],
+            "text": "Version:"
+          },
+          {
+            "type": "text",
+            "text": " 4.2. "
+          },
+          {
+            "type": "text",
+            "marks": [
+              {
+                "type": "bold"
+              }
+            ],
+            "text": "Classification:"
+          },
+          {
+            "type": "text",
+            "text": " Internal. "
+          },
+          {
+            "type": "text",
+            "marks": [
+              {
+                "type": "bold"
+              }
+            ],
+            "text": "Approved by the management board on:"
+          },
+          {
+            "type": "text",
+            "text": " [DATE_1]."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "This policy sets out the binding rules for the secure use of information and IT systems at [ORG_1]. As a supplier of injection-moulded plastic parts to vehicle manufacturers, we handle drawings, prototype data and production parameters that our customers entrust to us under strict confidentiality obligations. Our TISAX assessment, our customer contracts and the General Data Protection Regulation all require that we protect this information in a demonstrable and consistent way. This policy is the foundation for that protection, and every one of our roughly 1,400 employees is expected to know and follow it."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "1. Purpose and Scope"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The purpose of this policy is to protect the confidentiality, integrity and availability of the information that [ORG_1] processes, regardless of whether that information is stored on a server in our data centre, on a laptop in a home office, on a machine controller on the shop floor or on paper in a meeting room. It defines minimum requirements that apply across the whole company and that are made more specific in the supporting standards and work instructions published on the "
+          },
+          {
+            "type": "text",
+            "marks": [
+              {
+                "type": "link",
+                "attrs": {
+                  "href": "https://example.com/intranet/infosec"
+                }
+              }
+            ],
+            "text": "information security intranet page"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "This policy applies to all employees of [ORG_1] at all sites, including the headquarters in [LOCATION_1], the production plants in [LOCATION_2] and [LOCATION_3], and the logistics centre in [LOCATION_4]. It also applies to apprentices, working students, interns, temporary workers and external service providers who are given access to our information or IT systems. External parties are bound to it through their contracts and through the confidentiality declaration they sign before access is granted."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The policy covers all IT systems owned, leased or managed by [ORG_1], including:"
+          }
+        ]
+      },
+      {
+        "type": "bulletList",
+        "content": [
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "office IT such as laptops, desktop computers, smartphones, tablets, printers and the collaboration platform"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "business applications, in particular the ERP system, the product lifecycle management system and the document management system"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "production IT and operational technology, including injection moulding machines, robot cells, quality inspection stations and the manufacturing execution system"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "cloud services that have been approved by the IT department"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "private devices, insofar as they are used for business purposes under the rules in section 6"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Where a customer contract sets stricter requirements than this policy, for example for prototype parts subject to special protection, the stricter requirements take precedence for the information covered by that contract. Project managers must inform the information security team at the start of such a project so that the necessary additional measures can be planned."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "For the purposes of this policy, the following terms are used:"
+          }
+        ]
+      },
+      {
+        "type": "bulletList",
+        "content": [
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ],
+                    "text": "Information"
+                  },
+                  {
+                    "type": "text",
+                    "text": " means any data relevant to the business of [ORG_1], in any form, including digital files, paper documents, physical prototypes and spoken information."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ],
+                    "text": "IT systems"
+                  },
+                  {
+                    "type": "text",
+                    "text": " means all hardware, software, networks and services used to process information, including production machines with network connections."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ],
+                    "text": "Information owner"
+                  },
+                  {
+                    "type": "text",
+                    "text": " means the person responsible for deciding how a specific information asset is classified and who may access it."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ],
+                    "text": "Security incident"
+                  },
+                  {
+                    "type": "text",
+                    "text": " means any event that has compromised, or could compromise, the confidentiality, integrity or availability of information."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ],
+                    "text": "Privileged account"
+                  },
+                  {
+                    "type": "text",
+                    "text": " means a user account with administrative rights on a system, an application or a network device."
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "This policy does not replace the legal obligations of [ORG_1] or of individual employees. In particular, the obligations arising from the GDPR, the German Federal Data Protection Act, trade secret law and the confidentiality clauses in employment contracts continue to apply in full."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "2. Roles and Responsibilities"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Information security is a shared responsibility. Technical measures alone cannot protect our information if employees do not use systems carefully, and careful behaviour alone is not enough without suitable technical safeguards. The following roles have specific responsibilities."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "Management Board"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The management board bears overall responsibility for information security at [ORG_1]. It approves this policy, provides the necessary budget and staff, and receives a written information security report at least twice a year. The board decides on risks that cannot be reduced to an acceptable level and documents these decisions in the risk register."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "Chief Information Security Officer"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The Chief Information Security Officer (CISO), currently [PERSON_1], manages the information security management system. The CISO maintains this policy and the supporting standards, coordinates the annual risk assessment, prepares the TISAX reassessment, monitors the implementation of security measures and reports directly to the management board. The CISO has the right to stop activities that pose an immediate and serious threat to the security of our information, and must inform the board without delay when this happens."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "IT Department"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The IT department operates the IT infrastructure in line with this policy. It is responsible for secure configuration, user account management, backups, patching, monitoring of security events and the technical handling of incidents. The head of IT nominates a security coordinator who acts as the first point of contact for the information security team."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "Managers"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Managers are responsible for ensuring that the employees in their area know and follow this policy. They approve access rights for their team, review these rights at least once a year, make sure that new employees complete the mandatory security training within their first four weeks and report suspected security incidents immediately. Managers must not ask employees to work around security controls, even under time pressure."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "Information Owners"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "For each important information asset, such as customer drawings, cost calculations or personnel records, an information owner is named in the asset inventory. The information owner classifies the information, decides who may access it and approves exceptions. Information owners are usually the head of the department that creates or primarily uses the information."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "Data Protection Officer"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The data protection officer, currently [PERSON_2], advises [ORG_1] on all questions relating to the processing of personal data and monitors compliance with the GDPR. The CISO and the data protection officer work closely together, in particular on the assessment of new IT systems, on incidents involving personal data and on the annual review of the technical and organisational measures. The data protection officer can be contacted confidentially by all employees."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "All Employees"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "All employees must handle information in accordance with its classification, protect their access credentials, use IT resources only as permitted and report anything suspicious. Employees who are unsure how to handle a particular situation should ask their manager or contact the information security team at [EMAIL_1] before acting."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "3. Information Classification"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "All information at [ORG_1] is assigned to one of four classes. The class determines how the information must be stored, transmitted, shared and disposed of. Information that has not been explicitly classified is treated as "
+          },
+          {
+            "type": "text",
+            "marks": [
+              {
+                "type": "bold"
+              }
+            ],
+            "text": "Internal"
+          },
+          {
+            "type": "text",
+            "text": " by default. The person who creates a document is responsible for marking it with the correct class, either in the document header or in the metadata field of the document management system."
+          }
+        ]
+      },
+      {
+        "type": "table",
+        "content": [
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableHeader",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Class"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableHeader",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Description"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableHeader",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Examples"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableHeader",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Handling"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "marks": [
+                          {
+                            "type": "bold"
+                          }
+                        ],
+                        "text": "Public"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Information approved for publication"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Product brochures, job postings, press releases"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "No restrictions; publication only after approval by marketing"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "marks": [
+                          {
+                            "type": "bold"
+                          }
+                        ],
+                        "text": "Internal"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Information for use within [ORG_1]"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Internal phone lists, process descriptions, this policy"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Share only with employees and contracted partners; do not publish"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "marks": [
+                          {
+                            "type": "bold"
+                          }
+                        ],
+                        "text": "Confidential"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Information whose disclosure could harm [ORG_1] or its customers"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Customer drawings, quotations, cost calculations, personnel data"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Access on a need-to-know basis; encrypt when sent externally; lock away printouts"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "marks": [
+                          {
+                            "type": "bold"
+                          }
+                        ],
+                        "text": "Strictly confidential"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Information subject to special protection by contract or law"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Prototype data, unreleased vehicle parts, board documents, health data"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Named persons only; encrypted storage and transfer; no use of private devices; logged access"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Prototype parts and the related data are subject to additional physical protection requirements. These include restricted areas with access logging, covered transport and a ban on photography in the relevant production zones. The detailed rules are described in the prototype protection standard, which is available to authorised employees on the "
+          },
+          {
+            "type": "text",
+            "marks": [
+              {
+                "type": "link",
+                "attrs": {
+                  "href": "https://example.com/intranet/infosec/prototype-protection"
+                }
+              }
+            ],
+            "text": "prototype protection page"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Before Confidential or Strictly confidential information is shared with an external party, such as a toolmaker, a testing laboratory or an engineering consultancy, a non-disclosure agreement must be in place. The purchasing department keeps a register of signed agreements, and employees can check there whether a valid agreement exists. If no agreement exists, the information may not be shared until the agreement has been signed by both parties. Information received from customers may only be passed on to subcontractors if the customer contract allows this."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "When information is no longer needed, it must be disposed of in a manner appropriate to its class. Paper documents classified as Confidential or higher go into the locked document bins, which are emptied by a certified disposal company. Storage media are handed over to the IT department for secure deletion or physical destruction. Employees must never dispose of storage media in normal waste."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "4. Access Control"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Access to information and IT systems is granted according to the principle of least privilege. Employees receive only the access rights they need to perform their tasks, and these rights are removed when they are no longer needed."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "User Accounts"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Every user receives a personal user account. Shared or group accounts are not permitted for office IT. On the shop floor, shared accounts are permitted only on machine terminals where individual logins are technically impossible; these exceptions are documented and approved by the CISO."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Access rights are requested by the employee's manager via the IT service portal and approved by the relevant information owner. When an employee changes department, the manager of the previous department must request the removal of rights that are no longer required. When an employee leaves the company, HR informs the IT department at least five working days in advance, and the account is deactivated at the end of the last working day."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "Passwords and Authentication"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Passwords protect our systems only if they are strong, secret and not reused. The following minimum requirements apply to all systems that support them. Systems that cannot meet these requirements must be reported to the IT department so that compensating measures can be agreed."
+          }
+        ]
+      },
+      {
+        "type": "table",
+        "content": [
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableHeader",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Requirement"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableHeader",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Standard user accounts"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableHeader",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Privileged accounts"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Minimum password length"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "12 characters"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "16 characters"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Complexity"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "At least three of: upper case, lower case, digits, special characters"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "All four character types"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Multi-factor authentication"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Required for remote access, email and cloud services"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Required for every login"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Password change"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Only on suspicion of compromise"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Every 12 months and on suspicion of compromise"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Lockout after failed attempts"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "10 attempts, locked for 15 minutes"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "5 attempts, unlocked by IT only"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Password reuse"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Last 10 passwords may not be reused"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Last 24 passwords may not be reused"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Employees must keep their passwords secret and must never share them, not even with colleagues, managers or IT staff. The IT department will never ask for a password by phone or email. The use of the company password manager is strongly recommended for storing passwords for business systems. Passwords for business systems must not be used for private services."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "Privileged Access"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Administrator rights are granted only to employees who need them for their role. Administrators use a separate privileged account for administrative tasks and their standard account for everyday work such as email and internet browsing. Privileged sessions on critical servers are recorded. The list of privileged accounts is reviewed quarterly by the head of IT and the CISO."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "External service providers receive remote access only for the duration of a specific maintenance task. The access is activated by the IT department on request, is protected by multi-factor authentication and is deactivated automatically after eight hours. Permanent remote access for external parties requires the written approval of the CISO."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "Reviewing Access Rights"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Access rights tend to accumulate over time, especially when employees change roles or take on temporary project work. To prevent this, managers review the access rights of their team members once a year using a report generated by the IT department. For systems that hold Strictly confidential information, the review takes place every six months. Managers confirm in the IT service portal which rights are still required and which can be removed. Rights that have not been confirmed within four weeks of the review request are removed automatically."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The IT department additionally checks every month for accounts that have not been used for 60 days. Such accounts are deactivated after the responsible manager has been informed. Accounts of employees on long-term leave, such as parental leave, are suspended for the duration of the absence and reactivated on request."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "Physical Access Control"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Physical security is a prerequisite for IT security. Server rooms, network distribution rooms and the archive are accessible only to authorised employees with a personal access card. Access to these rooms is logged, and the logs are retained for 90 days. Visitors must register at reception, wear a visible visitor badge and be accompanied by an employee at all times. In production areas where prototype parts are manufactured, visitors require the prior approval of the production manager."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Employees must not lend their access card to anyone or hold doors open for people they do not know. Anyone who notices an unaccompanied stranger in a restricted area should politely ask whether they need help and inform plant security if the person cannot show a valid badge. Lost access cards must be reported to reception immediately so that they can be blocked."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "5. Acceptable Use of IT Resources"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "IT resources are provided to employees for business purposes. Limited private use of internet access is tolerated during breaks, provided it does not interfere with work, does not consume significant resources and does not violate this policy or the law. The rules for private use are set out in the works agreement on IT use, which is available on the "
+          },
+          {
+            "type": "text",
+            "marks": [
+              {
+                "type": "link",
+                "attrs": {
+                  "href": "https://example.com/intranet/hr/works-agreements"
+                }
+              }
+            ],
+            "text": "HR intranet page"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The following activities are prohibited:"
+          }
+        ]
+      },
+      {
+        "type": "bulletList",
+        "content": [
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Installing or running software that has not been approved by the IT department, including:"
+                  }
+                ]
+              },
+              {
+                "type": "bulletList",
+                "content": [
+                  {
+                    "type": "listItem",
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "browser extensions and plug-ins not in the approved software catalogue"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "listItem",
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "games, peer-to-peer file sharing tools and cryptocurrency mining software"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "listItem",
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "remote access tools not provided by the IT department"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Storing or transferring business information outside approved systems, for example:"
+                  }
+                ]
+              },
+              {
+                "type": "bulletList",
+                "content": [
+                  {
+                    "type": "listItem",
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "uploading files to private cloud storage or personal email accounts"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "listItem",
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "entering Confidential or Strictly confidential information into public AI tools or online translation services"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "listItem",
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "copying business data to private USB sticks or external hard drives"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Bypassing or disabling security controls, such as:"
+                  }
+                ]
+              },
+              {
+                "type": "bulletList",
+                "content": [
+                  {
+                    "type": "listItem",
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "deactivating antivirus software or the host firewall"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "listItem",
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "connecting unauthorised network devices such as private routers or access points"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "listItem",
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "using proxy services or VPNs to circumvent web filters"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Accessing, storing or distributing illegal, discriminatory or pornographic content"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Using another person's user account or trying to obtain access rights that have not been granted"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Generative AI tools deserve particular attention. They can help employees draft texts, summarise documents or write code, but anything entered into a public AI service may be stored and used by the provider. Employees may therefore use only the AI assistant provided by the IT department for business content, and only for information classified as Public or Internal. Results produced by AI tools must be checked for accuracy before they are used, especially in documents sent to customers. The detailed rules are described in the AI usage guideline on the "
+          },
+          {
+            "type": "text",
+            "marks": [
+              {
+                "type": "link",
+                "attrs": {
+                  "href": "https://example.com/intranet/it/ai-guideline"
+                }
+              }
+            ],
+            "text": "digital workplace page"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Employees must lock their screen whenever they leave their workstation, even for a short time. Workstations lock automatically after ten minutes of inactivity. Confidential documents must not be left on desks at the end of the working day, and whiteboards in meeting rooms must be wiped after meetings in which confidential topics were discussed."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "6. Mobile Devices and Remote Work"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Laptops, smartphones and tablets provided by [ORG_1] are managed centrally by the IT department. They are encrypted, protected by a PIN or password, and can be located or wiped remotely if they are lost. Employees must not remove the device management profile or modify the security settings of company devices."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Private smartphones may be used to access business email and the collaboration platform only if they are registered in the company's device management system. In this case, business data is kept in a separate, encrypted container that the IT department can wipe without affecting private data. Information classified as Strictly confidential must never be accessed on private devices."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "When working from home or while travelling, employees must take care that unauthorised persons cannot see their screen or overhear confidential conversations. Business devices must not be left unattended in vehicles, hotel rooms or public places. Remote access to the company network is only permitted via the company VPN. Public Wi-Fi networks may be used only in combination with the VPN."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "For work in a home office, the following additional rules apply:"
+          }
+        ]
+      },
+      {
+        "type": "bulletList",
+        "content": [
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Use a separate workspace where possible, and do not let family members or visitors use company devices."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Print Confidential documents only when strictly necessary, and bring the printouts back to the office for disposal in the locked document bins."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Hold video calls on confidential topics only where you cannot be overheard, and use the background blur function."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Keep the home router up to date and protect the home Wi-Fi with a strong password."
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Business trips to countries outside the European Union require additional precautions, because devices may be inspected at the border and local networks may be monitored. Before travelling to such a country, employees must contact the IT department at least two weeks in advance. Depending on the destination, they will receive a travel laptop with only the data required for the trip. Strictly confidential information must not be taken on such trips unless the CISO has approved it in writing."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The loss or theft of a mobile device must be reported immediately to the IT hotline on [PHONE_1], even outside office hours. Early reporting allows the IT department to block access and wipe the device before data can be misused."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "7. Email and Internet Use"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Email is the most common route for attacks on companies such as ours. Phishing emails often look convincing and may appear to come from customers, suppliers or colleagues. Employees must check the sender address carefully, be suspicious of unexpected attachments and links, and never enter their password on a page they reached by clicking a link in an email."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Typical warning signs of a phishing email include:"
+          }
+        ]
+      },
+      {
+        "type": "bulletList",
+        "content": [
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "an unexpected request to act urgently, often combined with a threat or a promised reward"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "a sender address that differs slightly from the real address of the company or person"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "links whose target address, shown when hovering over them, does not match the displayed text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "attachments with unusual file types or archives protected by a password given in the email"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "a greeting or writing style that does not fit the supposed sender"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Employees who receive a suspicious email should use the report button in the email client. This forwards the message to the information security team for analysis and removes it from the mailbox."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Emails from external senders are marked with a banner at the top of the message. Employees must be particularly careful with any external email that asks them to change bank details, make an urgent payment, open a document or confirm their credentials. Requests to change supplier bank details must always be verified by phone using a number taken from the supplier master data, not from the email itself."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Confidential information must be encrypted when sent to external recipients. The email system offers a secure send option for this purpose. For large files and for information classified as Strictly confidential, the approved secure file exchange platform must be used. Automatic forwarding of business emails to external addresses is technically blocked and not permitted."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Internet access is filtered by a web gateway that blocks known malicious and inappropriate websites. If a website needed for business purposes is blocked, employees can request its release via the IT service portal."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "8. Software and Patch Management"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Only software listed in the approved software catalogue may be installed on company devices. Employees can request additional software via the IT service portal; the IT department checks licensing, security and data protection aspects before approving it. Software is installed by the IT department or via the self-service software centre."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The same principle applies to cloud services. Departments that want to use a new cloud service, for example a survey tool or a project management application, must submit a request via the IT service portal before entering any business data. The IT department, the CISO and the data protection officer assess the provider, the location of the data, the contractual terms and the available security functions. Approved cloud services are listed in the software catalogue together with the highest information class they may be used for."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Security updates are an essential defence against attacks. The IT department installs updates on servers, clients and network devices within the deadlines below, which depend on the severity rating published by the manufacturer and on whether a vulnerability is already being actively exploited."
+          }
+        ]
+      },
+      {
+        "type": "table",
+        "content": [
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableHeader",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Severity"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableHeader",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Example"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableHeader",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Deadline for office IT"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableHeader",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Deadline for production IT"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "marks": [
+                          {
+                            "type": "bold"
+                          }
+                        ],
+                        "text": "Critical, actively exploited"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Remote code execution used in current attacks"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "72 hours"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "7 days, or compensating measure within 72 hours"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "marks": [
+                          {
+                            "type": "bold"
+                          }
+                        ],
+                        "text": "Critical"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Remote code execution without known attacks"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "7 days"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Next planned maintenance window, at the latest 30 days"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "marks": [
+                          {
+                            "type": "bold"
+                          }
+                        ],
+                        "text": "High"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Privilege escalation, data exposure"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "14 days"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "60 days"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "marks": [
+                          {
+                            "type": "bold"
+                          }
+                        ],
+                        "text": "Medium or low"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Limited local impact"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Monthly patch cycle"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Annual maintenance"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Production IT is subject to special conditions because updates may affect machine operation and require approval from the machine manufacturer. Where updates cannot be installed within the deadlines, the production systems concerned must be isolated in separate network segments and protected by compensating measures agreed with the CISO. Employees must not postpone or block updates on their devices. A device that has not received updates for more than 30 days is automatically blocked from the network until it has been updated."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The company network is divided into separate segments for office IT, production IT, building technology, guests and external service providers. Traffic between these segments is controlled by firewalls and permitted only where it is required for business purposes. New machines and devices may be connected to the production network only after the IT department has checked them and assigned them to the correct segment. Machine manufacturers must not install their own remote maintenance routers; remote maintenance takes place exclusively via the central remote access platform described in section 4."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "9. Backup and Recovery"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The IT department backs up all business-critical data daily. Backups are stored in two separate fire compartments, and at least one copy is kept offline or immutable so that it cannot be encrypted by ransomware. Backups of servers and databases are retained for 90 days; monthly backups are retained for one year."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Employees must store business data on network drives, in the document management system or on the collaboration platform, not on the local hard drive of their device, because local data is not included in the backup. The restoration of individual files can be requested via the IT service portal."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "To make sure that backups can fulfil their purpose, employees are asked to observe the following points:"
+          }
+        ]
+      },
+      {
+        "type": "bulletList",
+        "content": [
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Save work regularly to a network location, especially before travelling with a laptop."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Do not create private copies of shared folders on local drives or external media."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Inform the IT department when a new application or database is introduced in your area, so that it can be included in the backup."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Report accidentally deleted or overwritten files as soon as possible, since recent versions are easier to restore."
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Restoration procedures for the most important systems, in particular the ERP system and the manufacturing execution system, are tested at least once a year. The results of these tests are documented and reported to the CISO. The target recovery time for the ERP system is 24 hours, and the maximum acceptable data loss is four hours."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "10. Reporting Security Incidents"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "A security incident is any event that could compromise the confidentiality, integrity or availability of our information. Examples include a phishing email that was clicked, a lost laptop, an unusual message on a screen, a virus warning, a misdirected email containing confidential data, or a stranger moving through a production area without an escort."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Speed is critical when handling incidents. Employees must report every suspected incident immediately, even if they are not sure whether it is really an incident and even if they may have caused it themselves. Nobody will face disciplinary consequences for promptly reporting a mistake made in good faith."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "When an incident is suspected, employees must proceed as follows:"
+          }
+        ]
+      },
+      {
+        "type": "orderedList",
+        "content": [
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Stop working on the affected device, but do not switch it off."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Disconnect the device from the network by unplugging the network cable or switching off Wi-Fi."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Call the IT hotline on [PHONE_1] and describe what happened, when it happened and which systems are affected."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Inform your manager as soon as possible."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Write down what you observed, including any messages displayed, the time and the actions you took."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Do not delete emails, files or log entries, and do not try to investigate the incident yourself."
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The IT department assesses each report and, in the case of a serious incident, involves the CISO and the incident response team. Incidents involving personal data are reported to the data protection officer, [PERSON_2], without delay, so that the 72-hour notification deadline under the GDPR can be met. Incidents that affect customer information are reported to the customer in accordance with the contractual requirements. The full process is described in the "
+          },
+          {
+            "type": "text",
+            "marks": [
+              {
+                "type": "link",
+                "attrs": {
+                  "href": "https://example.com/intranet/infosec/incident-response"
+                }
+              }
+            ],
+            "text": "incident response procedure"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "After every serious incident, the incident response team carries out a review within four weeks. The review identifies the causes, assesses how well the response worked and defines measures to prevent a recurrence. The findings are shared with the affected departments and, in anonymised form, with all employees where they offer a useful lesson. The CISO tracks the agreed measures until they are completed."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "11. Training and Awareness"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "All employees complete a mandatory information security e-learning course when they join [ORG_1] and then once a year. The course takes about 45 minutes and covers this policy, phishing, password security, classification and incident reporting. Employees with access to prototype data complete an additional course on prototype protection."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The information security team regularly sends simulated phishing emails to test awareness. Employees who click on a simulated phishing link are shown a short learning page; the results are evaluated anonymously and are not used for performance assessments. In addition, the team publishes short security tips on the intranet and offers a lunchtime session on current threats every quarter."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Certain roles receive additional, role-specific training. Administrators attend a secure administration workshop every two years. Employees in purchasing and accounting are trained on payment fraud and fake supplier invoices. Shift supervisors in production receive a short briefing on the risks of USB sticks and service laptops brought in by machine technicians, since these are a common way for malware to reach production systems."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Managers must ensure that their employees complete the mandatory training on time. Completion rates are reported to the management board as part of the information security report."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "12. Violations and Sanctions"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Violations of this policy can cause significant damage to [ORG_1], to our customers and to our employees. Depending on the severity and circumstances, violations may lead to consequences under labour law, up to and including dismissal, and may in addition result in civil or criminal liability. Any sanctions are applied in accordance with the applicable works agreements and with the involvement of the works council."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Where employees identify a rule in this policy that cannot be followed in practice, they should not simply ignore it but report it to the information security team. Exceptions to this policy may be granted by the CISO in justified cases. Each exception is documented with a reason, a risk assessment, compensating measures and an expiry date of no more than twelve months."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Compliance with this policy is checked through internal audits, technical scans and the annual TISAX-related self-assessment. Audit findings are discussed with the managers concerned, who agree on corrective measures and deadlines with the information security team. Repeated findings in the same area are escalated to the management board."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "13. Review of this Policy"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The CISO reviews this policy at least once a year and whenever significant changes occur, such as new legal requirements, new customer requirements, the results of the TISAX assessment or lessons learned from serious incidents. Changes are approved by the management board and communicated to all employees via the intranet and the employee newsletter."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The current version of this policy and all supporting standards are available on the "
+          },
+          {
+            "type": "text",
+            "marks": [
+              {
+                "type": "link",
+                "attrs": {
+                  "href": "https://example.com/intranet/infosec"
+                }
+              }
+            ],
+            "text": "information security intranet page"
+          },
+          {
+            "type": "text",
+            "text": ". Questions about this policy can be sent to the information security team at [EMAIL_1] or raised with [PERSON_1] directly."
+          }
+        ]
+      }
+    ]
+  }
+}

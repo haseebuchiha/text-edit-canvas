@@ -1,0 +1,437 @@
+{
+  "id": "13-internal-newsletter",
+  "title": "Employee Newsletter: Autumn 2026",
+  "approxPages": 2,
+  "wordCount": 941,
+  "content": {
+    "type": "doc",
+    "content": [
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 1
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "Employee Newsletter: Autumn 2026"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "News, dates and stories from [ORG_1] for all colleagues at our sites in [LOCATION_1] and [LOCATION_2]. Editorial team: [PERSON_1] (Corporate Communications), with contributions from colleagues across the company."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "Editorial"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Dear colleagues, the summer was busy: our order books are well filled, the new production hall has opened its doors and 19 young people have started their training with us. In this issue we look back at the opening, introduce our new apprentices, invite you to the health day and explain why you should be particularly careful with emails over the coming weeks. As always, we welcome your ideas for the next issue. Simply send them to [EMAIL_1]."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "New Production Hall Opens"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "After 14 months of construction, our new production hall in [LOCATION_1] was officially opened on [DATE_1]. Around 400 colleagues, their families and guests from the town council celebrated the opening with a tour of the hall, a barbecue and live music from our company band."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The new hall offers 6,800 square metres of space for the assembly of our compact heat pumps and replaces the rented hall in the industrial estate. With it, we bring assembly, testing and shipping under one roof and shorten internal transport routes by almost two kilometres per day. The hall was built to a high energy standard: a photovoltaic system on the roof covers around 40 percent of its electricity needs, and the waste heat from the test benches is used to heat the offices."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "marks": [
+              {
+                "type": "bold"
+              }
+            ],
+            "text": "What changes for you?"
+          },
+          {
+            "type": "text",
+            "text": " The colleagues from the rented hall moved in during the first two weeks of September. From October, the canteen in building A will also serve the new hall, and a new footpath with lighting connects both buildings. A site plan with all changes is available on "
+          },
+          {
+            "type": "text",
+            "marks": [
+              {
+                "type": "link",
+                "attrs": {
+                  "href": "https://example.com/intranet/site-plan"
+                }
+              }
+            ],
+            "text": "the intranet"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "Our Apprentices Start"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "On [DATE_2], 19 apprentices and dual students started their careers at [ORG_1], more than ever before. They will train in the following professions:"
+          }
+        ]
+      },
+      {
+        "type": "bulletList",
+        "content": [
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Industrial mechanics (6)"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Mechatronics technicians (4)"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Electronics technicians for industrial engineering (3)"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Industrial clerks (3)"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Dual students in mechanical engineering and business informatics (3)"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "During their first week, the newcomers got to know the company, completed their safety training and spent a day building a small remote-controlled vehicle in mixed teams. Our training manager [PERSON_2] was impressed: \"The teams worked together as if they had known each other for years.\" Please give our new colleagues a warm welcome when you meet them in the workshops and offices."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "Health Day and Company Run"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Our annual health day takes place on [DATE_3] in the staff restaurant and the adjoining training rooms. The company doctor and our health insurance partner offer free check-ups, including blood pressure, blood sugar and vein measurements, as well as short consultations on back health and nutrition. Participation is voluntary and takes place during working time; please agree on a time slot with your manager."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "We are also looking for runners and walkers for the city company run on [DATE_4]. Last year 74 colleagues took part, and we would like to beat that number. The company pays the entry fee and provides running shirts. Register by the end of the month with [PERSON_3] in HR."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "IT Corner: Phishing Season"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Autumn is high season for phishing emails, as attackers take advantage of invoice runs, parcel deliveries and the end of the year. In the last quarter, our IT team blocked more than 2,300 suspicious emails, but some always get through. Please watch out for these warning signs:"
+          }
+        ]
+      },
+      {
+        "type": "bulletList",
+        "content": [
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "An unexpected email asks you to log in, confirm your password or open an attachment"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "The sender's address looks familiar but contains small spelling differences"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "The message creates time pressure, for example \"your account will be blocked today\""
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "A supposed supplier informs you of new bank details"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "If you are unsure, do not click. Use the "
+          },
+          {
+            "type": "text",
+            "marks": [
+              {
+                "type": "bold"
+              }
+            ],
+            "text": "report button"
+          },
+          {
+            "type": "text",
+            "text": " in your email client instead, or call the IT service desk at [PHONE_1]. Reporting a suspicious email is never a mistake, even if it turns out to be harmless."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "Suggestion Scheme: Ideas That Paid Off"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "In the third quarter, colleagues submitted 58 ideas to our company suggestion scheme, and 21 of them have already been implemented. The idea of the quarter came from the paint shop: [PERSON_9] and [PERSON_10] proposed a new hanging pattern for the drying line that allows 12 percent more parts per run. The idea saves around EUR 34,000 per year and earned the team a bonus of EUR 3,400. Congratulations! Do you have an idea that makes work safer, easier or cheaper? Submit it in the employee portal or drop it into one of the idea boxes next to the time clocks."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "Dates and Events"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Please note the following dates in your calendar: the works meeting takes place on [DATE_5] in the new production hall, the second blood donation of the year is on [DATE_6] in the first aid room of building B, the deadline for submitting ideas for the company suggestion scheme is [DATE_7], and our Christmas party for all colleagues will be held on [DATE_8] in the staff restaurant."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "Staff News"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "We congratulate [PERSON_4] from purchasing and [PERSON_5] from the maintenance team on their 25th anniversary with the company, and [PERSON_6] from quality assurance on 40 years of service. Thank you for your loyalty and commitment."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "[PERSON_7] has taken over the management of the shipping department from [PERSON_8], who is retiring at the end of the year after 31 years. We wish [PERSON_8] all the best and thank him for many years of reliable work."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The next issue of the newsletter will appear in January. Until then, we wish all colleagues and their families a pleasant autumn."
+          }
+        ]
+      }
+    ]
+  }
+}

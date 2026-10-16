@@ -1,0 +1,783 @@
+{
+  "id": "17-customer-portal-faq",
+  "title": "Frequently Asked Questions: Customer Portal",
+  "approxPages": 3,
+  "wordCount": 1473,
+  "content": {
+    "type": "doc",
+    "content": [
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 1
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "Frequently Asked Questions: Customer Portal"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The customer portal of "
+          },
+          {
+            "type": "text",
+            "marks": [
+              {
+                "type": "bold"
+              }
+            ],
+            "text": "[ORG_1]"
+          },
+          {
+            "type": "text",
+            "text": " gives you access to your orders, deliveries, service requests and documents for all compressors and compressed air systems supplied by us, around the clock. This page answers the questions our customer service team hears most often. If your question is not answered here, please contact us using the details at the end of this page."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "General Questions"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "What is the customer portal?"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The customer portal is our online platform for business customers. It allows you to place orders for spare parts and consumables, track deliveries, report faults, book maintenance appointments and download invoices, delivery notes and technical documents. The customer portal is linked directly to our ERP system and our service planning, so the information you see is always up to date."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "Who can use the customer portal?"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "All business customers with an active customer account at [ORG_1] can use the customer portal. This includes direct customers, service partners and distributors. Each company can register several users with different roles, for example for purchasing, maintenance and accounts payable. Private individuals cannot use the portal."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "Does the customer portal cost anything?"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "No. Use of the customer portal is free of charge for all customers. You only pay for the products and services you order, at the prices agreed in your contract or shown in the portal."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "Registration and Login"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "How do I register for the customer portal?"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Registration takes only a few minutes. You will need your customer number, which you will find on every invoice and order confirmation."
+          }
+        ]
+      },
+      {
+        "type": "orderedList",
+        "content": [
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Open the "
+                  },
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "link",
+                        "attrs": {
+                          "href": "https://example.com/portal/register"
+                        }
+                      }
+                    ],
+                    "text": "registration page"
+                  },
+                  {
+                    "type": "text",
+                    "text": " of the customer portal."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Enter your customer number, your company name and your business email address."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Choose a password with at least twelve characters, including upper and lower case letters, numbers and a special character."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Confirm your email address using the link we send you."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Wait for the activation of your account. Our customer service team checks every registration and activates it within one working day."
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The first user registered for a company automatically becomes the company administrator. The administrator can invite further colleagues and assign roles to them."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "I have forgotten my password. What should I do?"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Click on \"Forgot password\" on the login page and enter your email address. You will receive an email with a link that is valid for 30 minutes. Follow the link and choose a new password. If you do not receive an email, please check your spam folder. For security reasons, our customer service team cannot see or reset your password by phone."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "Why is two-factor authentication required?"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The customer portal contains confidential information, such as prices, contract terms and technical data of your installations. To protect this information, two-factor authentication is mandatory for all users. You can use an authenticator app on your smartphone or receive a code by text message. We recommend the authenticator app, as it also works without mobile reception, for example in a compressor room in the basement."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "A colleague has left our company. How do I remove their access?"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The company administrator can deactivate users at any time under \"Company settings\" and \"Users\". Deactivated users can no longer log in, but the orders and service requests they created remain visible to your company. If your company administrator has left, please contact our customer service team with a written request signed by an authorised representative of your company."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "Orders and Deliveries"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "Which products can I order in the customer portal?"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "You can order all spare parts, consumables and accessories for the compressors, dryers and filters installed at your sites. These include in particular:"
+          }
+        ]
+      },
+      {
+        "type": "bulletList",
+        "content": [
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Air and oil filters, separator elements and maintenance kits"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Compressor oils and condensate treatment products"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Wear parts such as valves, seals, belts and couplings"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Pressure sensors, controllers and other electronic components"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Accessories such as hoses, couplings and pressure regulators"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The customer portal only shows parts that match the machines registered for your company. This prevents incorrect orders. New compressors and large installations cannot be ordered online; please contact your sales representative for a quotation."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "Are my contract prices shown in the portal?"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Yes. After logging in, you see the net prices agreed for your company, including any framework agreement discounts. Prices are updated automatically when a new price agreement comes into force. If a price differs from your contract, please contact your sales representative before placing the order, so that we can correct it in good time."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "How quickly will my order be delivered?"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Parts marked as \"in stock\" are shipped on the same working day if you order before 2:00 p.m. Delivery within Germany usually takes one to two working days. For urgent cases, you can choose express delivery at checkout, with delivery on the next working day before 10:00 a.m. Delivery times for other countries are shown in the shopping cart."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "How can I track my delivery?"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "As soon as your order has been shipped, you will receive an email with the tracking number. You can also see the status of all your orders under \"My orders\" in the customer portal, including the expected delivery date, the delivery note and the tracking link of the parcel service."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "Can I return parts I have ordered by mistake?"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Yes, unused parts in their original packaging can be returned within 30 days. Create a return request under \"My orders\" by selecting the relevant order line. You will receive a return label by email. Electrical components and parts specially ordered for you are excluded from return, unless they are defective."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "Service and Maintenance"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "How do I report a fault?"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Select the affected machine under \"My installations\" and click on \"Report fault\". Describe the problem as precisely as possible and, if available, enter the error code shown on the controller. You can also upload photos or videos. Your report is forwarded directly to our service planning team, which will contact you within two hours during business hours. For machines with a service contract, the response times agreed in your contract apply."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "If a compressor failure is stopping your production, please call our 24-hour service hotline at [PHONE_1] in addition to reporting the fault in the portal."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "Can I book maintenance appointments online?"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Yes. For machines with a maintenance contract, the next due maintenance is shown in the customer portal. You can confirm the proposed date or suggest an alternative. For machines without a contract, you can request a maintenance appointment and receive a quotation before the appointment is confirmed."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "Where can I find the service reports?"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "After each service visit, our technician creates a digital service report, which is available in the customer portal under the relevant machine within 24 hours. The report contains the work carried out, the parts used, the measured values and any recommendations for further work."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "Can I see the operating data of my compressors?"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "If your compressors are equipped with our remote monitoring module, the customer portal shows the current operating status, running hours, load profile and energy consumption of each machine. You can set up email alerts for warnings and upcoming maintenance. The remote monitoring module can be retrofitted to most machines built after 2015; your service technician will be happy to advise you."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "Invoices and Documents"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "Where can I find my invoices?"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "All invoices, credit notes and order confirmations from the last ten years are available under \"Documents\". You can filter them by date, type and order number and download them as PDF files. If your company has registered for electronic invoicing, invoices are also sent to the email address stored for your accounts payable department."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "Can I download technical documentation?"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Yes. Operating manuals, spare parts lists, declarations of conformity and test certificates for pressure vessels are available for every registered machine. Documents for older machines that were delivered before the customer portal was introduced are added on request. Simply send us the serial number of the machine."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "Technical Questions"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "Which browsers are supported?"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The customer portal works with the current versions of all common browsers on Windows, macOS, Android and iOS. Older browsers that are no longer supported by their manufacturers may display some functions incorrectly. There is no separate app; the portal is optimised for use on smartphones and tablets."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "How is my data protected?"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "All data is transmitted in encrypted form and stored in data centres in Germany. We process personal data of your users only for the purpose of providing the customer portal and in accordance with the GDPR. Further information can be found in our "
+          },
+          {
+            "type": "text",
+            "marks": [
+              {
+                "type": "link",
+                "attrs": {
+                  "href": "https://example.com/portal/privacy"
+                }
+              }
+            ],
+            "text": "privacy notice for the customer portal"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "Contact"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "If you have further questions or suggestions for improving the customer portal, our customer service team will be happy to help. You can reach us Monday to Friday from 7:00 a.m. to 6:00 p.m. by phone at [PHONE_2] or by email at [EMAIL_1]. Further help, including short video tutorials, is available in the "
+          },
+          {
+            "type": "text",
+            "marks": [
+              {
+                "type": "link",
+                "attrs": {
+                  "href": "https://example.com/portal/help"
+                }
+              }
+            ],
+            "text": "help centre"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ]
+      }
+    ]
+  }
+}

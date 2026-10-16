@@ -1,0 +1,2922 @@
+{
+  "id": "03-data-processing-agreement",
+  "title": "Data Processing Agreement pursuant to Art. 28 GDPR",
+  "approxPages": 9,
+  "wordCount": 4628,
+  "content": {
+    "type": "doc",
+    "content": [
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 1
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "Data Processing Agreement pursuant to Art. 28 GDPR"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "This Data Processing Agreement (the \"Agreement\") is concluded between "
+          },
+          {
+            "type": "text",
+            "marks": [
+              {
+                "type": "bold"
+              }
+            ],
+            "text": "[ORG_1]"
+          },
+          {
+            "type": "text",
+            "text": ", [ADDRESS_1], represented by its managing directors (the \"Controller\"), and "
+          },
+          {
+            "type": "text",
+            "marks": [
+              {
+                "type": "bold"
+              }
+            ],
+            "text": "[ORG_2]"
+          },
+          {
+            "type": "text",
+            "text": ", [ADDRESS_2], represented by its managing director [PERSON_3] (the \"Processor\"). The Controller and the Processor are referred to individually as a \"Party\" and jointly as the \"Parties\"."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "Preamble"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The Controller is a logistics company with approximately 750 employees at four locations in Germany. It operates contract warehousing, regional distribution and road freight services for industrial and retail customers. The Controller uses a cloud-based software solution for human resources administration and payroll accounting, which is provided and operated by the Processor under the main agreement \"HR and Payroll Cloud Services\" dated [DATE_1] (the \"Main Agreement\")."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "In the course of providing these services, the Processor will process personal data of the Controller's employees, applicants and former employees on behalf of the Controller. This Agreement specifies the data protection obligations of the Parties arising from that processing. It applies to all activities in which employees of the Processor, or third parties engaged by the Processor, may come into contact with personal data of the Controller."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "This Agreement implements the requirements of Article 28 of the General Data Protection Regulation (GDPR) and the German Federal Data Protection Act (BDSG). In the event of any conflict between this Agreement and the Main Agreement, the provisions of this Agreement shall take precedence with regard to data protection matters."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "Definitions"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The terms used in this Agreement have the meaning given to them in Article 4 GDPR. In addition, the following definitions apply:"
+          }
+        ]
+      },
+      {
+        "type": "bulletList",
+        "content": [
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ],
+                    "text": "Services:"
+                  },
+                  {
+                    "type": "text",
+                    "text": " the HR and payroll services provided by the Processor under the Main Agreement, including hosting, operation, maintenance and support."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ],
+                    "text": "Sub-processor:"
+                  },
+                  {
+                    "type": "text",
+                    "text": " any other processor engaged by the Processor to carry out specific processing activities on behalf of the Controller."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ],
+                    "text": "Instruction:"
+                  },
+                  {
+                    "type": "text",
+                    "text": " a documented direction of the Controller concerning a specific handling of personal data, such as rectification, erasure, restriction or export."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ],
+                    "text": "Working day:"
+                  },
+                  {
+                    "type": "text",
+                    "text": " any day from Monday to Friday, with the exception of public holidays at the registered office of the Controller."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ],
+                    "text": "Text form:"
+                  },
+                  {
+                    "type": "text",
+                    "text": " a readable declaration on a durable medium, in particular email or a message in the support ticket system."
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "1. Subject Matter and Duration"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "1.1 Subject Matter"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The subject matter of this Agreement is the processing of personal data by the Processor on behalf of the Controller in connection with the provision of the HR and payroll software as a service. The services include the hosting of the application and the database, the operation of the payroll calculation engine, the generation and transmission of statutory reports to social insurance institutions and tax authorities, the provision of an employee self-service portal and second-level support for the Controller's HR department."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The specific services, service levels and the scope of functions are described in the Main Agreement and its service description. The employee self-service portal allows employees of the Controller to view their payslips, submit holiday requests and update selected master data such as their address and bank details. Access to the portal is protected by individual user accounts and two-factor authentication. The Controller decides which employees receive access and which functions are activated."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "This Agreement does not create any independent payment obligations. All remuneration for the services is governed exclusively by the Main Agreement."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "1.2 Duration"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "This Agreement takes effect on the date of signature by both Parties and shall remain in force for as long as the Processor processes personal data on behalf of the Controller under the Main Agreement. The termination of the Main Agreement automatically terminates this Agreement, subject to the obligations in Section 10 regarding deletion and return of data, which shall survive termination."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The right of either Party to terminate this Agreement for good cause remains unaffected. Good cause exists for the Controller in particular if the Processor commits a serious breach of this Agreement or of applicable data protection law, refuses to carry out a lawful instruction of the Controller, or denies the Controller access for an audit contrary to Section 9."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "2. Nature and Purpose of Processing"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The processing comprises the collection, recording, organisation, storage, adaptation, retrieval, consultation, use, disclosure by transmission, restriction, erasure and destruction of personal data, insofar as these operations are necessary to provide the services. The purpose of the processing is the administration of employment relationships, the calculation and payment of salaries and wages, the fulfilment of reporting obligations under social security and tax law, and the provision of self-service functions to employees."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The transmission of statutory reports, such as social insurance notifications, wage tax returns and certificates of earnings, takes place via the certified interfaces of the competent authorities. The Processor acts exclusively as a technical service provider and does not make any decisions on the content of these reports. The Controller remains responsible for the correctness of the underlying data."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The Processor shall not process the personal data for any other purpose, in particular not for its own purposes, for the development of its products using identifiable data, or for advertising. The creation of anonymised statistics on system usage is permitted only if the anonymisation is irreversible and has been documented to the Controller in advance."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "2.1 Categories of Data Subjects"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The processing concerns the following categories of data subjects:"
+          }
+        ]
+      },
+      {
+        "type": "bulletList",
+        "content": [
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Current employees of the Controller, including trainees, working students and interns"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Former employees, insofar as statutory retention periods apply"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Applicants whose data is transferred to the HR system after a hiring decision"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Family members of employees, insofar as their data is required for tax or social security purposes"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Temporary workers, insofar as they are recorded in the time management module"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "2.2 Types of Personal Data"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The following types of personal data are processed:"
+          }
+        ]
+      },
+      {
+        "type": "bulletList",
+        "content": [
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ],
+                    "text": "Master data:"
+                  },
+                  {
+                    "type": "text",
+                    "text": " name, address, date of birth, nationality, personnel number, marital status"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ],
+                    "text": "Contract data:"
+                  },
+                  {
+                    "type": "text",
+                    "text": " start date, job title, cost centre, working hours, salary group, notice periods"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ],
+                    "text": "Payroll data:"
+                  },
+                  {
+                    "type": "text",
+                    "text": " gross and net pay, bonuses, allowances, deductions, bank details such as [IBAN_1]"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ],
+                    "text": "Tax and social security data:"
+                  },
+                  {
+                    "type": "text",
+                    "text": " tax identification number, tax class, social security number, health insurance fund"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ],
+                    "text": "Time and attendance data:"
+                  },
+                  {
+                    "type": "text",
+                    "text": " working times, absences, holiday entitlements, overtime balances"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ],
+                    "text": "Special categories:"
+                  },
+                  {
+                    "type": "text",
+                    "text": " religious affiliation for church tax purposes, information on severe disability, sick leave periods without diagnosis"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The processing of special categories of personal data within the meaning of Article 9 GDPR is limited to the data listed above and is subject to the increased protective measures described in Annex 1."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "2.3 Retention Periods"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The Processor shall store personal data only for as long as the Controller has configured in the software or instructed in text form. The software offers configurable retention rules per data category, which the Controller maintains under its own responsibility. At the time of conclusion of this Agreement, the Controller has configured the following standard retention periods:"
+          }
+        ]
+      },
+      {
+        "type": "bulletList",
+        "content": [
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Payroll records and payslips: ten years after the end of the calendar year in which they were created"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Time and attendance records: two years after the end of the respective calendar year"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Applicant data transferred to the HR system: six months after the end of the application process, unless the applicant is hired"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Sick leave periods: three years after the end of the respective calendar year"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Personnel files of former employees: three years after the end of the employment relationship, except for documents subject to longer statutory periods"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The Processor shall run the automated deletion routines at least once a month and shall inform the Controller of any technical problems that prevent timely deletion. The Controller remains responsible for reviewing whether the configured periods correspond to its legal obligations."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "3. Obligations of the Processor"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The Processor shall process personal data exclusively on the documented instructions of the Controller, unless it is required to do so by Union or Member State law to which the Processor is subject. In such a case, the Processor shall inform the Controller of that legal requirement before processing, unless that law prohibits such information on important grounds of public interest."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The Processor undertakes in particular to comply with the following obligations:"
+          }
+        ]
+      },
+      {
+        "type": "bulletList",
+        "content": [
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ],
+                    "text": "Instructions:"
+                  },
+                  {
+                    "type": "text",
+                    "text": " The Processor shall follow the Controller's instructions and document them."
+                  }
+                ]
+              },
+              {
+                "type": "bulletList",
+                "content": [
+                  {
+                    "type": "listItem",
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "Instructions are generally given in text form via the support ticket system or by email to [EMAIL_2]."
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "listItem",
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "Oral instructions in urgent cases shall be confirmed in text form by the Controller without delay."
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "listItem",
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "If the Processor considers an instruction to infringe data protection law, it shall inform the Controller immediately and may suspend execution until the instruction is confirmed or changed."
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ],
+                    "text": "Confidentiality:"
+                  },
+                  {
+                    "type": "text",
+                    "text": " The Processor shall ensure that persons authorised to process the personal data are bound to confidentiality."
+                  }
+                ]
+              },
+              {
+                "type": "bulletList",
+                "content": [
+                  {
+                    "type": "listItem",
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "All employees with access to customer data sign a confidentiality undertaking before starting work."
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "listItem",
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "The obligation continues to apply after the end of their employment."
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "listItem",
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "Employees receive data protection training at least once a year."
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ],
+                    "text": "Security of processing:"
+                  },
+                  {
+                    "type": "text",
+                    "text": " The Processor shall take all measures required under Article 32 GDPR, as specified in Annex 1."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ],
+                    "text": "Sub-processors:"
+                  },
+                  {
+                    "type": "text",
+                    "text": " The Processor shall only engage another processor in accordance with Section 5."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ],
+                    "text": "Support:"
+                  },
+                  {
+                    "type": "text",
+                    "text": " The Processor shall assist the Controller in fulfilling its obligations under Articles 32 to 36 GDPR."
+                  }
+                ]
+              },
+              {
+                "type": "bulletList",
+                "content": [
+                  {
+                    "type": "listItem",
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "This includes support with data protection impact assessments relating to the HR software."
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "listItem",
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "It also includes support with prior consultations of the supervisory authority, where necessary."
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ],
+                    "text": "Data protection officer:"
+                  },
+                  {
+                    "type": "text",
+                    "text": " The Processor has appointed a data protection officer, [PERSON_2], who can be reached at [EMAIL_3] and [ADDRESS_2]. Any change of the data protection officer shall be notified to the Controller without delay."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ],
+                    "text": "Records:"
+                  },
+                  {
+                    "type": "text",
+                    "text": " The Processor shall maintain a record of all categories of processing activities carried out on behalf of the Controller in accordance with Article 30(2) GDPR."
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Employees of the Processor may access the Controller's data remotely, for example from a home office, only via managed devices, an encrypted connection and multi-factor authentication. Local storage of the Controller's data on end devices, printing at home and the use of private devices are prohibited. The Processor shall regularly monitor compliance with these rules and keep a record of all employees who are authorised to work remotely with customer data."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Support cases that require access to the production data of the Controller shall be handled exclusively via the ticket system. Each access shall be linked to a ticket number, limited to the data required to resolve the issue and logged in a way that allows the Controller to trace which employee accessed which data at what time. The logs shall be made available to the Controller on request within five working days."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The processing of personal data takes place exclusively in data centres within the European Union. Any transfer to a third country requires the prior written consent of the Controller and may only take place if the conditions of Articles 44 to 49 GDPR are fulfilled. This also applies where a sub-processor would access data from a third country, for example for remote maintenance."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "4. Rights and Obligations of the Controller"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The Controller is responsible for assessing the lawfulness of the processing and for safeguarding the rights of the data subjects. It shall ensure that the personal data transferred to the Processor has been collected lawfully and that the data subjects have been informed in accordance with Articles 13 and 14 GDPR."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The Controller has the right to issue instructions concerning the type, scope and procedure of the processing at any time. The persons authorised to issue instructions on behalf of the Controller are the Head of Human Resources, the Head of Payroll Accounting and the Controller's data protection officer, [PERSON_1], who can be reached at [EMAIL_1]. The Controller shall notify the Processor in text form of any change in the persons authorised to issue instructions."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The introduction and use of the HR software is subject to a works agreement concluded between the Controller and its works council under the Works Constitution Act. The works agreement governs in particular which evaluations of employee data are permitted and excludes the use of the software for performance or behaviour monitoring. The Controller shall inform the Processor of any provisions of the works agreement that affect the configuration of the software, and the Processor shall implement corresponding configuration changes on instruction."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The Controller shall issue its instructions in a clear and complete manner and shall bear any additional costs caused by instructions that go beyond the agreed scope of services. Additional effort shall be invoiced in accordance with the hourly rates set out in the Main Agreement, provided that the Processor has informed the Controller of the expected effort in advance and the Controller has approved it in text form."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The Controller shall inform the Processor without delay if it discovers errors or irregularities in the results of the processing. It shall also inform the Processor of any changes in the legal framework that affect the Processor's obligations, insofar as these changes are specific to the Controller's sector or its collective agreements."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "5. Sub-processors"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "5.1 General Authorisation"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The Controller grants the Processor general authorisation to engage sub-processors for the provision of the services. The sub-processors approved at the time of conclusion of this Agreement are listed in Annex 2. The engagement of these sub-processors is deemed approved."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "5.2 Changes to Sub-processors"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The Processor shall inform the Controller in text form at least 30 days in advance of any intended addition or replacement of a sub-processor. The notification shall state the name and address of the sub-processor, the services to be performed and the location of processing. The Controller may object to the change within 21 days of receipt of the notification for reasons relating to data protection. If the Controller objects, the Parties shall seek an amicable solution. If no solution is found within a further 30 days, either Party may terminate the affected services with a notice period of one month."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "In urgent cases, in particular where a sub-processor ceases its business or where a change is necessary to remedy a security vulnerability, the Processor may replace a sub-processor with a shorter notice period. In this case, the Processor shall inform the Controller immediately, state the reasons for the urgency and grant the Controller the right of objection after the fact. The Controller's right to terminate the affected services remains unaffected."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "5.3 Obligations of Sub-processors"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The Processor shall contractually impose on each sub-processor the same data protection obligations as those set out in this Agreement, in particular sufficient guarantees for the implementation of appropriate technical and organisational measures. The Processor shall verify compliance by each sub-processor before the start of processing and regularly thereafter, at least once a year. The results of these checks shall be documented and made available to the Controller on request."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Where a sub-processor fails to fulfil its data protection obligations, the Processor shall remain fully liable to the Controller for the performance of that sub-processor's obligations. Services which the Processor uses from third parties as ancillary services, such as telecommunications services, postal services or cleaning of premises, do not constitute sub-processor relationships within the meaning of this Section. The Processor shall nevertheless take appropriate measures to protect the Controller's data when using such ancillary services."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "6. Technical and Organisational Measures"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The Processor shall implement the technical and organisational measures described in Annex 1 before the start of processing and maintain them for the duration of this Agreement. The measures shall ensure a level of security appropriate to the risk, taking into account the state of the art, the costs of implementation, and the nature, scope, context and purposes of the processing."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The technical and organisational measures are subject to technical progress and further development. The Processor may implement alternative adequate measures, provided that the security level of the measures specified in Annex 1 is not undercut. Significant changes shall be documented and notified to the Controller in advance. The current version of the measures is published in the Processor's "
+          },
+          {
+            "type": "text",
+            "marks": [
+              {
+                "type": "link",
+                "attrs": {
+                  "href": "https://example.com/trust-centre/toms"
+                }
+              }
+            ],
+            "text": "trust centre"
+          },
+          {
+            "type": "text",
+            "text": " and is updated at least once per year."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The Processor operates a vulnerability management process for all systems used to provide the services. Critical security updates are installed within 72 hours of their release, other security updates within 30 days. Vulnerabilities in the Processor's own software are assessed by a dedicated security team and remedied according to their severity. The Controller is informed in the quarterly security report about relevant vulnerabilities and the status of their remediation."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The Processor holds an information security certification based on an internationally recognised standard, which covers the data centres, the operation of the software and the support organisation. The Processor shall inform the Controller without delay if the certification lapses, is suspended or is restricted in scope."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "7. Support with Data Subject Rights"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The Processor shall assist the Controller by appropriate technical and organisational measures in fulfilling its obligation to respond to requests from data subjects exercising their rights under Chapter III GDPR. This concerns in particular the right of access, rectification, erasure, restriction of processing and data portability."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The software provides functions with which the Controller can export the personal data of an individual employee in a structured, commonly used and machine-readable format, correct incorrect data and restrict or delete records. Where the Controller cannot fulfil a request using these functions, the Processor shall provide the necessary support within five working days of receiving the request."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Support with data subject requests is included in the service fee as long as the effort does not exceed four hours per calendar month. Additional effort shall be invoiced in accordance with the Main Agreement, unless the request results from an error or a breach of this Agreement by the Processor."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "If a data subject contacts the Processor directly, the Processor shall forward the request to the Controller without undue delay and at the latest within two working days. The Processor shall not respond to the data subject itself unless instructed to do so by the Controller."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "8. Notification of Personal Data Breaches"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The Processor shall notify the Controller without undue delay, and in any case within 24 hours of becoming aware of it, of any personal data breach affecting the Controller's data. This applies equally to breaches at a sub-processor. The notification shall be made by telephone to the Controller's IT emergency line [PHONE_1] and in text form to [EMAIL_1]."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The Processor shall proceed as follows in the event of a personal data breach:"
+          }
+        ]
+      },
+      {
+        "type": "orderedList",
+        "content": [
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Contain the incident immediately and secure all relevant log files and evidence."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Notify the Controller within 24 hours with all information available at that time."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Provide a description of the nature of the breach, including the categories and approximate number of data subjects and records concerned."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Describe the likely consequences of the breach and the measures taken or proposed to address it."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Supplement the information in stages as soon as further facts become known."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Submit a final written report within ten working days, including the root cause and the preventive measures adopted."
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The Processor shall document every personal data breach, including the facts, its effects and the remedial action taken, regardless of whether the Controller is obliged to notify the supervisory authority. This documentation shall be made available to the Controller on request and shall be retained for at least three years. Security events that do not constitute a personal data breach, such as blocked attacks on the perimeter, shall be included in the quarterly security report that the Processor provides to the Controller."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The Processor shall support the Controller in fulfilling its obligations to notify the supervisory authority and to communicate the breach to the data subjects under Articles 33 and 34 GDPR. The Processor shall not notify the supervisory authority or the data subjects itself unless it is legally obliged to do so."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "9. Audits and Inspections"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The Controller has the right to verify the Processor's compliance with the obligations under this Agreement. The Processor shall provide the Controller with all information necessary to demonstrate compliance and shall allow for and contribute to audits, including inspections, conducted by the Controller or an auditor mandated by the Controller."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Proof of compliance may primarily be provided by current certificates, audit reports from independent auditors or the results of the Processor's internal data protection audits. If these documents do not provide sufficient evidence in an individual case, the Controller may carry out on-site inspections during normal business hours after giving at least 14 days' notice. On-site inspections are limited to once per calendar year, unless there is a specific reason, such as a personal data breach."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The Controller shall ensure that inspections do not disrupt the Processor's operations more than necessary and that the confidentiality of the Processor's business secrets and the data of its other customers is protected. External auditors must be bound to confidentiality and must not be competitors of the Processor."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Each Party shall bear its own costs of an audit. If an audit reveals material breaches of this Agreement by the Processor, the Processor shall bear the reasonable costs of the audit and shall remedy the breaches found within a period agreed with the Controller. The Processor shall report to the Controller in writing on the implementation of the corrective measures."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "10. Deletion and Return of Data"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "After the end of the provision of the services, the Processor shall, at the choice of the Controller, delete all personal data or return it to the Controller and delete existing copies, unless Union or Member State law requires the storage of the personal data. The Controller shall notify the Processor of its choice no later than 30 days before the end of the Main Agreement."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The return shall take place in the form of a complete database export in a documented, machine-readable format and of all generated payroll documents as PDF files. Deletion shall be carried out in accordance with recognised industry standards, so that recovery is no longer possible with reasonable effort. Backups shall be deleted in the regular backup cycle, at the latest 90 days after the end of the services."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "On request, the Processor shall support the Controller in migrating the data to a new provider. This transition support includes the provision of the export files, an explanation of the data structure and up to two coordination meetings with the new provider. Effort beyond this scope shall be invoiced in accordance with the Main Agreement."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The Processor shall confirm the deletion in writing, stating the date of deletion and the systems concerned. Documentation that serves as proof of proper processing may be retained by the Processor beyond the end of the Agreement in accordance with the relevant retention periods."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "11. Transfers to Third Countries"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The Parties agree that the Controller's data shall be processed exclusively within the European Union or the European Economic Area. A transfer of personal data to a third country, including any remote access from a third country, requires the prior written consent of the Controller. Consent may be refused without giving reasons."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "If the Controller consents to a transfer, the Processor shall ensure that an adequate level of data protection is guaranteed before the transfer takes place. Suitable safeguards are in particular an adequacy decision of the European Commission or the standard contractual clauses adopted by the European Commission, supplemented by additional technical measures where required. Before the transfer, the Processor shall carry out and document a transfer impact assessment and make it available to the Controller."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The Processor shall inform the Controller without delay if it becomes aware that a public authority in a third country requests access to the Controller's data. The Processor shall challenge such requests by all legal means available, disclose only the minimum data required and document every request received. Further information is provided in the Processor's "
+          },
+          {
+            "type": "text",
+            "marks": [
+              {
+                "type": "link",
+                "attrs": {
+                  "href": "https://example.com/trust-centre/government-requests"
+                }
+              }
+            ],
+            "text": "policy on government access requests"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "12. Liability and Final Provisions"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The Parties shall be liable to the data subjects in accordance with Article 82 GDPR. In the internal relationship, liability is governed by the provisions of the Main Agreement, with the exception that limitations of liability shall not apply to damage resulting from culpable breaches of this Agreement by the Processor or its sub-processors."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "In the event of contradictions, the documents shall apply in the following order of precedence:"
+          }
+        ]
+      },
+      {
+        "type": "orderedList",
+        "content": [
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "This Agreement, including its annexes"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "The service description of the Main Agreement"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "The general terms and conditions of the Main Agreement"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Amendments and supplements to this Agreement and all of its components require a written agreement, which may also be concluded in electronic form, and an express reference that it amends or supplements this Agreement. This also applies to any waiver of this form requirement."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Should individual provisions of this Agreement be or become invalid, the validity of the remaining provisions shall not be affected. The invalid provision shall be replaced by a valid provision that comes closest to the economic purpose of the invalid provision. This Agreement is governed by German law. The place of jurisdiction is the registered office of the Controller."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Signed for the Controller by [PERSON_4], Managing Director, on [DATE_2], and for the Processor by [PERSON_3], Managing Director, on [DATE_3]."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "Annex 1: Technical and Organisational Measures"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The following technical and organisational measures apply to all systems used to provide the services. They are based on the protection goals of confidentiality, integrity, availability and resilience. Measures marked as "
+          },
+          {
+            "type": "text",
+            "marks": [
+              {
+                "type": "bold"
+              }
+            ],
+            "text": "increased protection"
+          },
+          {
+            "type": "text",
+            "text": " apply in particular to special categories of personal data."
+          }
+        ]
+      },
+      {
+        "type": "table",
+        "content": [
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableHeader",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Area"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableHeader",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Measure"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableHeader",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Implementation"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Physical access control"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Access to data centres only for authorised persons"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Electronic access cards, video surveillance, visitor log, 24/7 security staff"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "System access control"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Secure authentication for all administrative access"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Personal accounts, multi-factor authentication, password policy with at least 14 characters"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Data access control"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Role-based authorisation concept"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Need-to-know principle, quarterly review of authorisations, logging of all read access to payroll data"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Separation control"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Separation of customer data"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Logically separated client databases, separate encryption keys per customer"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Pseudonymisation"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Reduction of identifiable data in test environments"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Test systems use only pseudonymised or synthetic data"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Transfer control"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Encryption in transit"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "TLS 1.3 for all connections, encrypted file transfer for statutory reports"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Input control"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Traceability of changes"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Audit trail for all changes to master and payroll data, retained for ten years"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Encryption at rest"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Protection of stored data"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "AES-256 encryption of databases and backups, keys stored in a hardware security module"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Availability control"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Protection against data loss"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Daily backups to a second data centre, uninterruptible power supply, fire suppression"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Resilience"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Ability to restore operations"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Documented emergency plan, recovery time objective of eight hours, annual recovery test"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Order control"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Control of sub-processor"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Written contracts, annual sub-processor review, documented instructions"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Increased protection"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Special categories of data"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Separate authorisation for health and religious data, masking in standard reports"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Organisational measures"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Data protection management"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Appointed data protection officer, annual training, information security management system"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Evaluation"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Regular review of effectiveness"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Annual penetration test by an external provider, internal audits, management review"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The Processor shall review the effectiveness of these measures at least once a year and shall provide the Controller with a summary of the results on request. Further details are available in the "
+          },
+          {
+            "type": "text",
+            "marks": [
+              {
+                "type": "link",
+                "attrs": {
+                  "href": "https://example.com/trust-centre/security-whitepaper"
+                }
+              }
+            ],
+            "text": "security whitepaper"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "Annex 2: Approved Sub-processors"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "At the time of conclusion of this Agreement, the Controller approves the following sub-processors. Any change to this list is subject to the procedure set out in Section 5."
+          }
+        ]
+      },
+      {
+        "type": "table",
+        "content": [
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableHeader",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Sub-processor"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableHeader",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Service"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableHeader",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Location of processing"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableHeader",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Safeguards"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "[ORG_3], [ADDRESS_3]"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Infrastructure hosting of the application and databases"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Germany"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Data processing agreement, certified data centre"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "[ORG_4], [ADDRESS_4]"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Backup storage in a geographically separate data centre"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Austria"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Data processing agreement, encrypted backups only"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "[ORG_5], [ADDRESS_5]"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Printing and dispatch of payslips for employees without portal access"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Germany"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Data processing agreement, annual on-site audit"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "[ORG_6], [ADDRESS_6]"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Second-level technical support for the payroll engine"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Netherlands"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Data processing agreement, access only via monitored remote sessions"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "[ORG_7], [ADDRESS_7]"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Email delivery of system notifications"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Ireland"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Data processing agreement, no payroll content in messages"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "The Processor maintains an up-to-date list of all sub-processors on its "
+          },
+          {
+            "type": "text",
+            "marks": [
+              {
+                "type": "link",
+                "attrs": {
+                  "href": "https://example.com/trust-centre/sub-processors"
+                }
+              }
+            ],
+            "text": "sub-processor overview page"
+          },
+          {
+            "type": "text",
+            "text": " and notifies registered contacts of the Controller about every planned change."
+          }
+        ]
+      }
+    ]
+  }
+}
