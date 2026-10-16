@@ -55,6 +55,30 @@ const NUMBER_WORD = new RegExp(
 
 const WORD_FOR_TWO = /(?<![\p{L}\p{N}])(both|beide|beiden)(?![\p{L}\p{N}])/giu
 
+const GENEROUS_NUMBER_WORDS: Record<string, number> = {
+  one: 1,
+  thirteen: 13,
+  fourteen: 14,
+  fifteen: 15,
+  sixteen: 16,
+  seventeen: 17,
+  eighteen: 18,
+  nineteen: 19,
+  twenty: 20,
+  thirty: 30,
+  forty: 40,
+  fifty: 50,
+  sixty: 60,
+  seventy: 70,
+  eighty: 80,
+  ninety: 90,
+}
+
+const GENEROUS_NUMBER_WORD = new RegExp(
+  String.raw`(?<![\p{L}\p{N}])(${Object.keys(GENEROUS_NUMBER_WORDS).join("|")})(?![\p{L}\p{N}])`,
+  "giu",
+)
+
 const GERMAN_COMPOUND_NUMBER = new RegExp(
   String.raw`(?<![\p{L}\p{N}])(${GERMAN_NUMBER_WORDS.join("|")})(?=\p{Ll})`,
   "giu",
@@ -121,6 +145,8 @@ export const listPlaceholders = (text: string) => text.match(PLACEHOLDER) ?? []
 
 const spellOutNumberWord = (word: string) => ` ${NUMBER_WORDS[word.toLowerCase()]} `
 
+const spellOutGenerousNumberWord = (word: string) => ` ${GENEROUS_NUMBER_WORDS[word.toLowerCase()]} `
+
 const dropLeadingZeros = (digits: string) => String(Number(digits))
 
 const listFiguresInDigits = (text: string) =>
@@ -146,7 +172,12 @@ const listClockAlternatives = (text: string) =>
     .map(toOtherHalfOfDay)
 
 export const listFiguresGenerously = (text: string) => [
-  ...listFigures(text.replaceAll(GERMAN_COMPOUND_NUMBER, spellOutNumberWord).replaceAll(WORD_FOR_TWO, " 2 ")),
+  ...listFigures(
+    text
+      .replaceAll(GERMAN_COMPOUND_NUMBER, spellOutNumberWord)
+      .replaceAll(WORD_FOR_TWO, " 2 ")
+      .replaceAll(GENEROUS_NUMBER_WORD, spellOutGenerousNumberWord),
+  ),
   ...listClockAlternatives(text),
 ]
 

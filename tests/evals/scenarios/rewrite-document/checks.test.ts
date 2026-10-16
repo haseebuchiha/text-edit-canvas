@@ -16,6 +16,15 @@ describe("looksEnglish", () => {
     expect(looksEnglish("Der Kunde wünscht einen Workshop für 12 Personen.")).toBe(false)
     expect(looksEnglish("Chief Information Security Officer")).toBe(false)
   })
+
+  it("doesn't count words that German shares with English", () => {
+    expect(
+      looksEnglish(
+        "Servicezeiten: Montag bis Freitag, 7:00 bis 18:00 Uhr, außer an gesetzlichen Feiertagen in Baden-Württemberg",
+      ),
+    ).toBe(false)
+    expect(looksEnglish("[PERSON_4], Leiter/in IT")).toBe(false)
+  })
 })
 
 describe("allTranslated", () => {

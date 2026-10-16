@@ -23,9 +23,7 @@ const PATTERN_SYNTAX = /[$()*+.?[\\\]^{|}]/gu
 const GERMAN_ENDINGS = "(?:n|s|e|en|es|in|innen|nen)?"
 
 const ENGLISH_WORDS = new Set(
-  "the and of to is are for with must be will all this that or by on at from an as not their our we you it in if".split(
-    " ",
-  ),
+  "the and of to is are for with must be all this that or by on at from as not their our we you if".split(" "),
 )
 
 const GERMAN_WORDS = new Set(

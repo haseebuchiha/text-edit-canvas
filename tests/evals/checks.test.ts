@@ -212,6 +212,11 @@ describe("figuresKept", () => {
     expect(keepsFigures("It supplies the two regional warehouses.", "It supplies both regional warehouses.")).toBe(true)
   })
 
+  it("accepts a spelled-out number written in digits", () => {
+    expect(keepsFigures("founded seventy years ago", "vor 70 Jahren gegründet")).toBe(true)
+    expect(keepsFigures("within one working day", "within 1 working day")).toBe(true)
+  })
+
   it("doesn't read 'ten' at the end of a German word as a number", () => {
     expect(keepsFigures("Repair of peripheral equipment", "Reparatur von Peripheriegeräten")).toBe(true)
   })
