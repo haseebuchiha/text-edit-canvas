@@ -87,11 +87,50 @@ describe("POST /api/chat", () => {
     const { id } = await createChatSession()
     const fetchSpy = blockNetwork()
 
-    const response = await postChat(chatRequest(id, "claude-haiku-5.5"))
+    const responses = await Promise.all([
+      postChat(chatRequest(id, "claude-haiku-5.5")),
+      postChat(chatRequest(id, "gemini-4-argon")),
+    ])
 
-    expect(response.status).toBe(400)
+    expect(responses.map(({ status }) => status)).toEqual([400, 400])
     expect(fetchSpy).not.toHaveBeenCalled()
     expect((await findChatSessionById(id))?.messages).toEqual([])
+  })
+
+  it("answers 400 on the gateway for a model left out of the menu, without calling the provider", async () => {
+    useGateway()
+    const { id } = await createChatSession()
+    const fetchSpy = refuseAtGateway()
+
+    const responses = await Promise.all([
+      postChat(chatRequest(id, "claude-fable-5.1")),
+      postChat(chatRequest(id, "gpt-6-astra-fast")),
+    ])
+
+    expect(responses.map(({ status }) => status)).toEqual([400, 400])
+    expect(fetchSpy).not.toHaveBeenCalled()
+  })
+
+  it("sends a submenu model to the gateway under its gateway id and labels it with default thinking", async () => {
+    useGateway()
+    const { id } = await createChatSession()
+    const fetchSpy = refuseAtGateway()
+
+    const body = await (await postChat(chatRequest(id, "gemini-4-argon"))).text()
+
+    expect(readRequestedGatewayModel(fetchSpy)).toBe("google/gemini-4-argon")
+    expect(body).toContain('"messageMetadata":{"modelId":"google/gemini-4-argon","reasoningEffort":"default"}')
+  })
+
+  it("sends gpt-6.1-sol to the gateway as openai/gpt-6.1-sol and labels it with medium thinking", async () => {
+    useGateway()
+    const { id } = await createChatSession()
+    const fetchSpy = refuseAtGateway()
+
+    const body = await (await postChat(chatRequest(id, "gpt-6.1-sol"))).text()
+
+    expect(readRequestedGatewayModel(fetchSpy)).toBe("openai/gpt-6.1-sol")
+    expect(body).toContain('"messageMetadata":{"modelId":"openai/gpt-6.1-sol","reasoningEffort":"medium"}')
   })
 
   it("sends a non-OpenAI model to the gateway under its gateway id and labels it with default thinking", async () => {
@@ -123,6 +162,15 @@ describe("POST /api/chat", () => {
     await (await postChat(chatRequest(id, "gpt-6-luna"))).text()
 
     expect(readRequestedModel(fetchSpy)).toBe("gpt-6-luna")
+  })
+
+  it("sends a GPT submenu model to the proxy under its bare id", async () => {
+    const { id } = await createChatSession()
+    const fetchSpy = blockNetwork()
+
+    await (await postChat(chatRequest(id, "gpt-6.1-sol"))).text()
+
+    expect(readRequestedModel(fetchSpy)).toBe("gpt-6.1-sol")
   })
 
   it("falls back to the configured model when the request names none", async () => {

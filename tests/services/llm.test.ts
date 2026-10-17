@@ -28,6 +28,33 @@ const PROXY_ENVIRONMENT = { LLM_BASE_URL: PROXY_URL, LLM_MODEL: PROXY_MODEL }
 
 const GATEWAY_ENVIRONMENT = { AI_GATEWAY_API_KEY: GATEWAY_KEY, AI_GATEWAY_MODEL: GATEWAY_MODEL }
 
+const PROXY_CHAT_MODEL_IDS = ["gpt-6-luna", "gpt-6.1-sol", "gpt-6-sol", "gpt-5.6-luna"] as const
+
+const GATEWAY_CHAT_MODEL_IDS = [
+  "openai/gpt-6-luna",
+  "openai/gpt-6.1-sol",
+  "openai/gpt-6-sol",
+  "openai/gpt-5.6-luna",
+  "anthropic/claude-haiku-5.5",
+  "anthropic/claude-sonnet-5.5",
+  "anthropic/claude-opus-5.5",
+  "anthropic/claude-opus-5",
+  "google/gemini-3.8-flash",
+  "google/gemini-4-argon",
+  "google/gemini-3.7-flash",
+  "google/gemini-3.5-flash-lite",
+  "deepseek/deepseek-v4.1-flash",
+  "deepseek/deepseek-v4-flash-vision-exp",
+  "deepseek/deepseek-v4-flash",
+  "deepseek/deepseek-v3.1",
+  "spacexai/grok-4.1-fast-reasoning",
+  "spacexai/grok-4.7",
+  "spacexai/grok-4.6",
+  "spacexai/grok-4.5",
+]
+
+const isOpenAIChatModel = ({ gatewayModelId }: ChatModel) => gatewayModelId.startsWith("openai/")
+
 const readChatModelIds = (models: ChatModel[]) => models.map(({ id }) => id)
 
 const originalEnvironment = process.env
@@ -126,12 +153,13 @@ describe("llm service", () => {
 
   it("uses the chosen model, as the bare id on the proxy and as its gateway model id on the gateway", () => {
     useEnvironment(PROXY_ENVIRONMENT)
-    const proxyModel = createChatModel("gpt-6-luna")
+    const proxyModels = PROXY_CHAT_MODEL_IDS.map((id) => requireModel(createChatModel(id)))
     useEnvironment(GATEWAY_ENVIRONMENT)
-    const gatewayModel = createChatModel("gpt-6-luna")
+    const gatewayModel = createChatModel("gpt-6.1-sol")
 
-    expect(proxyModel).toMatchObject({ provider: "llm.responses", modelId: "gpt-6-luna" })
-    expect(gatewayModel).toMatchObject({ provider: "gateway", modelId: "openai/gpt-6-luna" })
+    expect(proxyModels.map(({ provider }) => provider)).toEqual(PROXY_CHAT_MODEL_IDS.map(() => "llm.responses"))
+    expect(proxyModels.map(({ modelId }) => modelId)).toEqual(PROXY_CHAT_MODEL_IDS)
+    expect(gatewayModel).toMatchObject({ provider: "gateway", modelId: "openai/gpt-6.1-sol" })
   })
 
   it("creates every chat model on the gateway under its gateway model id", () => {
@@ -139,41 +167,29 @@ describe("llm service", () => {
 
     const gatewayModelIds = CHAT_MODELS.map(({ id }) => requireModel(createChatModel(id)).modelId)
 
-    expect(gatewayModelIds).toEqual([
-      "openai/gpt-6-luna",
-      "anthropic/claude-haiku-5.5",
-      "google/gemini-3.8-flash",
-      "deepseek/deepseek-v4.1-flash",
-      "spacexai/grok-4.1-fast-reasoning",
-    ])
+    expect(gatewayModelIds).toEqual(GATEWAY_CHAT_MODEL_IDS)
   })
 
-  it("offers every chat model on the gateway and only the OpenAI ones on the proxy", () => {
+  it("offers every chat model on the gateway and only the OpenAI ones the proxy serves on the proxy", () => {
     useEnvironment(GATEWAY_ENVIRONMENT)
     const onGateway = readChatModelIds(listAvailableChatModels())
     useEnvironment(PROXY_ENVIRONMENT)
     const onProxy = readChatModelIds(listAvailableChatModels())
 
-    expect(onGateway).toEqual([
-      "gpt-6-luna",
-      "claude-haiku-5.5",
-      "gemini-3.8-flash",
-      "deepseek-v4.1-flash",
-      "grok-4.1-fast-reasoning",
-    ])
-    expect(onProxy).toEqual(["gpt-6-luna"])
+    expect(onGateway).toEqual(GATEWAY_CHAT_MODEL_IDS.map((gatewayModelId) => gatewayModelId.split("/")[1]))
+    expect(onProxy).toEqual(PROXY_CHAT_MODEL_IDS)
   })
 
   it("treats a model as available only on a path that serves it, and no chosen model as always available", () => {
     useEnvironment(PROXY_ENVIRONMENT)
-    const claudeOnProxy = isChatModelAvailable("claude-haiku-5.5")
-    const gptOnProxy = isChatModelAvailable("gpt-6-luna")
+    const claudeOnProxy = isChatModelAvailable("claude-sonnet-5.5")
+    const gptOnProxy = PROXY_CHAT_MODEL_IDS.map((id) => isChatModelAvailable(id))
     const noneOnProxy = isChatModelAvailable()
     useEnvironment(GATEWAY_ENVIRONMENT)
-    const claudeOnGateway = isChatModelAvailable("claude-haiku-5.5")
+    const claudeOnGateway = isChatModelAvailable("claude-sonnet-5.5")
 
     expect(claudeOnProxy).toBe(false)
-    expect(gptOnProxy).toBe(true)
+    expect(gptOnProxy).toEqual([true, true, true, true])
     expect(noneOnProxy).toBe(true)
     expect(claudeOnGateway).toBe(true)
   })
@@ -186,24 +202,25 @@ describe("llm service", () => {
 
   it("describes OpenAI models with the medium effort they are sent and other models with default thinking", () => {
     useEnvironment(PROXY_ENVIRONMENT)
-    const gptOnProxy = describeModel(requireModel(createChatModel("gpt-6-luna")))
+    const gptOnProxy = describeModel(requireModel(createChatModel("gpt-6.1-sol")))
     useEnvironment(GATEWAY_ENVIRONMENT)
-    const gptOnGateway = describeModel(requireModel(createChatModel("gpt-6-luna")))
-    const otherModels = [
-      "claude-haiku-5.5",
-      "gemini-3.8-flash",
-      "deepseek-v4.1-flash",
-      "grok-4.1-fast-reasoning",
-    ] as const
-    const otherEfforts = otherModels.map((id) => describeModel(requireModel(createChatModel(id))).reasoningEffort)
+    const describeChatModel = ({ id }: ChatModel) => describeModel(requireModel(createChatModel(id)))
+    const gptEfforts = CHAT_MODELS.filter(isOpenAIChatModel).map((model) => describeChatModel(model).reasoningEffort)
+    const otherEfforts = CHAT_MODELS.filter((model) => !isOpenAIChatModel(model)).map(
+      (model) => describeChatModel(model).reasoningEffort,
+    )
 
-    expect(gptOnProxy).toEqual({ modelId: "gpt-6-luna", reasoningEffort: "medium" })
-    expect(gptOnGateway).toEqual({ modelId: "openai/gpt-6-luna", reasoningEffort: "medium" })
-    expect(describeModel(requireModel(createChatModel("claude-haiku-5.5")))).toEqual({
-      modelId: "anthropic/claude-haiku-5.5",
+    expect(gptOnProxy).toEqual({ modelId: "gpt-6.1-sol", reasoningEffort: "medium" })
+    expect(describeModel(requireModel(createChatModel("gpt-6.1-sol")))).toEqual({
+      modelId: "openai/gpt-6.1-sol",
+      reasoningEffort: "medium",
+    })
+    expect(describeModel(requireModel(createChatModel("gemini-4-argon")))).toEqual({
+      modelId: "google/gemini-4-argon",
       reasoningEffort: "default",
     })
-    expect(otherEfforts).toEqual(["default", "default", "default", "default"])
+    expect(gptEfforts).toEqual(["medium", "medium", "medium", "medium"])
+    expect(otherEfforts).toEqual(Array.from({ length: 16 }, () => "default"))
   })
 
   it("is not configured when the proxy URL is not a URL", () => {

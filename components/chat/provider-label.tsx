@@ -1,14 +1,14 @@
 import type { ChatModel } from "@/lib/chat-models"
 
-type ModelOptionProps = Pick<ChatModel, "name" | "logo">
+type ProviderLabelProps = Pick<ChatModel, "provider" | "logo">
 
-const ModelOption = ({ name, logo }: ModelOptionProps) => (
+const ProviderLabel = ({ provider, logo }: ProviderLabelProps) => (
   <>
     <svg viewBox="0 0 24 24" fill="currentColor" fillRule="evenodd" aria-hidden="true" className="size-4">
       <path d={logo} />
     </svg>
-    {name}
+    {provider}
   </>
 )
 
-export default ModelOption
+export default ProviderLabel
