@@ -304,7 +304,7 @@ What the suite shows on gpt-6-luna:
 
 A review after the baseline read all 129 cases against their documents and changed one: S3 now lets "customer service", a department name, stay. It also fixed four flaws in the meaning judge's prompt (it saw only changed blocks, wanted each fact in its original block, contradicted itself on hedges, and quoted the test cases); asked again, the judge kept all 60 luna verdicts. The concision judge no longer fails a single clipped phrase. The numbers above are re-graded from the saved runs; round 15 in `TEST-RESULTS.md` lists every change.
 
-The grader isn't validated yet. Its verdicts are stable (a second pass over the luna transcripts repeated 168 of 170 answer, tone and translation verdicts), but stable isn't the same as right. Hand labelling in `tests/evals/labels/` will show how many real failures it catches; it comes later. Until then, read the meaning grader's reasoning before acting on its pass rate. Timings and caching come from the proxy and need a gateway run to be representative.
+The grader isn't validated yet. Its verdicts are stable (a second pass over the luna transcripts repeated 168 of 170 answer, tone and translation verdicts), but stable isn't the same as right. Hand labelling in `tests/evals/labels/` will show how many real failures it catches; it comes later. Until then, read the grader's reasoning before acting on its pass rate. Timings and caching come from the proxy and need a gateway run to be representative.
 
 ## A word twice in one paragraph
 

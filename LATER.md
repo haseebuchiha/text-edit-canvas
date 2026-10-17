@@ -31,7 +31,7 @@ We keep the create-next-app layout, with folders at the root. The lint rules use
 
 ### 0. The no-comments lint rule
 
-Our lint rule `local/no-comments` bans every comment. The client's brief asks for "short comments where logic is not obvious". We're keeping the rule for now. Revisit it before handover.
+Our lint rule `local/no-comments` bans every comment. The client's brief asks for "short comments where logic is not obvious". Decided: we keep the rule. The code explains itself through its names and structure, so it needs no comments.
 
 ### 1. The diff and review layer
 
@@ -50,7 +50,7 @@ When fewer than half of a block's words stay, the whole block shows as replaced 
 
 ### 3. Short node IDs
 
-The editor gives every block a stable ID, using Tiptap's UniqueID extension with its default UUIDs for now. Every edit operation and every outline entry the model sees repeats these IDs. A UUID is 36 characters (around 20 tokens), while the brief's examples use short IDs like `p-7`. Shorter IDs (or a short alias the server maps back to the real ID) would cut input and output tokens on every request. Measure this during the test run.
+Built. Tiptap's UniqueID extension now gives every block a short counter ID ("1", "2", …) instead of a 36-character UUID. Every edit operation and every outline entry the model sees repeats these IDs, so the shorter IDs cut tokens on every request. See "Smaller findings" in `FINDINGS.md`.
 
 ### 4. Model access: proxy now, gateway later
 
