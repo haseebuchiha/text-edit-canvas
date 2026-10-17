@@ -12,7 +12,7 @@ import {
   type ToolPartValue,
 } from "@/components/chat/tool-state"
 import TransformPart from "@/components/chat/transform-part"
-import { Message, MessageContent } from "@/components/ui/message"
+import { Message, MessageContent, MessageFooter } from "@/components/ui/message"
 import type { ChatUIMessage } from "@/db/schemas/chat-message"
 import { ANSWER_QUESTION_TOOL } from "@/lib/answer-question"
 import { EDIT_DOCUMENT_TOOL } from "@/lib/edit-operations"
@@ -57,6 +57,11 @@ const showsOwnProgress = (part: MessagePart | undefined) => {
   return isToolUIPart(part) && isToolBusy(part)
 }
 
+const AnsweringModel = ({ metadata }: Pick<ChatUIMessage, "metadata">) => {
+  if (!metadata?.modelId || !metadata.reasoningEffort) return null
+  return <MessageFooter>{`${metadata.modelId} · ${metadata.reasoningEffort} thinking`}</MessageFooter>
+}
+
 const MessagePartView = ({ part, isUser, isResponding }: MessagePartViewProps) => {
   if (part.type === "text") return <TextPart text={part.text} isUser={isUser} />
   if (part.type === "reasoning")
@@ -84,6 +89,7 @@ const ChatMessage = ({ message, isResponding }: ChatMessageProps) => {
         {lacksVerifiedAnswer && <TextPart text={NO_VERIFIED_ANSWER_MESSAGE} isUser={false} />}
         {lacksReply && <TextPart text={NO_REPLY_MESSAGE} isUser={false} />}
         {isThinking && <ThinkingIndicator />}
+        <AnsweringModel metadata={message.metadata} />
       </MessageContent>
     </Message>
   )

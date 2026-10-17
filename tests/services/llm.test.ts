@@ -1,5 +1,5 @@
 import type { LanguageModel } from "ai"
-import { createConfiguredModel, createModelOptions } from "@/services/llm"
+import { createChatModel, createConfiguredModel, createModelOptions, describeModel } from "@/services/llm"
 
 const GATEWAY_KEY = "test-gateway-key"
 const GATEWAY_MODEL = "openai/gpt-5.6-luna"
@@ -110,6 +110,31 @@ describe("llm service", () => {
 
     expect(withoutModel).toBeUndefined()
     expect(withBareModel).toBeUndefined()
+  })
+
+  it("uses the chosen model, as the bare id on the proxy and as openai/<id> on the gateway", () => {
+    useEnvironment(PROXY_ENVIRONMENT)
+    const proxyModel = createChatModel("gpt-6.1-sol")
+    useEnvironment({ AI_GATEWAY_API_KEY: GATEWAY_KEY, AI_GATEWAY_MODEL: GATEWAY_MODEL })
+    const gatewayModel = createChatModel("gpt-6.1-sol")
+
+    expect(proxyModel).toMatchObject({ provider: "llm.responses", modelId: "gpt-6.1-sol" })
+    expect(gatewayModel).toMatchObject({ provider: "gateway", modelId: "openai/gpt-6.1-sol" })
+  })
+
+  it("falls back to the configured model when no model is chosen", () => {
+    useEnvironment(PROXY_ENVIRONMENT)
+
+    expect(createChatModel()).toMatchObject({ provider: "llm.responses", modelId: PROXY_MODEL })
+  })
+
+  it("describes a model by its id and the fixed medium reasoning effort", () => {
+    useEnvironment(PROXY_ENVIRONMENT)
+
+    expect(describeModel(requireModel(createChatModel("gpt-6-luna")))).toEqual({
+      modelId: "gpt-6-luna",
+      reasoningEffort: "medium",
+    })
   })
 
   it("is not configured when the proxy URL is not a URL", () => {

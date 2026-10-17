@@ -24,6 +24,8 @@ const assistantMessage: NewChatMessage = {
   parts: [{ type: "text", text: "Here is a two-day plan." }],
   inputTokens: 30,
   outputTokens: 8,
+  modelId: "gpt-6-luna",
+  reasoningEffort: "medium",
 }
 
 const followUpMessage: NewChatMessage = {

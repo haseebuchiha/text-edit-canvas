@@ -15,6 +15,7 @@ import {
 import type { ChatMessage, ChatMessageMetadata, ChatUIMessage, NewChatMessage } from "@/db/schemas/chat-message"
 import type { ChatSession } from "@/db/schemas/chat-session"
 import { ANSWER_QUESTION_TOOL } from "@/lib/answer-question"
+import type { ChatModelId } from "@/lib/chat-models"
 import type { DocumentSnapshot } from "@/lib/document-snapshot"
 import { EDIT_DOCUMENT_TOOL } from "@/lib/edit-operations"
 import { TRANSFORM_DOCUMENT_TOOL } from "@/lib/transform-document"
@@ -29,13 +30,14 @@ import {
   READ_SECTION_TOOL,
 } from "@/services/document-edit"
 import { createDocumentTransformTools, hasFinishedTransform } from "@/services/document-transform"
-import { createConfiguredModel, createModelOptions, type ModelSettings } from "@/services/llm"
+import { createChatModel, createModelOptions, describeModel, type ModelSettings } from "@/services/llm"
 
 export { createChatSession } from "@/models/chat-sessions"
 
 export type ChatReplyRequest = {
   sessionId: string
   message: ChatUIMessage
+  modelId?: ChatModelId
   snapshot?: DocumentSnapshot
   abortSignal?: AbortSignal
 }
@@ -73,18 +75,26 @@ const FINISHED_TOOL_STATES = new Set(["output-available", "output-error"])
 
 const generateMessageId = createIdGenerator({ prefix: "msg", size: 16 })
 
-const toChatUIMessage = ({ id, role, parts, inputTokens, outputTokens }: ChatMessage): ChatUIMessage => ({
+const toChatUIMessage = ({
   id,
   role,
   parts,
-  metadata: { inputTokens, outputTokens },
+  inputTokens,
+  outputTokens,
+  modelId,
+  reasoningEffort,
+}: ChatMessage): ChatUIMessage => ({
+  id,
+  role,
+  parts,
+  metadata: { inputTokens, outputTokens, modelId, reasoningEffort },
 })
 
-const toNewChatMessage = ({ id, role, parts }: ChatUIMessage, usage?: ChatMessageMetadata): NewChatMessage => ({
+const toNewChatMessage = ({ id, role, parts }: ChatUIMessage, metadata?: ChatMessageMetadata): NewChatMessage => ({
   id,
   role,
   parts,
-  ...usage,
+  ...metadata,
 })
 
 const sumUsage = (usages: LanguageModelUsage[]): ChatMessageMetadata => ({
@@ -92,10 +102,16 @@ const sumUsage = (usages: LanguageModelUsage[]): ChatMessageMetadata => ({
   outputTokens: usages.reduce((total, { outputTokens }) => total + (outputTokens ?? 0), 0),
 })
 
-const reportUsageOnFinish =
-  (sectionUsage: LanguageModelUsage[]): UIMessageStreamOptions<ChatUIMessage>["messageMetadata"] =>
-  ({ part }) =>
-    part.type === "finish" ? sumUsage([part.totalUsage, ...sectionUsage]) : undefined
+const reportReplyMetadata =
+  (
+    answeringModel: ChatMessageMetadata,
+    sectionUsage: LanguageModelUsage[],
+  ): UIMessageStreamOptions<ChatUIMessage>["messageMetadata"] =>
+  ({ part }) => {
+    if (part.type === "start") return answeringModel
+    if (part.type === "finish") return sumUsage([part.totalUsage, ...sectionUsage])
+    return undefined
+  }
 
 const describeModelFailure = () => MODEL_FAILURE_MESSAGE
 
@@ -140,7 +156,7 @@ export const streamChatTurn = async (
     stream: generation.stream,
     originalMessages: [...history, message],
     generateMessageId,
-    messageMetadata: reportUsageOnFinish(sectionUsage),
+    messageMetadata: reportReplyMetadata(describeModel(modelSettings.model), sectionUsage),
     onError: describeModelFailure,
     onEnd,
   })
@@ -169,7 +185,7 @@ const replyInSession = async (request: ChatReplyRequest, model: LanguageModel) =
   return streamModelReply(model, session, request)
 }
 
-export const streamChatReply = async (request: ChatReplyRequest, model = createConfiguredModel()) => {
+export const streamChatReply = async (request: ChatReplyRequest, model = createChatModel(request.modelId)) => {
   if (!model) return new Response(NOT_CONFIGURED_MESSAGE, { status: 503 })
   return replyInSession(request, model)
 }

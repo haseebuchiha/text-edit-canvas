@@ -3,6 +3,7 @@
 import { useChat } from "@ai-sdk/react"
 import type { Editor } from "@tiptap/react"
 import { type ChatRequestOptions, type ChatTransport, DefaultChatTransport, type PrepareSendMessagesRequest } from "ai"
+import { useState } from "react"
 import ChatComposer from "@/components/chat/chat-composer"
 import MessageList from "@/components/chat/message-list"
 import NewChatButton from "@/components/chat/new-chat-button"
@@ -12,6 +13,7 @@ import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
 import type { ChatUIMessage } from "@/db/schemas/chat-message"
+import { type ChatModelId, DEFAULT_CHAT_MODEL_ID } from "@/lib/chat-models"
 
 type ChatPanelProps = {
   sessionId: string
@@ -22,7 +24,7 @@ type ChatPanelProps = {
 }
 
 const sendLatestMessageOnly: PrepareSendMessagesRequest<ChatUIMessage> = ({ id, messages, body }) => ({
-  body: { id, message: messages.at(-1), snapshot: body?.snapshot },
+  body: { id, message: messages.at(-1), snapshot: body?.snapshot, model: body?.model },
 })
 
 const chatTransport = new DefaultChatTransport<ChatUIMessage>({
@@ -35,8 +37,8 @@ const withEditsApplied = (editor: Editor | null, mode: EditMode): ChatTransport<
   reconnectToStream: (options) => chatTransport.reconnectToStream(options),
 })
 
-const withDocumentSnapshot = (editor: Editor | null): ChatRequestOptions => ({
-  body: { snapshot: editor ? buildDocumentSnapshot(editor) : undefined },
+const buildRequestOptions = (editor: Editor | null, modelId: ChatModelId): ChatRequestOptions => ({
+  body: { snapshot: editor ? buildDocumentSnapshot(editor) : undefined, model: modelId },
 })
 
 const ChatPanel = ({ sessionId, initialMessages, editor, autoAccept, onAutoAcceptChange }: ChatPanelProps) => {
@@ -45,9 +47,10 @@ const ChatPanel = ({ sessionId, initialMessages, editor, autoAccept, onAutoAccep
     messages: initialMessages,
     transport: withEditsApplied(editor, autoAccept ? "apply" : "suggest"),
   })
+  const [modelId, setModelId] = useState<ChatModelId>(DEFAULT_CHAT_MODEL_ID)
   const isResponding = status === "submitted" || status === "streaming"
-  const sendText = (text: string) => sendMessage({ text }, withDocumentSnapshot(editor))
-  const retry = () => regenerate(withDocumentSnapshot(editor))
+  const sendText = (text: string) => sendMessage({ text }, buildRequestOptions(editor, modelId))
+  const retry = () => regenerate(buildRequestOptions(editor, modelId))
   return (
     <div className="flex min-h-0 flex-1 flex-col">
       <header className="flex flex-wrap items-center gap-x-4 gap-y-1 border-b px-4 py-3">
@@ -69,7 +72,14 @@ const ChatPanel = ({ sessionId, initialMessages, editor, autoAccept, onAutoAccep
           </Button>
         </div>
       )}
-      <ChatComposer canSend={status === "ready"} isResponding={isResponding} onSend={sendText} onStop={stop} />
+      <ChatComposer
+        canSend={status === "ready"}
+        isResponding={isResponding}
+        modelId={modelId}
+        onModelChange={setModelId}
+        onSend={sendText}
+        onStop={stop}
+      />
     </div>
   )
 }

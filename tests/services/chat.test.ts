@@ -5,7 +5,7 @@ import type { ChatUIMessage } from "@/db/schemas/chat-message"
 import type { ChatSession } from "@/db/schemas/chat-session"
 import type { DocumentSnapshot } from "@/lib/document-snapshot"
 import { createChatSession, findChatSessionById } from "@/models/chat-sessions"
-import { streamChatReply } from "@/services/chat"
+import { findChatMessages, streamChatReply } from "@/services/chat"
 import { createModelOptions } from "@/services/llm"
 
 const TEST_DATABASE_NAME = "pryvet-test-chat-service"
@@ -13,6 +13,7 @@ const MISSING_ID = new mongoose.Types.ObjectId().toHexString()
 const REPLY_TEXT = "Shorter intro, done."
 const INPUT_TOKENS = 30
 const OUTPUT_TOKENS = 7
+const MOCK_MODEL_ID = "mock-model-id"
 const SECTION_COUNT = 10
 const SECTION_TEXT = "Every employee locks the screen before leaving the desk. ".repeat(20)
 const QUICK_SECTION_MS = 10
@@ -136,6 +137,8 @@ const assistantReply = {
   parts: expect.arrayContaining([expect.objectContaining({ type: "text", text: REPLY_TEXT })]),
   inputTokens: INPUT_TOKENS,
   outputTokens: OUTPUT_TOKENS,
+  modelId: MOCK_MODEL_ID,
+  reasoningEffort: "medium",
 }
 
 const pause = (milliseconds: number) => new Promise((resolve) => setTimeout(resolve, milliseconds))
@@ -190,6 +193,26 @@ describe("chat service", () => {
     expect(session).toMatchObject({ totalInputTokens: INPUT_TOKENS, totalOutputTokens: OUTPUT_TOKENS })
     expect(session.messages).toMatchObject([question, assistantReply])
     expect(session.messages[1].id).toMatch(/^msg-/u)
+  })
+
+  it("streams and saves the model that answered and its reasoning effort, and reads them back", async () => {
+    const { id } = await createChatSession()
+
+    const response = await streamChatReply(
+      { sessionId: id, message: userMessage("which-model", "Hi") },
+      createMockModel(),
+    )
+    const body = await response.text()
+    const [question, reply] = (await findChatMessages(id)) ?? []
+
+    expect(body).toContain(`"messageMetadata":{"modelId":"${MOCK_MODEL_ID}","reasoningEffort":"medium"}`)
+    expect(reply.metadata).toEqual({
+      inputTokens: INPUT_TOKENS,
+      outputTokens: OUTPUT_TOKENS,
+      modelId: MOCK_MODEL_ID,
+      reasoningEffort: "medium",
+    })
+    expect(question.metadata).toMatchObject({ modelId: undefined, reasoningEffort: undefined })
   })
 
   it("sends the saved history to the model and keeps adding to the session totals", async () => {

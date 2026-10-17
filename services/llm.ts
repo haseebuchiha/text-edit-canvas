@@ -1,11 +1,13 @@
 import { createOpenAI, type OpenAILanguageModelResponsesOptions } from "@ai-sdk/openai"
 import { createGateway, type LanguageModel } from "ai"
 import { readGatewayApiKey, readGatewayEnvironment, readProxyEnvironment } from "@/config/env"
+import type { ChatModelId } from "@/lib/chat-models"
 
 const PROXY_PROVIDER_NAME = "llm"
 const NO_API_KEY = ""
 const DEFAULT_PROXY_CHECK_MODEL = "gpt-6-luna"
 const DEFAULT_GATEWAY_CHECK_MODEL = "openai/gpt-6-luna"
+const GATEWAY_MODEL_PROVIDER = "openai"
 const REASONING_EFFORT = "medium"
 const TEXT_VERBOSITY = "medium"
 
@@ -44,6 +46,19 @@ export const createConfiguredModel = () =>
 
 export const createConfiguredCheckModel = () =>
   readGatewayApiKey() ? createGatewayModel(pickCheckGatewayModel) : createProxyModel(pickCheckProxyModel)
+
+const toGatewayModelId = (modelId: ChatModelId) => `${GATEWAY_MODEL_PROVIDER}/${modelId}`
+
+export const createChatModel = (modelId?: ChatModelId) => {
+  if (!modelId) return createConfiguredModel()
+  if (readGatewayApiKey()) return createGatewayModel(() => toGatewayModelId(modelId))
+  return createProxyModel(() => modelId)
+}
+
+export const describeModel = (model: LanguageModel) => ({
+  modelId: typeof model === "string" ? model : model.modelId,
+  reasoningEffort: REASONING_EFFORT,
+})
 
 export const createModelOptions = (cacheKey: string) => ({
   openai: {

@@ -9,11 +9,13 @@ export const chatMessageSchema = Schema.create(
     parts: { type: Schema.Types.Mixed, required: true, __rawDocTypeHint: [] as UIMessage["parts"] },
     inputTokens: Number,
     outputTokens: Number,
+    modelId: String,
+    reasoningEffort: String,
   },
   { _id: false, timestamps: { createdAt: true, updatedAt: false } },
 )
 
 export type ChatMessage = InferSchemaType<typeof chatMessageSchema>
 export type NewChatMessage = Omit<ChatMessage, "createdAt">
-export type ChatMessageMetadata = Pick<ChatMessage, "inputTokens" | "outputTokens">
+export type ChatMessageMetadata = Pick<ChatMessage, "inputTokens" | "outputTokens" | "modelId" | "reasoningEffort">
 export type ChatUIMessage = UIMessage<ChatMessageMetadata>
