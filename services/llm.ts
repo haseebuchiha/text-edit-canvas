@@ -1,14 +1,16 @@
 import { createOpenAI, type OpenAILanguageModelResponsesOptions } from "@ai-sdk/openai"
 import { createGateway, type LanguageModel } from "ai"
 import { readGatewayApiKey, readGatewayEnvironment, readProxyEnvironment } from "@/config/env"
-import type { ChatModelId } from "@/lib/chat-models"
+import { CHAT_MODELS, type ChatModel, type ChatModelId } from "@/lib/chat-models"
 
 const PROXY_PROVIDER_NAME = "llm"
 const NO_API_KEY = ""
 const DEFAULT_PROXY_CHECK_MODEL = "gpt-6-luna"
 const DEFAULT_GATEWAY_CHECK_MODEL = "openai/gpt-6-luna"
-const GATEWAY_MODEL_PROVIDER = "openai"
+const GATEWAY_PROVIDER_NAME = "gateway"
+const OPENAI_MODEL_PREFIX = "openai/"
 const REASONING_EFFORT = "medium"
+const DEFAULT_REASONING_EFFORT = "default"
 const TEXT_VERBOSITY = "medium"
 
 type GatewayEnvironment = NonNullable<ReturnType<typeof readGatewayEnvironment>>
@@ -47,17 +49,36 @@ export const createConfiguredModel = () =>
 export const createConfiguredCheckModel = () =>
   readGatewayApiKey() ? createGatewayModel(pickCheckGatewayModel) : createProxyModel(pickCheckProxyModel)
 
-const toGatewayModelId = (modelId: ChatModelId) => `${GATEWAY_MODEL_PROVIDER}/${modelId}`
+const isOpenAIModel = ({ gatewayModelId }: ChatModel) => gatewayModelId.startsWith(OPENAI_MODEL_PREFIX)
 
-export const createChatModel = (modelId?: ChatModelId) => {
-  if (!modelId) return createConfiguredModel()
-  if (readGatewayApiKey()) return createGatewayModel(() => toGatewayModelId(modelId))
-  return createProxyModel(() => modelId)
+const toProxyModelId = ({ gatewayModelId }: ChatModel) => gatewayModelId.slice(OPENAI_MODEL_PREFIX.length)
+
+export const listAvailableChatModels = (): ChatModel[] =>
+  readGatewayApiKey() ? [...CHAT_MODELS] : CHAT_MODELS.filter(isOpenAIModel)
+
+const findAvailableChatModel = (chatModelId?: ChatModelId) =>
+  listAvailableChatModels().find(({ id }) => id === chatModelId)
+
+export const isChatModelAvailable = (chatModelId?: ChatModelId) =>
+  !chatModelId || findAvailableChatModel(chatModelId) !== undefined
+
+export const createChatModel = (chatModelId?: ChatModelId) => {
+  const chatModel = findAvailableChatModel(chatModelId)
+  if (!chatModel) return createConfiguredModel()
+  if (readGatewayApiKey()) return createGatewayModel(() => chatModel.gatewayModelId)
+  return createProxyModel(() => toProxyModelId(chatModel))
 }
 
+const readModelId = (model: LanguageModel) => (typeof model === "string" ? model : model.modelId)
+
+const isGatewayModel = (model: LanguageModel) => typeof model === "string" || model.provider === GATEWAY_PROVIDER_NAME
+
+const readsOpenAIOptions = (model: LanguageModel) =>
+  !isGatewayModel(model) || readModelId(model).startsWith(OPENAI_MODEL_PREFIX)
+
 export const describeModel = (model: LanguageModel) => ({
-  modelId: typeof model === "string" ? model : model.modelId,
-  reasoningEffort: REASONING_EFFORT,
+  modelId: readModelId(model),
+  reasoningEffort: readsOpenAIOptions(model) ? REASONING_EFFORT : DEFAULT_REASONING_EFFORT,
 })
 
 export const createModelOptions = (cacheKey: string) => ({

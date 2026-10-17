@@ -30,7 +30,13 @@ import {
   READ_SECTION_TOOL,
 } from "@/services/document-edit"
 import { createDocumentTransformTools, hasFinishedTransform } from "@/services/document-transform"
-import { createChatModel, createModelOptions, describeModel, type ModelSettings } from "@/services/llm"
+import {
+  createChatModel,
+  createModelOptions,
+  describeModel,
+  isChatModelAvailable,
+  type ModelSettings,
+} from "@/services/llm"
 
 export { createChatSession } from "@/models/chat-sessions"
 
@@ -68,6 +74,7 @@ const SYSTEM_PROMPT = [
 const NOT_CONFIGURED_MESSAGE =
   "Chat is not configured. Set AI_GATEWAY_API_KEY and AI_GATEWAY_MODEL, or LLM_BASE_URL and LLM_MODEL, then retry."
 const SESSION_NOT_FOUND_MESSAGE = "This chat session does not exist."
+const UNAVAILABLE_MODEL_MESSAGE = "This model is not available with the current LLM settings."
 const MODEL_FAILURE_MESSAGE = "The model request failed. Check the LLM settings and retry."
 const MAX_MODEL_STEPS = 4
 const SAVED_OUTCOMES = new Set(["completed", "aborted"])
@@ -185,7 +192,12 @@ const replyInSession = async (request: ChatReplyRequest, model: LanguageModel) =
   return streamModelReply(model, session, request)
 }
 
-export const streamChatReply = async (request: ChatReplyRequest, model = createChatModel(request.modelId)) => {
+const replyWithModel = async (request: ChatReplyRequest, model?: LanguageModel) => {
   if (!model) return new Response(NOT_CONFIGURED_MESSAGE, { status: 503 })
   return replyInSession(request, model)
+}
+
+export const streamChatReply = async (request: ChatReplyRequest, model = createChatModel(request.modelId)) => {
+  if (!isChatModelAvailable(request.modelId)) return new Response(UNAVAILABLE_MODEL_MESSAGE, { status: 400 })
+  return replyWithModel(request, model)
 }

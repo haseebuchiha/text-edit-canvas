@@ -13,11 +13,12 @@ import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
 import type { ChatUIMessage } from "@/db/schemas/chat-message"
-import { type ChatModelId, DEFAULT_CHAT_MODEL_ID } from "@/lib/chat-models"
+import { type ChatModel, type ChatModelId, DEFAULT_CHAT_MODEL_ID } from "@/lib/chat-models"
 
 type ChatPanelProps = {
   sessionId: string
   initialMessages: ChatUIMessage[]
+  models: ChatModel[]
   editor: Editor | null
   autoAccept: boolean
   onAutoAcceptChange: (checked: boolean) => void
@@ -41,7 +42,7 @@ const buildRequestOptions = (editor: Editor | null, modelId: ChatModelId): ChatR
   body: { snapshot: editor ? buildDocumentSnapshot(editor) : undefined, model: modelId },
 })
 
-const ChatPanel = ({ sessionId, initialMessages, editor, autoAccept, onAutoAcceptChange }: ChatPanelProps) => {
+const ChatPanel = ({ sessionId, initialMessages, models, editor, autoAccept, onAutoAcceptChange }: ChatPanelProps) => {
   const { messages, sendMessage, regenerate, stop, status, error } = useChat<ChatUIMessage>({
     id: sessionId,
     messages: initialMessages,
@@ -75,6 +76,7 @@ const ChatPanel = ({ sessionId, initialMessages, editor, autoAccept, onAutoAccep
       <ChatComposer
         canSend={status === "ready"}
         isResponding={isResponding}
+        models={models}
         modelId={modelId}
         onModelChange={setModelId}
         onSend={sendText}

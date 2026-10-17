@@ -5,10 +5,12 @@ import dynamic from "next/dynamic"
 import { useState } from "react"
 import ChatPanel from "@/components/chat/chat-panel"
 import type { ChatUIMessage } from "@/db/schemas/chat-message"
+import type { ChatModel } from "@/lib/chat-models"
 
 type EditCanvasProps = {
   sessionId: string
   initialMessages: ChatUIMessage[]
+  models: ChatModel[]
 }
 
 const Editor = dynamic(() => import("@/components/editor/editor"), {
@@ -16,7 +18,7 @@ const Editor = dynamic(() => import("@/components/editor/editor"), {
   loading: () => <p className="m-auto text-sm text-muted-foreground">Loading editor…</p>,
 })
 
-const EditCanvas = ({ sessionId, initialMessages }: EditCanvasProps) => {
+const EditCanvas = ({ sessionId, initialMessages, models }: EditCanvasProps) => {
   const [autoAccept, setAutoAccept] = useState(false)
   const [editor, setEditor] = useState<TiptapEditor | null>(null)
   return (
@@ -31,6 +33,7 @@ const EditCanvas = ({ sessionId, initialMessages }: EditCanvasProps) => {
         <ChatPanel
           sessionId={sessionId}
           initialMessages={initialMessages}
+          models={models}
           editor={editor}
           autoAccept={autoAccept}
           onAutoAcceptChange={setAutoAccept}

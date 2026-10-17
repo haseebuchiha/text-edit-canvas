@@ -44,6 +44,9 @@ const createMockModel = (chunkDelayInMs?: number) =>
     }),
   })
 
+const createGatewayMockModel = (modelId: string) =>
+  new MockLanguageModelV4({ provider: "gateway", modelId, doStream: createMockModel().doStream })
+
 const usage = {
   inputTokens: { total: INPUT_TOKENS, noCache: INPUT_TOKENS, cacheRead: undefined, cacheWrite: undefined },
   outputTokens: { total: OUTPUT_TOKENS, text: OUTPUT_TOKENS, reasoning: undefined },
@@ -213,6 +216,19 @@ describe("chat service", () => {
       reasoningEffort: "medium",
     })
     expect(question.metadata).toMatchObject({ modelId: undefined, reasoningEffort: undefined })
+  })
+
+  it("saves default thinking for a non-OpenAI gateway model, which ignores the OpenAI reasoning effort", async () => {
+    const { id } = await createChatSession()
+
+    const response = await streamChatReply(
+      { sessionId: id, message: userMessage("which-effort", "Hi") },
+      createGatewayMockModel("anthropic/claude-haiku-5.5"),
+    )
+    await response.text()
+    const [, reply] = (await findChatMessages(id)) ?? []
+
+    expect(reply.metadata).toMatchObject({ modelId: "anthropic/claude-haiku-5.5", reasoningEffort: "default" })
   })
 
   it("sends the saved history to the model and keeps adding to the session totals", async () => {

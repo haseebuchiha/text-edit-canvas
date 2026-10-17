@@ -1,14 +1,16 @@
 "use client"
 
 import { type ChangeEvent, type KeyboardEvent, type SubmitEvent, useState } from "react"
+import ModelOption from "@/components/chat/model-option"
 import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
-import { CHAT_MODELS, type ChatModelId } from "@/lib/chat-models"
+import type { ChatModel, ChatModelId } from "@/lib/chat-models"
 
 type ChatComposerProps = {
   canSend: boolean
   isResponding: boolean
+  models: ChatModel[]
   modelId: ChatModelId
   onModelChange: (modelId: ChatModelId) => void
   onSend: (text: string) => void
@@ -24,7 +26,9 @@ const submitOnEnter = (event: KeyboardEvent<HTMLTextAreaElement>) => {
   event.currentTarget.form?.requestSubmit()
 }
 
-const ChatComposer = ({ canSend, isResponding, modelId, onModelChange, onSend, onStop }: ChatComposerProps) => {
+const toSelectItem = ({ id, name, logo }: ChatModel) => ({ value: id, label: <ModelOption name={name} logo={logo} /> })
+
+const ChatComposer = ({ canSend, isResponding, models, modelId, onModelChange, onSend, onStop }: ChatComposerProps) => {
   const [draft, setDraft] = useState("")
   const trimmedDraft = draft.trim()
   const isSendable = canSend && trimmedDraft.length > 0
@@ -49,14 +53,14 @@ const ChatComposer = ({ canSend, isResponding, modelId, onModelChange, onSend, o
         className="max-h-40"
       />
       <div className="flex items-center justify-end gap-2">
-        <Select items={CHAT_MODELS} value={modelId} onValueChange={changeModel}>
+        <Select items={models.map(toSelectItem)} value={modelId} onValueChange={changeModel}>
           <SelectTrigger size="sm" aria-label="Model" className="mr-auto">
             <SelectValue />
           </SelectTrigger>
           <SelectContent side="top" align="start" alignItemWithTrigger={false} className="w-auto">
-            {CHAT_MODELS.map(({ value, label }) => (
-              <SelectItem key={value} value={value}>
-                {label}
+            {models.map(({ id, name, logo }) => (
+              <SelectItem key={id} value={id}>
+                <ModelOption name={name} logo={logo} />
               </SelectItem>
             ))}
           </SelectContent>

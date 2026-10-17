@@ -12,6 +12,13 @@ const PROXY_ENVIRONMENT = {
   LLM_MODEL: CONFIGURED_MODEL,
 }
 
+const GATEWAY_ENVIRONMENT = {
+  AI_GATEWAY_API_KEY: "test-gateway-key",
+  AI_GATEWAY_MODEL: "openai/gpt-6-luna",
+  LLM_BASE_URL: "",
+  LLM_MODEL: "",
+}
+
 const originalEnvironment = process.env
 
 const postChat = (body: object) =>
@@ -27,6 +34,18 @@ const blockNetwork = () => jest.spyOn(globalThis, "fetch").mockRejectedValue(new
 
 const readRequestedModel = (fetchSpy: ReturnType<typeof blockNetwork>) =>
   JSON.parse(String(fetchSpy.mock.calls[0]?.[1]?.body)).model
+
+const refuseAtGateway = () =>
+  jest
+    .spyOn(globalThis, "fetch")
+    .mockImplementation(async () => Response.json({ error: "No network in tests." }, { status: 400 }))
+
+const readRequestedGatewayModel = (fetchSpy: ReturnType<typeof refuseAtGateway>) =>
+  new Headers(fetchSpy.mock.calls[0]?.[1]?.headers).get("ai-language-model-id")
+
+const useGateway = () => {
+  process.env = { ...process.env, ...GATEWAY_ENVIRONMENT }
+}
 
 const dropTestDatabase = async () => {
   const database = mongoose.connection.db
@@ -62,6 +81,39 @@ describe("POST /api/chat", () => {
     expect(response.status).toBe(400)
     expect(fetchSpy).not.toHaveBeenCalled()
     expect((await findChatSessionById(id))?.messages).toEqual([])
+  })
+
+  it("answers 400 for a model the proxy does not serve, without calling the provider or saving", async () => {
+    const { id } = await createChatSession()
+    const fetchSpy = blockNetwork()
+
+    const response = await postChat(chatRequest(id, "claude-haiku-5.5"))
+
+    expect(response.status).toBe(400)
+    expect(fetchSpy).not.toHaveBeenCalled()
+    expect((await findChatSessionById(id))?.messages).toEqual([])
+  })
+
+  it("sends a non-OpenAI model to the gateway under its gateway id and labels it with default thinking", async () => {
+    useGateway()
+    const { id } = await createChatSession()
+    const fetchSpy = refuseAtGateway()
+
+    const body = await (await postChat(chatRequest(id, "claude-haiku-5.5"))).text()
+
+    expect(readRequestedGatewayModel(fetchSpy)).toBe("anthropic/claude-haiku-5.5")
+    expect(body).toContain('"messageMetadata":{"modelId":"anthropic/claude-haiku-5.5","reasoningEffort":"default"}')
+  })
+
+  it("sends GPT to the gateway as openai/<id> and labels it with medium thinking", async () => {
+    useGateway()
+    const { id } = await createChatSession()
+    const fetchSpy = refuseAtGateway()
+
+    const body = await (await postChat(chatRequest(id, "gpt-6-luna"))).text()
+
+    expect(readRequestedGatewayModel(fetchSpy)).toBe("openai/gpt-6-luna")
+    expect(body).toContain('"messageMetadata":{"modelId":"openai/gpt-6-luna","reasoningEffort":"medium"}')
   })
 
   it("sends the chosen model to the provider", async () => {

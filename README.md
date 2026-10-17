@@ -125,7 +125,7 @@ The types (`ChatSession`, `ChatMessage` and so on) are derived from the Mongoose
 2. Otherwise it uses `@ai-sdk/openai` with `LLM_BASE_URL`, `LLM_MODEL` and the optional `LLM_API_KEY`, through OpenAI's Responses API. Without `LLM_API_KEY` it sends an empty key, and never falls back to `OPENAI_API_KEY`.
 3. If neither is complete, `/api/chat` answers 503 with a message naming the settings to fill in.
 
-The chat composer has a model picker. It offers only the models in `CHAT_MODELS` (`lib/chat-models.ts`), which passed our test harness. For now that is only `gpt-6-luna`; cheaper models join it once they pass the evals. `/api/chat` answers 400 for any other model, sends the chosen one as is to the proxy or as `openai/<model>` to the gateway, for the chat call and the section calls of a whole-document rewrite, and falls back to `LLM_MODEL` or `AI_GATEWAY_MODEL` when a request names none. Each reply saves and shows the model and reasoning effort that answered it.
+The chat composer has a model picker that shows each provider's logo and name. Its models live in `CHAT_MODELS` (`lib/chat-models.ts`), one entry each with the ID the client sends, the name, the logo and the gateway model ID: GPT (`openai/gpt-6-luna`, the default), Claude (`anthropic/claude-haiku-5.5`), Gemini (`google/gemini-3.8-flash`), DeepSeek (`deepseek/deepseek-v4.1-flash`) and Grok (`spacexai/grok-4.1-fast-reasoning`). The page offers only the models the current path serves, all five on the gateway and only GPT on the proxy, and `/api/chat` answers 400 for any other. The chosen model runs the chat call and the section calls of a whole-document rewrite, and a request that names none falls back to `LLM_MODEL` or `AI_GATEWAY_MODEL`. Each reply saves and shows the model ID and its thinking: medium for OpenAI models, and default for the others, which ignore the OpenAI options below.
 
 A whole-document rewrite checks each rewritten part on a second model, the check model, which also repairs the blocks whose meaning changed. It is `AI_GATEWAY_CHECK_MODEL` on the gateway (default `openai/gpt-6-luna`) or `LLM_CHECK_MODEL` on the other path (default `gpt-6-luna`). A stronger check model such as gpt-6.1-sol makes rewrites more accurate at about ten times the cost.
 
@@ -181,6 +181,10 @@ Versions are the installed ones; licenses come from each package's `package.json
 | `jest`                                 | 30.5.2   | MIT                       |
 | `tailwindcss`                          | 4.3.3    | MIT                       |
 | `typescript`                           | 5.9.3    | Apache-2.0                |
+
+### Copied assets
+
+The provider logos in `lib/provider-logos.ts` are the monochrome SVG paths of [Lobe Icons](https://github.com/lobehub/lobe-icons) (`@lobehub/icons-static-svg` 1.95.1), copied rather than installed. They are under the [MIT License](https://github.com/lobehub/lobe-icons/blob/master/LICENSE), Copyright (c) 2023 LobeHub.
 
 ## Humanizer
 
