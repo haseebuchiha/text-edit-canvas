@@ -114,12 +114,12 @@ describe("llm service", () => {
 
   it("uses the chosen model, as the bare id on the proxy and as openai/<id> on the gateway", () => {
     useEnvironment(PROXY_ENVIRONMENT)
-    const proxyModel = createChatModel("gpt-6.1-sol")
+    const proxyModel = createChatModel("gpt-6-luna")
     useEnvironment({ AI_GATEWAY_API_KEY: GATEWAY_KEY, AI_GATEWAY_MODEL: GATEWAY_MODEL })
-    const gatewayModel = createChatModel("gpt-6.1-sol")
+    const gatewayModel = createChatModel("gpt-6-luna")
 
-    expect(proxyModel).toMatchObject({ provider: "llm.responses", modelId: "gpt-6.1-sol" })
-    expect(gatewayModel).toMatchObject({ provider: "gateway", modelId: "openai/gpt-6.1-sol" })
+    expect(proxyModel).toMatchObject({ provider: "llm.responses", modelId: "gpt-6-luna" })
+    expect(gatewayModel).toMatchObject({ provider: "gateway", modelId: "openai/gpt-6-luna" })
   })
 
   it("falls back to the configured model when no model is chosen", () => {

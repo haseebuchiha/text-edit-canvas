@@ -68,9 +68,9 @@ describe("POST /api/chat", () => {
     const { id } = await createChatSession()
     const fetchSpy = blockNetwork()
 
-    await (await postChat(chatRequest(id, "gpt-6.1-sol"))).text()
+    await (await postChat(chatRequest(id, "gpt-6-luna"))).text()
 
-    expect(readRequestedModel(fetchSpy)).toBe("gpt-6.1-sol")
+    expect(readRequestedModel(fetchSpy)).toBe("gpt-6-luna")
   })
 
   it("falls back to the configured model when the request names none", async () => {
