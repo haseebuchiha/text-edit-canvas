@@ -16,6 +16,7 @@ The evals send instructions through the app's real chat code and grade the resul
 - `pass-rate.ts`: writes `results/<scenario>.md` and fails the test when fewer than 80% of the cases passed.
 - `labels/`: empty for now. See "Hand-labelling" below.
 - `results/`: one file per scenario from the last run. Git ignores this folder.
+- `REPORT.md`: the comparison of five models on the AI Gateway, from 18 October 2026.
 
 ## Scenarios
 

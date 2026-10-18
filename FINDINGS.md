@@ -306,6 +306,24 @@ A review after the baseline read all 129 cases against their documents and chang
 
 The grader isn't validated yet. Its verdicts are stable (a second pass over the luna transcripts repeated 168 of 170 answer, tone and translation verdicts), but stable isn't the same as right. Hand labelling in `tests/evals/labels/` will show how many real failures it catches; it comes later. Until then, read the grader's reasoning before acting on its pass rate. Timings and caching come from the proxy and need a gateway run to be representative.
 
+## Five cheap models on the AI Gateway
+
+On 18 October 2026 the eval suite ran once on five cheap models through the Vercel AI Gateway. `tests/evals/REPORT.md` has the full tables: pass rate per scenario, tokens, spend and time per case.
+
+| Model | Passed | Rewrites | Spent |
+|---|--:|--:|--:|
+| gpt-6-luna | 108 of 118 (91.5%) | 14 of 20 | $0.35 |
+| claude-haiku-5.5 | 101 of 118 (85.6%) | 7 of 20 | $0.45 |
+| grok-4.3 | 100 of 118 (84.7%) | 6 of 20 | $4.51 |
+| deepseek-v4.1-flash | 99 of 118 (83.9%) | 4 of 20 | $1.17 |
+| gemini-3.8-flash | 79 of 98, stopped during the rewrites | not finished | $6.08 |
+
+gpt-6-luna passed the most cases for the least money and stays the default. On small edits and questions, four of the five models were within one case of each other. The rewrites separated them.
+
+The cheap Grok model we had picked, `spacexai/grok-4.1-fast-reasoning`, was unavailable: the gateway answered "Not Found" to every request on 18 October between 14:55 and 15:00. We ran grok-4.3 instead and replaced the cheap Grok model in the picker with it.
+
+The grader and the rewrite check weren't the same in every run. gpt-6-luna graded luna, Claude and Gemini. DeepSeek and Grok graded their own work, because the setup changed between runs so that choosing a model switches every call, grader included.
+
 ## A word twice in one paragraph
 
 "Change customer to client everywhere" failed in all 10 L3 runs of the eval baseline. Block 260 of the policy reads "Incidents that affect customer information are reported to the customer in accordance with the contractual requirements." The model sent one `replace_text` with find "customer". The editor replaces only the first match, so "reported to the customer" stayed, and the server accepted the edit.
