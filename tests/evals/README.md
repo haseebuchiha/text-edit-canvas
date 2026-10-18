@@ -66,7 +66,7 @@ LLM_MODEL=gpt-6.1-sol yarn evals    # another model
 yarn evals --listTests              # lists the eval files and calls no model
 ```
 
-The evals use the model the app is configured with, through `services/llm.ts`. They read `.env.local`, and a variable set in the shell wins over it. If the app is set up for the paid AI Gateway, the evals refuse to run unless you set `EVALS_ALLOW_PAID=1`. The grader always runs on gpt-6-luna at medium effort through the proxy, with a strict pair-by-pair routine. On 40 saved verdicts it agreed with gpt-6.1-sol 29 times.
+The evals use the model the app is configured with, through `services/llm.ts`. They read `.env.local`, and a variable set in the shell wins over it. If the app is set up for the paid AI Gateway, the evals refuse to run unless you set `EVALS_ALLOW_PAID=1`. The grader always runs on gpt-6-luna at medium effort, with a strict pair-by-pair routine. It goes through the same path as the app: the gateway when `AI_GATEWAY_API_KEY` is set, the proxy otherwise. On 40 saved verdicts it agreed with gpt-6.1-sol 29 times.
 
 `yarn test` runs the `checks.test.ts` files and never an eval.
 

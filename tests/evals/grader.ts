@@ -1,7 +1,8 @@
 import { randomUUID } from "node:crypto"
 import { createOpenAI } from "@ai-sdk/openai"
-import { generateText, Output, wrapLanguageModel } from "ai"
+import { createGateway, generateText, Output, wrapLanguageModel } from "ai"
 import { z } from "zod"
+import { readGatewayApiKey } from "@/config/env"
 import type { Section } from "@/lib/document-snapshot"
 import { createModelOptions } from "@/services/llm"
 import { type BlockPair, isChanged, isHeading } from "@/tests/evals/checks"
@@ -24,6 +25,7 @@ type AnswerBrief = { instruction: string; reference: string; criteria: string[] 
 
 export const GRADER_MODEL = "gpt-6-luna"
 export const GRADER_EFFORT = "medium"
+const GATEWAY_GRADER_MODEL = `openai/${GRADER_MODEL}`
 const PROXY_BASE_URL = "http://127.0.0.1:10531/v1"
 const PROXY_PROVIDER_NAME = "llm"
 const NO_API_KEY = ""
@@ -136,8 +138,14 @@ const buildAnswerPrompt = ({ instruction, reference, criteria }: AnswerBrief, ou
     `The document sections the answer quotes from:\n${formatQuotedSections(outcome)}`,
   ].join("\n\n")
 
-const createGraderModel = () =>
+const createProxyGraderModel = () =>
   createOpenAI({ name: PROXY_PROVIDER_NAME, baseURL: PROXY_BASE_URL, apiKey: NO_API_KEY }).responses(GRADER_MODEL)
+
+const createGraderModel = () => {
+  const gatewayApiKey = readGatewayApiKey()
+  if (!gatewayApiKey) return createProxyGraderModel()
+  return createGateway({ apiKey: gatewayApiKey }).languageModel(GATEWAY_GRADER_MODEL)
+}
 
 const askGrader = async (grader: GraderName, prompt: string): Promise<Grade> => {
   const recorder = createModelRecorder()
