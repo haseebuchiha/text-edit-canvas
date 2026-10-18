@@ -134,7 +134,7 @@ Each point says what went wrong, what we changed, and what happened after.
 
 ### 11. Bigger models weren't more accurate here
 
-- **Problem:** we expected bigger models to answer better. On an older model family, the bigger models gave more wrong answers: "Who coordinates the dates?" was right in 39 of 40 runs on the small model and 3 of 11 on a mid-size one. Every wrong answer came from skipping the search.
+- **Problem:** we expected bigger models to answer better. On an older model family, the bigger models gave more wrong answers: "Who coordinates the dates?" was right in 39 of 40 runs on the small model and 3 of 10 on a mid-size one. Every wrong answer came from skipping the search.
 - **Change:** a rule makes the model search before it answers. We then compared current models.
 - **Result:** gpt-6.1-sol got 68 of 68 requests right, gpt-6-luna about 95%, at a nineteenth of the price. We kept gpt-6-luna.
 
