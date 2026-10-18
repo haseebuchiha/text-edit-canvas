@@ -11,9 +11,16 @@ The short version. Per-round numbers are in [`TEST-RESULTS.md`](TEST-RESULTS.md)
 
 ## Results
 
+How the tests reached the model:
+
+- **Local proxy:** a small program on the developer's machine that passes requests on to OpenAI's models. We used it during development so test runs cost no API money. It adds its own delay, so its times are slower than the live app would be.
+- **AI Gateway:** Vercel's paid service that the app uses in production. It routes a request to the chosen model's provider and bills per token. Its times and costs are the real ones.
+
+A test case is one document, one instruction and the expected result. "One run per case" means each case was tried once.
+
 ### Edit strategies
 
-81 edit cases per strategy, gpt-6-luna, local proxy, one run per case. Proxy times include the proxy's own delay.
+81 edit cases per strategy, all on gpt-6-luna through the local proxy, one run per case.
 
 | Strategy | Passed | Unintended changes | Cost per 1,000 edits | First change | Total |
 |---|--:|--:|--:|--:|--:|
@@ -27,7 +34,7 @@ The short version. Per-round numbers are in [`TEST-RESULTS.md`](TEST-RESULTS.md)
 
 ### Whole-document rewrites, strict test
 
-26 rewrite cases, two runs each, graded with a stricter meaning check that isn't part of the regular suite.
+26 rewrite cases on gpt-6-luna through the local proxy, two runs each. They were graded with a stricter check for changed meaning, which isn't part of the regular test suite.
 
 | Approach | Passed (of 52) | Cost per 1,000 | First change |
 |---|--:|--:|--:|
@@ -41,7 +48,7 @@ The short version. Per-round numbers are in [`TEST-RESULTS.md`](TEST-RESULTS.md)
 
 ### Models on the AI Gateway
 
-The full eval suite once per model. Spend is what the gateway charged, grading included.
+The full test suite, once per model, through the AI Gateway. "Spent" is what the gateway charged, including the AI grader.
 
 | Model | Passed (of 118) | Rewrites (of 20) | Spent |
 |---|--:|--:|--:|
