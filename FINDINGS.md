@@ -171,3 +171,59 @@ Each point says what went wrong, what we changed, and what happened after.
 
 - **Undo instead of "revert".** One undo reverts a whole AI edit. Asking the chat to revert doesn't work, because the model only sees the current document.
 - **Jest and the MongoDB driver.** From driver 7.6, database tests under Jest fail unless Node runs with `--experimental-vm-modules`. `yarn test` sets it. Running `jest` directly brings the failure back.
+
+## Open items and path to production
+
+### Open TODOs
+
+- **Editor comparison page.** The one-page comparison of Tiptap, Lexical and BlockNote wasn't written. The Tiptap recommendation rests on building this PoC with it.
+- **Grader not checked against people.** The AI grader decides tone, translation and answer quality, but nobody has hand-labelled its verdicts yet (`tests/evals/labels/` is empty), so we don't know how often it is wrong.
+- **Not measured on the gateway:** the time to the first visible change, parallel tool calls and output limits. Most timings in this file come from the local proxy and are slower than production.
+- **Most picker models are untested.** Four of the twenty models in the menu ran the full suite on the gateway. The others are offered on price and capability only.
+- **One promising idea not built.** In the strategy test, letting a highlighted edit change only the highlighted block passed 14 of 14 highlighted cases at a third of the cost. The app doesn't do this yet.
+
+### Known issues
+
+- **Whole-document rewrites are the weakest area.** They passed 14 of 20 on the gateway and 8 of 20 in another run of the same code. A run can fail on one shifted statement, one sentence left in the old tone, or one term translated two ways. They are also slow: the first change appears after about 20 s.
+- **No edit can add or remove a block**, so the model can't add a table row, a list item or a paragraph.
+- **Bold and links are lost** when a block is replaced as a whole, which the rewrite pipeline does on almost every block it changes.
+- **Asking for a part that doesn't exist** still sometimes changes a nearby paragraph, or ends with no reply after the model uses up its 4 calls.
+- **Typing during a rewrite** is overwritten when that part of the rewrite arrives.
+- **After Stop**, the reply records no token usage, and in the next turn the model can believe the stopped rewrite is still running.
+- **Rejected edits stay in the chat history** as if they were made. The model always works from the current document, so this only affects what the user reads.
+- **A part that fails or times out** (60 s per part) stays unchanged.
+- **Untested edge case:** if a model sends a block ID as a number instead of text, the edit fails validation. We haven't seen it happen.
+- **Models can disappear.** The cheap Grok model returned "Not Found" from the gateway for a whole afternoon. The app has no fallback model.
+- **Non-OpenAI models ignore our settings** for thinking and verbosity, so their cost and speed are less predictable. Gemini cost five times its estimate.
+
+### Shortcuts that won't hold in production
+
+- **Hard-coded sample document.** Nothing loads or saves a real document; a reload starts again from the sample. Pending suggestions aren't saved either.
+- **Hard-coded model list and prices** in `lib/chat-models.ts`. Prices and availability change, so this needs to come from Pryvet's per-project model settings.
+- **Fixed limits:** 4 model calls per message and 60 s per rewrite part, chosen from tests, not production traffic.
+- **Test data only:** 23 synthetic documents of 1 to 10 pages. The 64-page document isn't in the current suite.
+- **Zod instead of Joi, and no Zustand or TanStack Query** (see [`LATER.md`](LATER.md)).
+
+### Security and privacy gaps
+
+- **No pseudonymisation.** Document text goes to the model provider as it is. The test documents use placeholders such as [PERSON_1] to imitate Pryvet's layer, but this PoC doesn't call it.
+- **No login and no access control.** Anyone with a chat's URL can read it, and anyone with the demo's URL can chat and spend the gateway credit.
+- **No rate limits or budgets** per user or project.
+- **Data retention depends on the provider.** We send `store: false` to OpenAI, but haven't set the gateway's options that restrict other providers, such as excluding providers that train on prompts.
+- **Prompt injection:** a document could contain instructions aimed at the model. The server only checks that edits target real blocks; review mode is the safeguard.
+- **Chats are stored as plain documents** in MongoDB, with no retention or deletion policy.
+
+### Path to production
+
+Rough effort for one developer who knows Pryvet's codebase, in order:
+
+| Step | What changes | Effort |
+|---|---|--:|
+| 1. Model access through Pryvet | Pryvet's API takes chat completions without streaming. The app needs streaming, tool calls and JSON schemas through the Responses API. Either Pryvet's endpoint gains those, or the app runs without live progress through an adapter. | 3–5 days |
+| 2. Pseudonymisation | Edits quote document text, so Pryvet must map placeholders back consistently in edit operations and quotes, not only in plain answers. | 2–3 days |
+| 3. Move into Pryvet's stack | Joi for request checks, Pryvet's projects, users, enabled models and budgets, its MongoDB models and state stores. | 3–5 days |
+| 4. Hardening | Retries and a fallback model when a provider fails, token usage after Stop, block-ID validation, rate limits. | 2–3 days |
+| 5. Measure the production path | Time to first change, caching and parallel tool calls on the real route, plus a cost check per project. | 1 day |
+| 6. Quality | Hand-label the grader, run the suite on every model Pryvet offers, add operations that insert and delete blocks, and keep formatting on rewrites. | 4–6 days |
+
+About three to five weeks in total. Saving and versioning documents was out of scope here and isn't included.
