@@ -3,7 +3,7 @@ import type { Editor } from "@tiptap/react"
 import type { UIMessageChunk } from "ai"
 import { applyAcceptedEdits, type EditMode } from "@/components/editor/apply-edits"
 import { DELETED_MARK, INSERTED_MARK } from "@/components/editor/suggestion-marks"
-import { listSuggestionIds, suggestOperation } from "@/components/editor/suggestions"
+import { findSuggestionAt, listSuggestionIds, suggestOperation } from "@/components/editor/suggestions"
 import { EDIT_DOCUMENT_TOOL, type EditOperation } from "@/lib/edit-operations"
 import { TRANSFORM_DOCUMENT_TOOL, type TransformProgress } from "@/lib/transform-document"
 import { createTestEditor, findBlockId, readMarkedText, readText } from "@/tests/components/editor/test-editor"
@@ -105,6 +105,7 @@ describe("applyAcceptedEdits", () => {
     })
     expect(readMarkedText(editor, nodeId, DELETED_MARK)).toEqual(["customer"])
     expect(readMarkedText(editor, nodeId, INSERTED_MARK)).toEqual(["client"])
+    expect(findSuggestionAt(editor.state)).toBe(listSuggestionIds(editor.state.doc)[0])
     editor.commands.undo()
     expect(editor.state.doc.eq(original)).toBe(true)
   })
@@ -126,6 +127,7 @@ describe("applyAcceptedEdits", () => {
     )
     expect(readMarkedText(editor, headingId, INSERTED_MARK)).toEqual(["fees"])
     expect(readMarkedText(editor, priceId, DELETED_MARK)).toEqual(["3,600"])
+    expect(findSuggestionAt(editor.state)).toBe(listSuggestionIds(editor.state.doc)[0])
     expect(undoDepth(editor.state)).toBe(1)
     editor.commands.undo()
     expect(editor.state.doc.eq(original)).toBe(true)

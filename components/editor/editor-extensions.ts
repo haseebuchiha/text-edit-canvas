@@ -3,6 +3,7 @@ import { UniqueID } from "@tiptap/extension-unique-id"
 import { Selection } from "@tiptap/extensions"
 import { StarterKit } from "@tiptap/starter-kit"
 import { ChangeFlash } from "@/components/editor/change-flash"
+import { ReviewNavigation } from "@/components/editor/review-navigation"
 import { DeletedMark, InsertedMark } from "@/components/editor/suggestion-marks"
 
 const blockTypesWithIds = [
@@ -34,4 +35,5 @@ export const createEditorExtensions = () => [
   InsertedMark,
   DeletedMark,
   ChangeFlash,
+  ReviewNavigation,
 ]

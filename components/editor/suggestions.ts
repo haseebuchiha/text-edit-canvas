@@ -30,6 +30,8 @@ type IdentifiedChange = ChangedPiece & { id: string }
 
 type SuggestionQuery = { matches: MarkFilter; scope?: NodeRange }
 
+export type SuggestionStart = { id: string; from: number }
+
 const SUGGESTION_ID_RADIX = 36
 const SUGGESTION_ID_LENGTH = 10
 
@@ -182,12 +184,15 @@ export const findSuggestionRange = (documentNode: ProseMirrorNode, suggestionId:
   return { from: Math.min(...ranges.map((range) => range.from)), to: Math.max(...ranges.map((range) => range.to)) }
 }
 
-export const listSuggestionIds = (documentNode: ProseMirrorNode) => {
-  const suggestionIds = new Set<string>()
-  const collectSuggestionId = (node: ProseMirrorNode) => {
+export const listSuggestionStarts = (documentNode: ProseMirrorNode): SuggestionStart[] => {
+  const starts = new Map<string, number>()
+  const collectStart = (node: ProseMirrorNode, position: number) => {
     const suggestionId = readSuggestionId(node)
-    if (suggestionId) suggestionIds.add(suggestionId)
+    if (suggestionId && !starts.has(suggestionId)) starts.set(suggestionId, position)
   }
-  documentNode.descendants(collectSuggestionId)
-  return [...suggestionIds]
+  documentNode.descendants(collectStart)
+  return [...starts].map(([id, from]) => ({ id, from }))
 }
+
+export const listSuggestionIds = (documentNode: ProseMirrorNode) =>
+  listSuggestionStarts(documentNode).map(({ id }) => id)

@@ -2,12 +2,8 @@
 
 import { type Editor, posToDOMRect } from "@tiptap/react"
 import { BubbleMenu, type BubbleMenuProps } from "@tiptap/react/menus"
-import {
-  acceptSuggestion,
-  findSuggestionAt,
-  findSuggestionRange,
-  rejectSuggestion,
-} from "@/components/editor/suggestions"
+import { findCurrentSuggestionRange, resolveCurrentSuggestion } from "@/components/editor/review-navigation"
+import { acceptSuggestion, findSuggestionAt, rejectSuggestion } from "@/components/editor/suggestions"
 import { Button } from "@/components/ui/button"
 
 type SuggestionMenuProps = {
@@ -26,8 +22,7 @@ const isReviewingSuggestion = (props: ShouldShowProps) =>
   isFocused(props) && findSuggestionAt(props.state) !== undefined
 
 const anchorBelowSuggestion = (editor: Editor) => {
-  const suggestionId = findSuggestionAt(editor.state)
-  const range = suggestionId ? findSuggestionRange(editor.state.doc, suggestionId) : undefined
+  const range = findCurrentSuggestionRange(editor.state)
   if (!range) return null
   const rect = posToDOMRect(editor.view, range.from, range.to)
   return { getBoundingClientRect: () => rect, getClientRects: () => [rect] }
@@ -35,8 +30,7 @@ const anchorBelowSuggestion = (editor: Editor) => {
 
 const SuggestionMenu = ({ editor }: SuggestionMenuProps) => {
   const resolveAtCursor = (resolve: ResolveSuggestion) => {
-    const suggestionId = findSuggestionAt(editor.state)
-    if (suggestionId) resolve(editor, suggestionId)
+    resolveCurrentSuggestion(editor, resolve)
     editor.commands.focus(null, { scrollIntoView: false })
   }
   return (
