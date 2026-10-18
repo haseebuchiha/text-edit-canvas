@@ -4,6 +4,7 @@ import type { Transaction } from "@tiptap/pm/state"
 import type { Editor } from "@tiptap/react"
 import type { UIMessageChunk } from "ai"
 import { flashChanges } from "@/components/editor/change-flash"
+import { revealFirstNewSuggestion } from "@/components/editor/review-navigation"
 import { acceptSuggestionsInBlock, suggestOperation } from "@/components/editor/suggestions"
 import {
   contentEnd,
@@ -84,12 +85,15 @@ const operationEditors: Record<EditMode, OperationEditor> = { apply: applyOperat
 const markAiEdit = (transaction: Transaction, mode: EditMode) =>
   mode === "apply" ? flashChanges(transaction) : transaction
 
+const finishAiEdit = (transaction: Transaction, mode: EditMode) =>
+  mode === "apply" ? flashChanges(transaction) : revealFirstNewSuggestion(transaction)
+
 const readEditOperations = ({ toolName, input }: EditToolCall) =>
   toolName === EDIT_DOCUMENT_TOOL ? editDocumentInputSchema.safeParse(input).data?.operations : undefined
 
 const applyEditOperations = (editor: Editor, operations: EditOperation[], mode: EditMode) => {
   const transaction = operations.reduce(operationEditors[mode], editor.state.tr)
-  if (transaction.docChanged) editor.view.dispatch(markAiEdit(closeHistory(transaction), mode))
+  if (transaction.docChanged) editor.view.dispatch(finishAiEdit(closeHistory(transaction), mode))
 }
 
 const isAcceptedEdit = (output: unknown) => editCheckSchema.safeParse(output).data?.accepted === true
@@ -161,7 +165,7 @@ const commitTransform = (editor: Editor, { mode, originals }: TransformRun) => {
     closeHistory(editor.state.tr),
     changes.map(({ nodeId, edited }) => [nodeId, edited]),
   )
-  editor.view.dispatch(markAiEdit(edit, mode))
+  editor.view.dispatch(finishAiEdit(edit, mode))
 }
 
 const applyToolOutput = (editor: Editor, state: EditStreamState, toolOutput: ToolOutput) => {

@@ -234,6 +234,12 @@
     cursor: pointer;
   }
 
+  .tiptap .current-suggestion {
+    border-radius: 2px;
+    box-shadow: 0 0 0 2px currentColor;
+    box-decoration-break: clone;
+  }
+
   .tiptap .change-flash {
     animation: change-flash 2s ease-out forwards;
   }

@@ -555,7 +555,7 @@ References: [NODE-7603](https://jira.mongodb.org/browse/NODE-7603), [NODE-7385](
 
 ## Review mode
 
-With auto-accept off, an AI edit shows up in the document as suggestions instead of being applied. Removed text is red and struck through, added text is green, and the two sit next to each other. Clicking a suggestion opens a small menu below it with Accept and Reject. The bar above the document counts the pending suggestions and has Accept all and Reject all.
+With auto-accept off, an AI edit shows up in the document as suggestions instead of being applied. Removed text is red and struck through, added text is green, and the two sit next to each other. Clicking a suggestion opens a small menu below it with Accept and Reject. The bar above the document steps through the pending suggestions one by one and has Accept all and Reject all.
 
 ### Approach
 
@@ -595,6 +595,10 @@ Word level also keeps formatting. A whole-block replacement can only carry marks
 - A whole-document rewrite shows section by section outside the history. It becomes one undo step when it ends or is stopped, as in auto-accept.
 - Each accept or reject, one or all, is its own undo step.
 
+### Stepping through
+
+The bar shows the current suggestion's place, such as "Change 2 of 7", with Previous and Next buttons that move through the pending suggestions in document order and wrap around at both ends. The current suggestion is simply the one at the cursor, so clicking a change makes it current too. Moving to one puts the cursor at its start, scrolls it smoothly to the middle of the editor, rings its old and new text in their own colours, and opens its menu. After Accept or Reject the editor moves on to the next pending suggestion and opens its menu, and the bar goes away after the last one. When an AI edit arrives as suggestions, its first new suggestion becomes current and its menu opens, without taking focus, so the chat input keeps it while the reply streams. The menu shows whenever the cursor is on a suggestion, focused or not, and hides when the cursor moves off the suggestions or none are left. Tiptap's bubble menu hides itself whenever the editor loses focus, so on blur we show it again with the bubble menu's own `show` meta. The menu sits 6px under the last line of the whole change, old and new text together, and flips above only when there's no room below in the editor's scroll area, so it never covers the change. It keeps 8px from the editor's sides and repositions when the editor scrolls. The change is measured when the menu is placed, not before: measuring it earlier put the menu on top of the change whenever the review bar appeared in the same step and pushed the document down. Moving only changes the selection, and the ring is a decoration, so accept, reject and undo work exactly as before. The code is in `components/editor/review-navigation.ts`.
+
 ### Auto-accept
 
 Edits apply directly, as before. `applyAcceptedEdits` in `apply-edits.ts` takes an optional mode, and the evals call it without one, which means apply. One undo reverts the whole AI edit. Changed passages now get a green highlight that fades over 2 seconds (`components/editor/change-flash.ts`). It's a decoration, and a timer in the plugin view clears it, so the headless editor in the evals never starts a timer.
@@ -620,9 +624,9 @@ The mode is read when a message is sent. Flipping the switch while a reply strea
 
 ### What we tested
 
-Unit tests: `tests/lib/review-diff.test.ts` covers the word diff and the cutoff. `tests/components/editor/suggestions.test.ts` covers accept and reject, one and all, exact restore with bold and links, text added at the end of a block and in an empty table cell, a second edit on a pending block, and undo and redo. `tests/components/editor/apply-edits.test.ts` covers the stream: apply and suggest mode, a streamed rewrite as one undo step, a stopped stream, and auto-accept on a block with pending suggestions.
+Unit tests: `tests/lib/review-diff.test.ts` covers the word diff and the cutoff. `tests/components/editor/suggestions.test.ts` covers accept and reject, one and all, exact restore with bold and links, text added at the end of a block and in an empty table cell, a second edit on a pending block, and undo and redo. `tests/components/editor/review-navigation.test.ts` covers next and previous with wrap-around, the position count, when the menu shows, moving on after accept and reject, and which suggestion becomes current after an AI edit. `tests/components/editor/apply-edits.test.ts` covers the stream: apply and suggest mode, a streamed rewrite as one undo step, a stopped stream, and auto-accept on a block with pending suggestions.
 
-Browser tests ran in Chromium through `agent-browser`, against the dev server and the model proxy, 14 chat turns in all:
+Browser tests ran in Chromium through `agent-browser`, against the dev server and the model proxy, 16 chat turns in all:
 
 - "change customer to client everywhere": three word-level suggestions such as "The [-customer-]{+client+} wants…". Accept and reject one at a time, undo and redo over both, Reject all back to the exact original, Accept all to the edited text.
 - "make the pricing section more formal": four suggestions in the pricing section and its table, none of them confetti. Reject all gave back the exact original.
@@ -634,5 +638,6 @@ Browser tests ran in Chromium through `agent-browser`, against the dev server an
 - Auto-accept: the change applied directly, the highlight showed and was gone 4 seconds later, and one undo reverted the whole edit, for a word change and for a concise rewrite.
 - Reload of a saved chat: the messages came back, the document was the sample again, auto-accept was off, and a new review turn worked.
 - Dark theme: the inserted and deleted text stay readable on the dark background.
+- Stepping through: "make the Background and Services sections more formal" gave 15 suggestions. The first became current with its menu open while the chat input kept focus, and the menu stayed open after clicking back into the chat input. Next and Previous wrapped around at both ends and centred each change. Each accept and reject moved on to the next change, the bar went away after the last one, and one undo brought back the last change exactly. Dark theme and phone width were checked too.
 
 The first browser run found a crash when text was added at the very end of a block. It's fixed, and a unit test covers it.
