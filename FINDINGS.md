@@ -63,21 +63,103 @@ The full eval suite once per model. Spend is what the gateway charged, grading i
 
 ## What we learned
 
-- **Send the outline, not the whole document.** The model gets the headings and fetches the sections it needs. On a 9-page document an edit used about 2,200 input tokens instead of 7,800.
-- **A search tool helps.** With it, correct runs rose from 61 to 66 of 69, and input tokens fell by 13.5%.
-- **Answers must quote the document.** The server checks every quote against the text, so a made-up answer such as "[ORG_2] coordinates the dates" never reaches the user.
-- **Matching has to be forgiving.** The model writes "kick off call" where the document says "Kick-off call". Edits, quotes and search now share one matcher that tolerates this.
-- **A table cell needs its column.** Search hits now come with the table's header row. Before, the model changed an unrelated "60 days" in 2 of 2 runs. After, it left it alone in 20 of 20.
-- **"Everywhere" means every occurrence.** A word that appeared twice in one paragraph was only changed once, in 10 of 10 runs. The server now rejects an edit that leaves the word behind, and the everywhere cases went from 11 to 15 of 15.
-- **Figures that depend on a change.** After "214 passed" became "220 passed", the model left "the remaining 22" unchanged. A prompt rule fixed most of these: 13 of 16 runs now pass.
-- **Parts that don't exist.** Asked to shorten a cover letter the document doesn't have, the model shortened something else. It now says the part isn't there: 15 of 21 runs pass, and 8 of 9 on the gateway.
-- **Keep how strong a statement is.** "Without delay" became "without undue delay" in a formal rewrite. A prompt rule and the meaning check catch most of these.
-- **Long rewrites need parts and a term sheet.** One long pass stopped after 37 to 60 of 200 blocks in 4 of 10 runs. Part-by-part rewriting fixed that, and the term sheet stopped German translations from using two words for "employees".
-- **Bigger models aren't automatically better.** Before the search-first rule, bigger gpt-5.6 models gave more wrong answers. gpt-6.1-sol got 68 of 68 right, at about 19 times luna's cost.
-- **The proxy ignored the thinking setting.** Its chat endpoint dropped it for gpt-6 models. The app now uses the Responses endpoint and sets medium itself.
-- **Claude needs caching turned on.** With the gateway's `caching: 'auto'`, now on, 65% of Claude's input was cached. Gemini cached about 2%.
-- **Review mode needs no paid add-on.** Suggestions are marks in the document. Reject all brings back the exact original, Previous and Next step through the changes, and the Accept / Reject menu opens on the current change.
-- **Short block IDs.** Counter IDs ("1", "2", …) replace 36-character UUIDs and save tokens on every request.
+Each point says what went wrong, what we changed, and what happened after.
+
+### 1. Send the outline, not the whole document
+
+- **Problem:** with nothing highlighted, the app doesn't know which part of the document the user means. Sending the whole document every time works, but costs a lot of tokens on long documents.
+- **Change:** the request now carries only the headings (the outline) and the text before the first heading. The model asks for the sections it needs through a `read_section` tool.
+- **Result:** an edit to one section of a 9-page policy used about 2,200 input tokens instead of 7,800. It was correct in 61 of 69 runs, against 40 of 45 with the whole document. On a 1-page document it costs a little more, because the extra call only pays off on longer documents.
+
+### 2. A search tool finds what the headings don't show
+
+- **Problem:** some facts sit under a heading that doesn't hint at them. "Who coordinates the dates?" is answered under "Background", so the model read two sections it guessed at and answered wrong in 3 of 3 runs. A hotline number that appears in two sections was changed in only one of them, also 3 of 3.
+- **Change:** a `find_text` tool searches every block for several words at once and returns the matching blocks with their IDs.
+- **Result:** correct runs went from 61 to 66 of 69, the hotline case from 0 of 3 to 3 of 3, and input tokens fell by 13.5%.
+
+### 3. Answers must quote the document
+
+- **Problem:** asked "Who coordinates the dates?", the model said "[ORG_2] coordinates the dates" in 2 of 3 runs, with confidence. The document says "[PERSON_2] coordinates the dates".
+- **Change:** answers now go through an `answer_question` tool with exact quotes and their block IDs. The server checks every quote against the document and rejects the answer if a quote isn't there. "It's not in the document" is accepted only after a search.
+- **Result:** in 39 runs of questions the document doesn't answer, the user never saw a made-up answer. The limit: a quote proves the sentence exists, not that the model read it right.
+
+### 4. The model doesn't copy text exactly
+
+- **Problem:** the model writes "kick off call" where the document says "Kick-off call". An exact match then quietly drops the edit, rejects a correct quote, or finds nothing in search.
+- **Change:** edits, quote checks and search share one matcher. It ignores capitals, curly quotes and extra spaces, and treats "kick-off", "kick off" and "kickoff" as the same. It does no fuzzy letter matching, because "[ORG_2]" and "[PERSON_2]" differ by only a few letters.
+- **Result:** edits land on the right text. Fuzzy matching would have waved the wrong answer from point 3 through.
+
+### 5. A table cell needs its column
+
+- **Problem:** told that unused accounts are now locked after 30 days instead of 60, the model also changed an unrelated "60 days" in a patching table in 2 of 2 runs. The search had returned that cell alone, so the model couldn't see it was a patch deadline. In another case, "change customer to client everywhere" sent one edit to the cell next to the right one in 4 of 10 runs.
+- **Change:** search results for table cells now include the table's header row, one cell per line, each with its own ID. The server rejects an edit when the text to replace isn't in the named block, and says which blocks do contain it.
+- **Result:** the patching cell was left alone in 20 of 20 runs, and "customer to client" passed 10 of 10.
+
+### 6. "Everywhere" has to mean every occurrence
+
+- **Problem:** "change customer to client everywhere" failed in 10 of 10 runs on one document. One paragraph says "customer" twice, the model sent one replacement, and the editor only replaces the first match. The server accepted it anyway.
+- **Change:** the server applies each paragraph's replacements in order and rejects the edit if the word is still there afterwards, including other forms such as "customers". The model then sends a corrected edit.
+- **Result:** the "everywhere" cases went from 11 of 15 to 15 of 15.
+
+### 7. A change can make another number wrong
+
+- **Problem:** told "220 of 236 test cases passed, not 214", the model changed 214 to 220 but left "the remaining 22 cases" as it was. The right number is now 16, and it was in the same paragraph.
+- **Change:** a prompt rule tells the model to update numbers that follow from the change, such as totals, remainders and second mentions.
+- **Result:** such cases pass in 13 of 16 runs.
+
+### 8. Asking for a part that doesn't exist
+
+- **Problem:** asked to "shorten the cover letter" in a proposal that has none, the model shortened 61 to 88 other blocks instead, in 3 of 3 runs. Asked to add a glossary entry to a report without a glossary, it changed an unrelated paragraph.
+- **Change:** a prompt rule says: if the part isn't in the document, change nothing, say so, and ask what to change.
+- **Result:** these cases went from 7 of 21 to 15 of 21 runs, and 8 of 9 on the gateway. Sometimes the model still edits a nearby paragraph, or searches until it runs out of calls and gives no reply.
+
+### 9. Rewrites must keep how strong a statement is
+
+- **Problem:** in "make it more formal" rewrites, the model treated words like "should" and "without delay" as style. In a data processing agreement, "inform the Controller without delay" became "without undue delay", which is a weaker legal promise. "Should use the report button" became "must", and "intended exclusively for" lost "exclusively".
+- **Change:** a prompt rule to keep how strong each statement is, and a meaning check after each rewritten part that repairs what changed.
+- **Result:** in the four test runs after the change, none of those three slips came back. Similar slips still show up now and then, so rewrites remain the weakest area.
+
+### 10. Long rewrites need parts and a term sheet
+
+- **Problem:** asked to translate a 9-page policy into German in one go, the model translated only the 26 headings in 6 of 8 runs. When it did read all 200 blocks, it sent back only 37 to 60 of them in 4 of 10 runs. Every German run also used two different words for "employees".
+- **Change:** whole-document instructions now run through a pipeline. It first writes a term sheet with one translation per key term, then rewrites the document part by part in parallel calls, then checks each part.
+- **Result:** every block gets rewritten, and the key terms stay consistent in most runs. The cost is time: the first change appears after about 20 s.
+
+### 11. Bigger models weren't more accurate here
+
+- **Problem:** we expected bigger models to answer better. On an older model family, the bigger models gave more wrong answers: "Who coordinates the dates?" was right in 39 of 40 runs on the small model and 3 of 11 on a mid-size one. Every wrong answer came from skipping the search.
+- **Change:** a rule makes the model search before it answers. We then compared current models.
+- **Result:** gpt-6.1-sol got 68 of 68 requests right, gpt-6-luna about 95%, at a nineteenth of the price. We kept gpt-6-luna.
+
+### 12. The development proxy ignored the thinking setting
+
+- **Problem:** during development we call models through a local proxy. Its chat endpoint silently dropped the thinking setting for gpt-6 models. A request with thinking turned off still used 228 reasoning tokens. It also made answers shorter than the paid API does, so development didn't behave like production.
+- **Change:** the app now uses the Responses endpoint, which honours the setting, and sends medium thinking and medium verbosity itself.
+- **Result:** development and the gateway now get the same settings.
+
+### 13. Claude only caches when asked
+
+- **Problem:** providers charge a fraction of the price, often a tenth, for input they've seen before, such as our fixed instructions. GPT, Gemini, DeepSeek and Grok do this automatically. Claude only caches when the request marks what to cache, and ours didn't.
+- **Change:** the gateway option `caching: 'auto'` adds those marks. It's now on for every request.
+- **Result:** 65% of Claude's input came from the cache. Gemini still cached only about 2%, which is one reason it was the most expensive.
+
+### 14. Review mode works on the free editor
+
+- **Problem:** the brief asks for every AI change to be shown as a diff the user can accept or reject. Tiptap's own tracked-changes add-on is paid and not yet stable.
+- **Change:** a suggestion is two marks inside the document: the old text in red and struck through, the new text in green. Only the changed words are marked. Previous and Next step through the changes, and the Accept / Reject menu opens under the current one.
+- **Result:** accept, reject and undo are ordinary editor steps. "Reject all" gives back the exact original, bold and links included.
+
+### 15. Stop has to stop the server too
+
+- **Problem:** the Stop button only ended the stream in the browser. The server kept calling the model, finished the whole translation, and saved "Edited 199 blocks in 14 sections" to the chat history.
+- **Change:** Stop now cancels the request on the server, and no new section starts after it.
+- **Result:** Stop after 4 of 14 sections ended all calls at once, and the history showed exactly the 49 blocks that changed.
+
+### 16. Short block IDs save tokens
+
+- **Problem:** every block had a 36-character ID, about 20 tokens, repeated in every block the model sees and every edit it sends.
+- **Change:** blocks now get counter IDs: "1", "2", and so on.
+- **Result:** fewer tokens on every request.
 
 ## Known limits
 
