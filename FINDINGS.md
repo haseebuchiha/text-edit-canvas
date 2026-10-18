@@ -483,7 +483,7 @@ A rewrite now runs in four steps:
 3. A meaning check per part. It sees each changed block as a word-level difference. Code adds hints when a word such as should, must, only or all changes its count, or when a number or placeholder is lost or added.
 4. A repair. Flagged English blocks go to one more call with the original, the rewrite and the problems. Translated blocks get the check's own find-and-replace fix. A lost number or changed placeholder always goes to repair; if the repair still has it, the block keeps its original text.
 
-The check and the repair can run on a stronger model (`LLM_CHECK_MODEL`, `AI_GATEWAY_CHECK_MODEL`). The default is gpt-6-luna, like the rest, to keep the cost down.
+The check and the repair can run on a stronger model (`LLM_CHECK_MODEL`, `AI_GATEWAY_CHECK_MODEL`). By default the check runs on the chat's own model, so switching the model switches every call.
 
 One bug turned up: the heading guard rejected any heading that more than doubled in length, so "Air", "2. Scope" and some longer German headings stayed English. A heading may now grow to twice its length plus 20 characters.
 

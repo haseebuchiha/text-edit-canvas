@@ -166,7 +166,7 @@ export const recordModelCalls = (recorder: ModelRecorder): LanguageModelMiddlewa
 
 export const sumTokens = (calls: Tokens[]) => calls.reduce(addTokens, NO_TOKENS)
 
-const createAppModel = () => {
+export const createAppModel = () => {
   const model = createConfiguredModel()
   if (!model || typeof model === "string") throw new Error(NOT_CONFIGURED)
   return model

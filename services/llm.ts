@@ -5,8 +5,6 @@ import { CHAT_MODELS, type ChatModel, type ChatModelId } from "@/lib/chat-models
 
 const PROXY_PROVIDER_NAME = "llm"
 const NO_API_KEY = ""
-const DEFAULT_PROXY_CHECK_MODEL = "gpt-6-luna"
-const DEFAULT_GATEWAY_CHECK_MODEL = "openai/gpt-6-luna"
 const GATEWAY_PROVIDER_NAME = "gateway"
 const OPENAI_MODEL_PREFIX = "openai/"
 const REASONING_EFFORT = "medium"
@@ -19,12 +17,19 @@ type ProxyEnvironment = NonNullable<ReturnType<typeof readProxyEnvironment>>
 
 const pickMainGatewayModel = ({ AI_GATEWAY_MODEL }: GatewayEnvironment) => AI_GATEWAY_MODEL
 
-const pickCheckGatewayModel = ({ AI_GATEWAY_CHECK_MODEL }: GatewayEnvironment) =>
-  AI_GATEWAY_CHECK_MODEL ?? DEFAULT_GATEWAY_CHECK_MODEL
+const pickCheckGatewayModel = ({ AI_GATEWAY_CHECK_MODEL, AI_GATEWAY_MODEL }: GatewayEnvironment) =>
+  AI_GATEWAY_CHECK_MODEL ?? AI_GATEWAY_MODEL
 
 const pickMainProxyModel = ({ LLM_MODEL }: ProxyEnvironment) => LLM_MODEL
 
-const pickCheckProxyModel = ({ LLM_CHECK_MODEL }: ProxyEnvironment) => LLM_CHECK_MODEL ?? DEFAULT_PROXY_CHECK_MODEL
+const pickCheckProxyModel = ({ LLM_CHECK_MODEL, LLM_MODEL }: ProxyEnvironment) => LLM_CHECK_MODEL ?? LLM_MODEL
+
+const readGatewayCheckModelSetting = () => readGatewayEnvironment()?.AI_GATEWAY_CHECK_MODEL
+
+const readProxyCheckModelSetting = () => readProxyEnvironment()?.LLM_CHECK_MODEL
+
+const readCheckModelSetting = () =>
+  readGatewayApiKey() ? readGatewayCheckModelSetting() : readProxyCheckModelSetting()
 
 const createGatewayModel = (pickModel: (environment: GatewayEnvironment) => string): LanguageModel | undefined => {
   const environment = readGatewayEnvironment()
@@ -47,8 +52,10 @@ const createProxyModel = (pickModel: (environment: ProxyEnvironment) => string):
 export const createConfiguredModel = () =>
   readGatewayApiKey() ? createGatewayModel(pickMainGatewayModel) : createProxyModel(pickMainProxyModel)
 
-export const createConfiguredCheckModel = () =>
-  readGatewayApiKey() ? createGatewayModel(pickCheckGatewayModel) : createProxyModel(pickCheckProxyModel)
+export const createConfiguredCheckModel = () => {
+  if (!readCheckModelSetting()) return undefined
+  return readGatewayApiKey() ? createGatewayModel(pickCheckGatewayModel) : createProxyModel(pickCheckProxyModel)
+}
 
 const isOpenAIModel = ({ gatewayModelId }: ChatModel) => gatewayModelId.startsWith(OPENAI_MODEL_PREFIX)
 

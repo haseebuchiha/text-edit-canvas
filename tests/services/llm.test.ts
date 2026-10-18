@@ -2,6 +2,7 @@ import type { LanguageModel } from "ai"
 import { CHAT_MODELS, type ChatModel } from "@/lib/chat-models"
 import {
   createChatModel,
+  createConfiguredCheckModel,
   createConfiguredModel,
   createModelOptions,
   describeModel,
@@ -193,6 +194,19 @@ describe("llm service", () => {
     expect(gptOnProxy).toEqual([true, true, true, true])
     expect(noneOnProxy).toBe(true)
     expect(claudeOnGateway).toBe(true)
+  })
+
+  it("has no separate check model unless one is set, so rewrites check on the chat's own model", () => {
+    useEnvironment(GATEWAY_ENVIRONMENT)
+    const unset = createConfiguredCheckModel()
+    useEnvironment({ ...GATEWAY_ENVIRONMENT, AI_GATEWAY_CHECK_MODEL: "openai/gpt-6.1-sol" })
+    const gatewayCheck = createConfiguredCheckModel()
+    useEnvironment({ ...PROXY_ENVIRONMENT, LLM_CHECK_MODEL: "gpt-6.1-sol" })
+    const proxyCheck = createConfiguredCheckModel()
+
+    expect(unset).toBeUndefined()
+    expect(gatewayCheck).toMatchObject({ provider: "gateway", modelId: "openai/gpt-6.1-sol" })
+    expect(proxyCheck).toMatchObject({ provider: "llm.responses", modelId: "gpt-6.1-sol" })
   })
 
   it("falls back to the configured model when no model is chosen", () => {
