@@ -3,6 +3,7 @@ import type { Editor } from "@tiptap/react"
 import {
   findNextSuggestion,
   findPreviousSuggestion,
+  hasCurrentSuggestion,
   readReviewPosition,
   resolveCurrentSuggestion,
   revealFirstNewSuggestion,
@@ -78,6 +79,26 @@ describe("review navigation", () => {
     expect(readReviewPosition(editor.state)).toEqual({ current: 2, count: 3 })
     editor.view.dispatch(editor.state.tr.setSelection(TextSelection.create(editor.state.doc, 1)))
     expect(readReviewPosition(editor.state)).toEqual({ current: 0, count: 3 })
+  })
+
+  it("has a current suggestion for the menu while the cursor is on one, focused or not", () => {
+    const editor = openEditor()
+    expect(hasCurrentSuggestion(editor.state)).toBe(false)
+    const transaction = suggestOperation(editor.state.tr, {
+      op: "replace_text",
+      nodeId: findBlockId(editor, "The customer wants"),
+      find: "customer",
+      replace: "client",
+    })
+    editor.view.dispatch(revealFirstNewSuggestion(transaction))
+    expect(editor.isFocused).toBe(false)
+    expect(hasCurrentSuggestion(editor.state)).toBe(true)
+    editor.view.dispatch(editor.state.tr.setSelection(TextSelection.create(editor.state.doc, 1)))
+    expect(hasCurrentSuggestion(editor.state)).toBe(false)
+    const [suggestionId] = listSuggestionIds(editor.state.doc)
+    reveal(editor, suggestionId)
+    resolveCurrentSuggestion(editor, acceptSuggestion)
+    expect(hasCurrentSuggestion(editor.state)).toBe(false)
   })
 
   it("moves to the next suggestion after an accept or a reject, wrapping to the first", () => {

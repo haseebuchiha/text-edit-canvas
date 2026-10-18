@@ -47,6 +47,8 @@ export const readReviewPosition = (state: EditorState): ReviewPosition => {
   return { current: suggestionIds.findIndex((id) => id === currentId) + 1, count: suggestionIds.length }
 }
 
+export const hasCurrentSuggestion = (state: EditorState) => findSuggestionAt(state) !== undefined
+
 export const findCurrentSuggestionRange = (state: EditorState) => {
   const suggestionId = findSuggestionAt(state)
   return suggestionId ? findSuggestionRange(state.doc, suggestionId) : undefined
