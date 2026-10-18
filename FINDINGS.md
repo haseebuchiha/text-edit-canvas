@@ -138,31 +138,19 @@ Each point says what went wrong, what we changed, and what happened after.
 - **Change:** a rule makes the model search before it answers. We then compared current models.
 - **Result:** gpt-6.1-sol got 68 of 68 requests right, gpt-6-luna about 95%, at a nineteenth of the price. We kept gpt-6-luna.
 
-### 12. The development proxy ignored the thinking setting
-
-- **Problem:** during development we call models through a local proxy. Its chat endpoint silently dropped the thinking setting for gpt-6 models. A request with thinking turned off still used 228 reasoning tokens. It also made answers shorter than the paid API does, so development didn't behave like production.
-- **Change:** the app now uses the Responses endpoint, which honours the setting, and sends medium thinking and medium verbosity itself.
-- **Result:** development and the gateway now get the same settings.
-
-### 13. Claude only caches when asked
-
-- **Problem:** providers charge a fraction of the price, often a tenth, for input they've seen before, such as our fixed instructions. GPT, Gemini, DeepSeek and Grok do this automatically. Claude only caches when the request marks what to cache, and ours didn't.
-- **Change:** the gateway option `caching: 'auto'` adds those marks. It's now on for every request.
-- **Result:** 65% of Claude's input came from the cache. Gemini still cached only about 2%, which is one reason it was the most expensive.
-
-### 14. Review mode works on the free editor
+### 12. Review mode works on the free editor
 
 - **Problem:** the brief asks for every AI change to be shown as a diff the user can accept or reject. Tiptap's own tracked-changes add-on is paid and not yet stable.
 - **Change:** a suggestion is two marks inside the document: the old text in red and struck through, the new text in green. Only the changed words are marked. Previous and Next step through the changes, and the Accept / Reject menu opens under the current one.
 - **Result:** accept, reject and undo are ordinary editor steps. "Reject all" gives back the exact original, bold and links included.
 
-### 15. Stop has to stop the server too
+### 13. Stop has to stop the server too
 
 - **Problem:** the Stop button only ended the stream in the browser. The server kept calling the model, finished the whole translation, and saved "Edited 199 blocks in 14 sections" to the chat history.
 - **Change:** Stop now cancels the request on the server, and no new section starts after it.
 - **Result:** Stop after 4 of 14 sections ended all calls at once, and the history showed exactly the 49 blocks that changed.
 
-### 16. Short block IDs save tokens
+### 14. Short block IDs save tokens
 
 - **Problem:** every block had a 36-character ID, about 20 tokens, repeated in every block the model sees and every edit it sends.
 - **Change:** blocks now get counter IDs: "1", "2", and so on.
