@@ -12,6 +12,7 @@ const OPENAI_MODEL_PREFIX = "openai/"
 const REASONING_EFFORT = "medium"
 const DEFAULT_REASONING_EFFORT = "default"
 const TEXT_VERBOSITY = "medium"
+const GATEWAY_CACHING = "auto"
 
 type GatewayEnvironment = NonNullable<ReturnType<typeof readGatewayEnvironment>>
 type ProxyEnvironment = NonNullable<ReturnType<typeof readProxyEnvironment>>
@@ -89,6 +90,7 @@ export const createModelOptions = (cacheKey: string) => ({
     promptCacheKey: cacheKey,
     parallelToolCalls: true,
   } satisfies OpenAILanguageModelResponsesOptions,
+  gateway: { caching: GATEWAY_CACHING },
 })
 
 export type ModelSettings = {

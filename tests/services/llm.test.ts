@@ -93,6 +93,7 @@ describe("llm service", () => {
     expect(request.url).toMatch(/^https:\/\/ai-gateway\.vercel\.sh\//u)
     expect(request.headers.get("authorization")).toBe(`Bearer ${GATEWAY_KEY}`)
     expect(request.body).toMatchObject({ providerOptions: createModelOptions(SESSION_ID) })
+    expect(request.body.providerOptions.gateway).toEqual({ caching: "auto" })
   })
 
   it("uses the proxy's Responses endpoint when AI_GATEWAY_API_KEY is blank, sending no API key", async () => {
