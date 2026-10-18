@@ -10,12 +10,13 @@ The evals send instructions through the app's real chat code and grade the resul
   - `checks.ts`: the code checks this scenario uses.
   - `checks.test.ts`: unit tests for those checks, and a test that every case points at real text in its document. `yarn test` runs them. They call no model.
   - `<scenario>.eval.ts`: the one test that runs every case against the model.
-- `run-case.ts`: runs one case. It loads the document into a headless editor built from the app's own extension list, selects the highlight if the case has one, sends the instruction through `streamChatTurn` in `services/chat.ts`, and applies the streamed edits with the app's `apply-edits.ts`. It records the tokens, the time to the first change and the total time. It also runs a scenario's cases one after another.
+- `run-case.ts`: runs one case. It loads the document into a headless editor built from the app's own extension list, selects the highlight if the case has one, sends the instruction through `streamChatTurn` in `services/chat.ts`, and applies the streamed edits with the app's `apply-edits.ts`. It records the tokens of every model call, the check model's included, the time to the first change and the total time. It also runs a scenario's cases one after another. A scenario can pass another `streamTurn` in place of `streamChatTurn`, which is how `strategies/` runs strategies A and B.
 - `checks.ts`: the checks that more than one scenario uses, and the text helpers behind them. `checks.test.ts` tests them.
 - `grader.ts`: the AI grader. It decides what code can't: tone, concision, translation quality, and whether an answer is right and supported.
 - `pass-rate.ts`: writes `results/<scenario>.md` and fails the test when fewer than 80% of the cases passed.
 - `labels/`: empty for now. See "Hand-labelling" below.
 - `results/`: one file per scenario from the last run. Git ignores this folder.
+- `strategies/`: runs the change-text, missing-part and rewrite-document cases through the three edit strategies the brief asks to compare ("Edit strategies" in `FINDINGS.md`). A, full rewrite: one call gets every block and returns every block's new text. B, section scope: the highlighted blocks, or the sections a first call picks from the outline, plus one neighbouring block on each side and the outline; the call returns new text for the sent blocks only. C: the app as it is. A and B stream structured output, turn each finished block that changed into a `replace_node` edit and apply it with `apply-edits.ts`. Each strategy and scenario writes `results/strategy-<strategy>-<scenario>.md` and a `.json` with the measures of every case. Only C has to reach 80%. `yarn evals` doesn't run them.
 
 ## Scenarios
 
@@ -64,6 +65,7 @@ yarn evals                          # every scenario
 yarn evals rewrite-document         # one scenario
 LLM_MODEL=gpt-6.1-sol yarn evals    # another model
 yarn evals --listTests              # lists the eval files and calls no model
+yarn evals --testMatch '**/tests/evals/strategies/*.strategy.ts'   # the three edit strategies
 ```
 
 The evals use the model the app is configured with, through `services/llm.ts`. They read `.env.local`, and a variable set in the shell wins over it. If the app is set up for the paid AI Gateway, the evals refuse to run unless you set `EVALS_ALLOW_PAID=1`. The grader always runs on gpt-6-luna at medium effort, with a strict pair-by-pair routine. It goes through the same path as the app: the gateway when `AI_GATEWAY_API_KEY` is set, the proxy otherwise. On 40 saved verdicts it agreed with gpt-6.1-sol 29 times.

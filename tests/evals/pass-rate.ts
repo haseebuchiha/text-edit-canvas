@@ -125,7 +125,7 @@ const formatResults = (scenario: string, run: ScenarioRun, failed: CaseResult[])
     formatTotals(run, run.results.length - failed.length),
   ].join("\n\n")
 
-const writeResults = (scenario: string, run: ScenarioRun, failed: CaseResult[]) => {
+export const writeResults = (scenario: string, run: ScenarioRun, failed: CaseResult[]) => {
   const path = join(RESULTS_FOLDER, `${scenario}.md`)
   mkdirSync(RESULTS_FOLDER, { recursive: true })
   writeFileSync(path, `${formatResults(scenario, run, failed)}\n`)
