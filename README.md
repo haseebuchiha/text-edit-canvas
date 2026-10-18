@@ -1,20 +1,18 @@
 # Text Edit Canvas
 
-A proof of concept for Pryvet: a Tiptap rich-text editor next to an AI chat. The goal is for the user to ask the chat for changes to the document and review each change as a diff before it's applied. That editing isn't built yet. Today the chat is a plain conversation, and the model never receives the document.
+A proof of concept for Pryvet: a Tiptap rich-text editor next to an AI chat. The user tells the chat what to change in the document, optionally after highlighting passages, and reviews each change before it's applied. Results, recommendations and known limits are in [`FINDINGS.md`](FINDINGS.md).
 
-## Status
+## What it does
 
-Works today:
+- **Editing by chat.** The model gets the document's outline and any highlighted text, reads or searches other sections when it needs them, and sends small edit operations on block IDs. The server checks every edit before the browser applies it.
+- **Review mode.** With "Auto-accept" off (the default), each change shows as a suggestion: removed text red and struck through, added text green. The bar above the document counts the changes and steps through them with Previous and Next, and the Accept / Reject menu opens under the current one. "Accept all" and "Reject all" handle everything at once.
+- **Auto-accept.** With the switch on, edits apply directly, changed passages flash green for two seconds, and one undo reverts the whole AI edit.
+- **Whole-document instructions** such as "translate the document to German" or "make it more formal" run section by section, with one agreed wording per key term and a check for changed meaning after each part.
+- **Questions about the document** get answers with exact quotes, which the server checks against the text. An answer whose quotes aren't in the document is never shown.
+- **Model menu.** The chat can run on GPT, Claude, Gemini, DeepSeek or Grok models through the Vercel AI Gateway. Each reply shows which model answered.
+- **Saved chats.** Each chat is a session in MongoDB with its messages and token counts. The document itself isn't saved: the editor always opens the built-in sample (`lib/sample-document.ts`), with headings, lists, a table, bold text and links.
 
-- The editor opens a built-in sample document (`lib/sample-document.ts`) with headings, lists, tables and links. Its toolbar covers bold, italic, two heading levels, bullet lists, links and tables. Edits aren't saved. Tiptap's UniqueID extension gives headings, paragraphs, list items, table rows and the other block types listed in `components/editor/editor-extensions.ts` a stable ID, which the planned edit operations will refer to.
-- The chat streams replies, can stop and retry, and shows the model's reasoning when the model returns it.
-- Each chat is a session in MongoDB. Opening `/` creates a session and redirects to `/chat/<id>`; reloading that URL restores the history. The "New chat" button starts another session.
-- Each reply stores its input and output tokens, and each session keeps running totals of both.
-- Review mode: with the "Auto-accept" switch off (the default), AI edits show as suggestions, removed text in red and struck through, added text in green. Click a suggestion to accept or reject it, or use "Accept all" and "Reject all" in the bar above the document. Undo and redo (Cmd/Ctrl+Z, Cmd/Ctrl+Shift+Z) step through proposing, accepting and rejecting. With the switch on, edits apply directly and one undo reverts the whole AI edit.
-
-The three edit strategies the brief asks to compare (full rewrite, highlighted sections only, and JSON patch operations) were tested end to end on the eval cases. The app uses patch operations. Results, known limits and the recommendation are in "Edit strategies" in [`FINDINGS.md`](FINDINGS.md#edit-strategies).
-
-[`LATER.md`](LATER.md) explains where this PoC departs from Pryvet's stack (Zod instead of Joi, no TanStack Query or Zustand).
+[`LATER.md`](LATER.md) explains where this proof of concept departs from Pryvet's stack: Zod instead of Joi, and no TanStack Query or Zustand.
 
 ## Setup
 
@@ -42,8 +40,8 @@ You need Node.js 24 (developed on 24.14.1), Yarn 1 (developed on 1.22.22), and D
 
    `MONGODB_URI` already points at the database from step 2. For the model, fill in one of two options:
 
-   - Vercel AI Gateway: set `AI_GATEWAY_API_KEY` and `AI_GATEWAY_MODEL`. Gateway model IDs have the form `provider/model`, for example `openai/gpt-5.6-luna`.
-   - Any endpoint that serves OpenAI's Responses API: set `LLM_BASE_URL` (the base URL ending in `/v1`; the app calls `/responses` under it) and `LLM_MODEL`, plus `LLM_API_KEY` if the endpoint needs one. The example value `http://127.0.0.1:10531/v1` is a local OAuth proxy used during development; replace it unless you run that proxy.
+   - Vercel AI Gateway: set `AI_GATEWAY_API_KEY` and `AI_GATEWAY_MODEL`. Gateway model IDs have the form `provider/model`, for example `openai/gpt-6-luna`.
+   - Any endpoint that serves OpenAI's Responses API: set `LLM_BASE_URL` (ending in `/v1`; the app calls `/responses` under it) and `LLM_MODEL`, plus `LLM_API_KEY` if the endpoint needs one. The example value `http://127.0.0.1:10531/v1` is a proxy that ran on the developer's machine during development. Replace it unless you run the same kind of proxy.
 
    When `AI_GATEWAY_API_KEY` is set, the gateway wins and the `LLM_*` values are ignored.
 
@@ -87,27 +85,29 @@ Folders sit at the project root (no `src/`), and `@/` points at the root. Calls 
 | `tests/`                        | Jest tests, mirroring the source folders                                   | anything                                                           |
 | `tests/evals/`                  | the evaluation suite: documents, scenarios with their cases and checks     | anything                                                           |
 
-Apart from tests, only `models/` and `db/` import `mongoose`, and every file in them starts with `import "server-only"`, so the build fails if browser code reaches the database. ESLint enforces the import rules. `tests/evals/` holds the evaluation suite: 23 frozen test documents in Tiptap JSON, five scenarios with their cases and checks, and the code that runs them against the app's model and grades the result ([`tests/evals/README.md`](tests/evals/README.md)). `yarn test` never runs an eval. Code style and lint rules are in [`AGENTS.md`](AGENTS.md).
+Apart from tests, only `models/` and `db/` import `mongoose`, and every file in them starts with `import "server-only"`, so the build fails if browser code reaches the database. ESLint enforces the import rules. `tests/evals/` holds the evaluation suite: 23 frozen test documents in Tiptap JSON, four scenarios with their cases and checks, and the code that runs them against the app's model and grades the result ([`tests/evals/README.md`](tests/evals/README.md)). `yarn test` never runs an eval. Code style and lint rules are in [`AGENTS.md`](AGENTS.md).
 
 ### Chat message flow
 
 ```
-components/chat/chat-panel.tsx   useChat sends { id: sessionId, message: newest user message }
+components/chat/chat-panel.tsx   sends the newest message, a snapshot of the editor and the chosen model
         │  POST /api/chat
         ▼
 app/api/chat/route.ts            validates the body (Zod, safeValidateUIMessages); 400 if invalid
         ▼
-services/chat.ts                 streamChatReply
-        ├─ services/llm.ts       createConfiguredModel; 503 if no model is configured
+services/chat.ts                 streamChatReply; 400 if the current setup doesn't serve the chosen model
+        ├─ services/llm.ts       creates the chosen model; 503 if no model is configured
         ├─ models/chat-sessions  findChatSessionById; 404 if the session doesn't exist
-        ├─ streamText            system prompt + saved messages + the new message
-        └─ toUIMessageStream     streams the reply to useChat, token usage in the finish metadata
+        ├─ streamText            system prompt, saved messages, and the new message with the snapshot
+        │                        tools: read_section, find_text, edit_document, answer_question,
+        │                        transform_document; at most 4 model calls
+        └─ toUIMessageStream     streams the reply, the edits and the token usage to useChat
                  │  onEnd, completed replies only
                  ▼
 models/chat-sessions.ts          appendChatMessages: $push both messages, $inc token totals
 ```
 
-The browser sends only the newest message, and the server rebuilds the history from MongoDB. The user message and the reply are saved together in one update after the reply completes; nothing is saved when the reply fails.
+The snapshot holds the outline, the relevant blocks and the highlight. The server turns it into plain text and attaches it to the newest message for this one call; MongoDB stores only what the user typed. The browser sends only the newest message, and the server rebuilds the history from MongoDB. In the browser, `components/editor/apply-edits.ts` applies the streamed edits, as suggestions or directly depending on the Auto-accept switch. The user message and the reply are saved together in one update after the reply completes. Nothing is saved when the reply fails.
 
 ### Data model
 
@@ -123,7 +123,7 @@ The types (`ChatSession`, `ChatMessage` and so on) are derived from the Mongoose
 2. Otherwise it uses `@ai-sdk/openai` with `LLM_BASE_URL`, `LLM_MODEL` and the optional `LLM_API_KEY`, through OpenAI's Responses API. Without `LLM_API_KEY` it sends an empty key, and never falls back to `OPENAI_API_KEY`.
 3. If neither is complete, `/api/chat` answers 503 with a message naming the settings to fill in.
 
-The chat composer has a model menu. Its button shows the chosen provider's logo and name; the menu lists the providers, and each opens a submenu of its models, the provider's cheap default first, with a check mark on the chosen one and a muted hint of its price for a million input plus a million output tokens, relative to `gpt-6-luna`. The models live in `CHAT_MODELS` (`lib/chat-models.ts`), one entry each with the ID the client sends, the provider, a short name, the logo, the gateway model ID and the gateway price:
+The chat composer has a model menu. It lists the providers, each with its logo; each provider opens a submenu of its models, its cheap default first, with a price hint relative to `gpt-6-luna`. The models live in `CHAT_MODELS` (`lib/chat-models.ts`), one entry each:
 
 - GPT: `openai/gpt-6-luna` (the default), `openai/gpt-6.1-sol`, `openai/gpt-6-sol`, `openai/gpt-5.6-luna`
 - Claude: `anthropic/claude-haiku-5.5`, `anthropic/claude-sonnet-5.5`, `anthropic/claude-opus-5.5`, `anthropic/claude-opus-5`
@@ -131,11 +131,13 @@ The chat composer has a model menu. Its button shows the chosen provider's logo 
 - DeepSeek: `deepseek/deepseek-v4.1-flash`, `deepseek/deepseek-v4-flash-vision-exp`, `deepseek/deepseek-v4-flash`, `deepseek/deepseek-v3.1`
 - Grok: `spacexai/grok-4.3`, `spacexai/grok-4.7`, `spacexai/grok-4.6`, `spacexai/grok-4.5`
 
-Each provider has its cheap default plus its newest models (by release date) in the public AI Gateway model list that support tool use and structured output, at most four in all. Left out: `gpt-6-astra`, anything priced at $10 / $50 per million tokens or more, `-pro` models, gpt-oss, Codex and coding-only models, and the `-fast`, `-batch` and dated copies of a listed model. The page offers only the models the current path serves, all twenty on the gateway and the four GPT models on the proxy, which lists all four in its `/v1/models`, and `/api/chat` answers 400 for any other. The chosen model runs the chat call and the section calls of a whole-document rewrite, and a request that names none falls back to `LLM_MODEL` or `AI_GATEWAY_MODEL`. Each reply saves and shows the model ID and its thinking: medium for OpenAI models, and default for the others, which ignore the OpenAI options below.
+Each provider gets its cheap default plus its newest models that support tool use and structured output, at most four. We left out `gpt-6-astra`, models priced at $10 / $50 per million tokens or more, `-pro` models, gpt-oss, and coding-only models. On the gateway all twenty are offered. On the `LLM_*` path only the four GPT models are, and `/api/chat` answers 400 for any other.
 
-A whole-document rewrite checks each rewritten part on a second model, the check model, which also repairs the blocks whose meaning changed. By default it is the chat's own model, the one picked in the dropdown. `AI_GATEWAY_CHECK_MODEL` on the gateway or `LLM_CHECK_MODEL` on the other path sets a different one. A stronger check model such as gpt-6.1-sol makes rewrites more accurate at about ten times the cost.
+The chosen model runs every call of a message, including the section calls of a whole-document rewrite. A request that names no model uses `AI_GATEWAY_MODEL` or `LLM_MODEL`. Each reply saves and shows the model ID and its thinking level: medium for OpenAI models, and the provider's default for the others, which ignore the OpenAI options below.
 
-Every model call, the chat call and each section call of a whole-document rewrite, sends the same OpenAI options on both paths (`createModelOptions` in `services/llm.ts`; the gateway passes them on to OpenAI): medium reasoning effort, medium text verbosity, `store: false`, the chat session ID as the prompt cache key, and parallel tool calls allowed. With `store: false` the SDK asks for the model's reasoning in encrypted form and sends it back on the next step, so reasoning carries across tool calls without being stored.
+A whole-document rewrite checks each rewritten part for changed meaning and repairs it. The check runs on the chosen model unless `AI_GATEWAY_CHECK_MODEL` (gateway) or `LLM_CHECK_MODEL` sets another one. A stronger check model such as gpt-6.1-sol makes rewrites more accurate at about ten times the cost.
+
+Every call sends the same OpenAI options (`createModelOptions` in `services/llm.ts`): medium reasoning effort, medium verbosity, `store: false`, the chat session ID as the prompt cache key, and parallel tool calls allowed. The gateway passes them on to OpenAI, and its automatic prompt caching (`caching: 'auto'`) is on, which Claude needs before it caches anything. With `store: false`, the SDK gets the model's reasoning in encrypted form and sends it back on the next step, so reasoning carries across tool calls without being stored.
 
 ## Dependencies and licenses
 
