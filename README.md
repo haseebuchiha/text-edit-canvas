@@ -12,11 +12,9 @@ Works today:
 - Each reply stores its input and output tokens, and each session keeps running totals of both.
 - Review mode: with the "Auto-accept" switch off (the default), AI edits show as suggestions, removed text in red and struck through, added text in green. Click a suggestion to accept or reject it, or use "Accept all" and "Reject all" in the bar above the document. Undo and redo (Cmd/Ctrl+Z, Cmd/Ctrl+Shift+Z) step through proposing, accepting and rejecting. With the switch on, edits apply directly and one undo reverts the whole AI edit.
 
-Planned (details in [`LATER.md`](LATER.md)):
+The three edit strategies the brief asks to compare (full rewrite, highlighted sections only, and JSON patch operations) were tested end to end on the eval cases. The app uses patch operations. Results, known limits and the recommendation are in "Edit strategies" in [`FINDINGS.md`](FINDINGS.md#edit-strategies).
 
-- three edit strategies to compare: full rewrite, highlighted sections only, and JSON patch operations
-
-`LATER.md` also explains where this PoC departs from Pryvet's stack (Zod instead of Joi, no TanStack Query or Zustand).
+[`LATER.md`](LATER.md) explains where this PoC departs from Pryvet's stack (Zod instead of Joi, no TanStack Query or Zustand).
 
 ## Setup
 

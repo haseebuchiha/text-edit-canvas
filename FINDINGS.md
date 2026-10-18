@@ -6,6 +6,111 @@ Models were reached through a local proxy, through its chat endpoint until round
 
 Until round 14, cases ran on two documents: the editor's 1-page sample offer (5 headings) and a 9-page synthetic IT security policy (26 headings, 3 tables). Most cases ran between 3 and 40 times, through a harness of scratch scripts. From round 15 the harness is the eval suite in `evals/` (now `tests/evals/`), with 129 cases on 24 documents (see "Measuring with the eval suite"). Per-case numbers for every test round are in `TEST-RESULTS.md`.
 
+## Edit strategies
+
+The brief asks us to test three ways of getting an edit from the model. We ran all three end to end on every eval case that edits the document, once each: change-text (22 targeted, 14 highlighted and 16 "everywhere" edits), missing-part (9) and rewrite-document (20). That is 81 cases per strategy. The answer-question cases make no edit and were left out. All three used gpt-6-luna at medium effort through the local proxy, with the same documents, code checks and grader (gpt-6-luna at medium effort). The harness is in `tests/evals/strategies/`, and each strategy and scenario writes its cases to `tests/evals/results/strategy-*`.
+
+- **A, full rewrite.** One call gets the instruction and every block in the app's plain-text format (`[id] (type) text`), plus the focus when something is highlighted. It returns the full new text of every block, keyed by block ID, through a JSON schema the API enforces, so no block can be left out. Each block whose text changed becomes a `replace_node` edit.
+- **B, section scope.** With a highlight, the call gets the highlighted block. Without one, a first call sees only the outline and the text before the first heading and picks sections, and the call gets the blocks of those sections. It also gets the outline and one neighbouring block on each side, for context only. It returns new text for the sent blocks only; the schema has no field for any other block.
+- **C, patch operations.** The app as it is. The chat model reads, searches and sends `replace_text` or `replace_node` operations through `edit_document`, which checks them. Whole-document instructions go through the section-by-section pass (`transform_document`) with its term sheet and meaning check, on gpt-6-luna as the check model, the default on the proxy.
+
+A and B share one prompt with the app's editing rules: change only what's asked, follow a changed figure, keep placeholders and how strong each statement is, and say when a part is missing. They have no tools, checks or retries. Both stream their output. A block counts as finished when the next one starts, and it goes into the headless editor through the app's `apply-edits.ts` at that moment, so the first change is the first finished block that changed.
+
+- **Passed**: every code check passed and the grader didn't say fail.
+- **Unintended**: cases where a block outside the case's scope changed, from the `no-unintended-changes` check. Whole-document rewrites have no such check.
+- **In** and **Out**: average tokens per edit over all model calls, including B's picking call and C's check model. Out includes reasoning, which was small (27 tokens per edit on A, 65 on B, 369 on C).
+- **Cost**: per 1,000 edits at gateway list prices for openai/gpt-6-luna, $0.10 / $0.50 per million tokens in / out, reasoning billed as output, no cache discount. The proxy reported almost no cached tokens.
+- **First change**: average over the cases where the document changed. **Total**: average over all cases. Both are proxy timings and include the proxy's own delay. The three strategies ran at the same time, and C's section pass runs 6 calls at once.
+
+Targeted edits, 22 cases:
+
+| Strategy | Passed | Unintended | In | Out | Cost per 1,000 edits | First change | Total |
+|---|--:|--:|--:|--:|--:|--:|--:|
+| A, full rewrite | 21 (95.5%) | 0 (0%) | 5,357 | 3,210 | $2.14 | 11.3 s | 18.9 s |
+| B, section scope | 19 (86.4%) | 1 (4.5%) | 2,111 | 631 | $0.53 | 7.6 s | 8.9 s |
+| C, patch operations | 21 (95.5%) | 1 (4.5%) | 4,063 | 130 | $0.47 | 5.0 s | 5.0 s |
+
+Highlighted edits, 14 cases:
+
+| Strategy | Passed | Unintended | In | Out | Cost per 1,000 edits | First change | Total |
+|---|--:|--:|--:|--:|--:|--:|--:|
+| A, full rewrite | 13 (92.9%) | 1 (7.1%) | 5,765 | 3,336 | $2.24 | 12.4 s | 19.6 s |
+| B, section scope | 14 (100%) | 0 (0%) | 855 | 100 | $0.14 | 3.3 s | 3.5 s |
+| C, patch operations | 13 (92.9%) | 1 (7.1%) | 3,907 | 95 | $0.44 | 3.8 s | 3.8 s |
+
+"Everywhere" edits, 16 cases:
+
+| Strategy | Passed | Unintended | In | Out | Cost per 1,000 edits | First change | Total |
+|---|--:|--:|--:|--:|--:|--:|--:|
+| A, full rewrite | 15 (93.8%) | 0 (0%) | 5,239 | 3,134 | $2.09 | 4.0 s | 17.9 s |
+| B, section scope | 12 (75.0%) | 0 (0%) | 5,407 | 2,879 | $1.98 | 7.2 s | 20.8 s |
+| C, patch operations | 13 (81.3%) | 0 (0%) | 4,491 | 304 | $0.60 | 5.5 s | 5.9 s |
+
+Missing part, 9 cases. Any change here is a failure, so there is no first-change column:
+
+| Strategy | Passed | Unintended | In | Out | Cost per 1,000 edits | Total |
+|---|--:|--:|--:|--:|--:|--:|
+| A, full rewrite | 7 (77.8%) | 2 (22.2%) | 5,654 | 3,301 | $2.22 | 21.1 s |
+| B, section scope | 9 (100%) | 0 (0%) | 474 | 52 | $0.07 | 2.7 s |
+| C, patch operations | 6 (66.7%) | 1 (11.1%) | 6,628 | 98 | $0.71 | 5.2 s |
+
+Whole-document rewrites, 20 cases (7 translations, 6 "more formal", 7 "more concise"):
+
+| Strategy | Passed | Code checks only | In | Out | Cost per 1,000 edits | First change | Total |
+|---|--:|--:|--:|--:|--:|--:|--:|
+| A, full rewrite | 13 (65.0%) | 19 | 5,182 | 2,915 | $1.98 | 2.4 s | 19.3 s |
+| B, section scope | 10 (50.0%) | 15 | 5,802 | 2,978 | $2.07 | 5.7 s | 22.6 s |
+| C, patch operations | 8 (40.0%) | 20 | 30,841 | 7,838 | $7.00 | 18.9 s | 30.4 s |
+
+All 81 cases:
+
+| Strategy | Passed | Unintended | In | Out | Cost per 1,000 edits | First change | Total |
+|---|--:|--:|--:|--:|--:|--:|--:|
+| A, full rewrite | 69 (85.2%) | 3 of 61 (4.9%) | 5,394 | 3,154 | $2.12 | 7.3 s | 19.2 s |
+| B, section scope | 64 (79.0%) | 1 of 61 (1.6%) | 3,274 | 1,498 | $1.08 | 6.1 s | 13.0 s |
+| C, patch operations | 61 (75.3%) | 3 of 61 (4.9%) | 11,017 | 2,058 | $2.13 | 8.7 s | 11.3 s |
+
+Each case ran once, so the accuracy numbers are noisy. A and C disagree on 16 cases: A passed 12 that C failed, and C passed 4 that A failed (two-sided exact test, p ≈ 0.08). B and C disagree on 19 cases, 11 to 8. The grader also varies: C's German sample offer (SG) passed in the smoke run before the full run and failed in it. The cost and time gaps are large and stable; the accuracy order is not.
+
+What the run shows:
+
+- Cost and time follow the output. A writes the whole document back for every edit, about 3,200 output tokens on average, so changing one figure costs about as much as translating the document: $2.14 per 1,000 targeted edits against $0.47 for C, and 18.9 s against 5.0 s. On the eight longest documents, with 4,600 to 7,700 tokens of text, A took 30 s per targeted, highlighted or "everywhere" edit on average and up to 37 s, writing about 5,300 tokens each time. C took 5.4 s. On the 1-page sample A was the fastest, at 4.2 s against 6.6 s for C.
+- C's whole-document rewrites cost the most, about 31,000 input and 7,800 output tokens each, against about 5,200 and 2,900 for A. The term sheet, the part calls, the meaning checks and the repairs all add up. The first change appeared after 19 s, because the term sheet comes first and each part waits for its check, against 2.4 s for A. C passed every code check on the rewrites, but the grader failed 12 of 20: all 7 translations, 4 of the 6 formal rewrites and 1 concise one. Its reasons were an untranslated table header, a switch between "Sie" and the third person, a mistranslated discount condition, and formal rewrites that left many blocks in their old tone. This grader is gpt-6-luna, and so is the check model. Round 20 used gpt-6.1-sol for both, so these 8 of 20 can't be compared with its 20 of 26.
+- The enforced schema stopped the single pass from ending early. A's German policy (LG) came back with 199 of 200 blocks changed. Before, a single `edit_document` pass covered only 37 to 60 of them in 4 of 10 runs (see "Whole-document instructions").
+- With a highlight, B sends one editable block, and it passed all 14 cases for 855 input and 100 output tokens. In 15-highlight, "make this 12 months" on "six months" in a list item, A and C both changed a different "six months" instead, the programme length in block 6. B's schema has no field for block 6.
+- With nothing highlighted, B's picking call sees only headings. It has the problem round 1 found when only the outline was sent ("Requests with nothing highlighted", and round 1 in `TEST-RESULTS.md`): it misses facts that no heading points to. Round 1 also showed the gain: on the 9-page policy, an edit to one section took about 2,200 input tokens with the outline against 7,800 with the whole document. Here B's targeted edits took 2,111 input tokens against A's 5,357. B missed the second hotline mention (L5), the project length in the executive summary (11-edit) and both skip-lot mentions (09-edit, where it then said the text wasn't shown). In L10 it added a sentence to the accounts section, as C did in earlier rounds. For "everywhere" edits it picked nearly every section and sent as much as A (5,407 against 5,239 input tokens).
+- Missing parts: B passed all 9, because the picking call picked nothing and said the part wasn't there, for 474 input tokens. C failed 3, each time ending with no reply text: once after reads and searches used all 4 calls, once after an edit call that changed nothing, and once after editing a block. A failed 2 by rewriting the whole document: asked to shorten a cover letter and a definitions section that don't exist, it shortened 80 and 24 blocks. Those two runs hold 104 of the 105 blocks that A changed out of scope. C's and B's unintended changes were one block each.
+- "Everywhere" edits: each strategy missed a second occurrence in one paragraph once (A in 10-everywhere, B in 03-everywhere, C in 01-everywhere). B also left the heading "Responsibilities of the Customer" unchanged (01-everywhere) and missed one block in L3. In C's L3 run, the check rejected three edits in a row and the request ran out of its 4 calls with nothing changed.
+
+Recommendation: keep C, the patch operations the app already uses. Most requests are targeted or "everywhere" edits, and for those C was the cheapest and fastest: $0.47 to $0.60 per 1,000 edits and 5 to 6 s, against $2.09 to $2.14 and 18 to 19 s for A. Its accuracy is within noise of A's. It also keeps bold and links, which A and B drop from every block they change. Two parts of the other strategies are worth trying in the app, each after a repeat run with more trials:
+
+- For a highlighted edit, make only the highlighted block editable, as B does. All 14 passed, at a third of C's cost, and the model can't touch another block. An edit to a highlighted figure that should also update a total elsewhere would still need C; none of these cases asked for that.
+- For whole-document rewrites, one pass with an enforced field per block (A) passed 13 of 20 against 8 for the section pass, at $1.98 against $7.00 per 1,000, with the first change after 2 s instead of 19 s. The 7 to 2 split on these cases could still be noise (p ≈ 0.18). Long documents would still need splitting into parts (see the limits below).
+
+Known limits:
+
+- **A, full rewrite.**
+  - Cost and time grow with the document, not with the edit.
+  - The 64-page document wasn't run. It would need roughly 60,000 output tokens in one stream, several minutes at the speeds seen here, and a schema with one field per block (about 300 in the largest document here). C's section pass handled it in 151 to 198 s (round 11).
+  - A change near the end of a long document shows up late, because the model writes the blocks in order: 11 s for targeted edits on average.
+  - When the part named in the instruction is missing, it may rewrite the whole document.
+- **B, section scope.**
+  - Without a highlight, it finds sections from headings alone and misses facts that no heading points to.
+  - For "everywhere" and whole-document instructions it sends nearly the whole document, so it has A's costs and limits. Long documents would need the sent sections split into parts.
+  - A highlighted edit can't follow a figure into another block, because only the highlighted block is editable.
+  - The context is one block on each side. For a table cell, that is the cells next to it, not its column header.
+- **C, patch operations.**
+  - It makes several calls per request (search, read, edit, and a retry after a rejected edit), each sending the conversation again, so its input per targeted edit is twice B's.
+  - The 4-call limit can end a request with nothing changed (L3).
+  - Whole-document rewrites cost the most and start last. It is the only strategy that splits a long document into parts, though.
+  - In 3 of 9 missing-part cases it ended with no reply text.
+- **All three.**
+  - None of them can add or remove a block, such as a table row, a list item or a paragraph. Each operation replaces the text of an existing block.
+  - Table cells and list items are blocks of their own, so table and list structure survived in every run: no strategy failed the table or heading checks on the rewrites.
+  - A and B replace every changed block as plain text, so bold and links in it are lost. C keeps them when it uses `replace_text`.
+
+`tests/evals/run-case.ts` now also counts the check model's tokens. Before, the eval's token totals for C's rewrites left out the meaning check and the repairs (round 20 in `TEST-RESULTS.md`). The full run took 30.5 minutes with the three strategies in parallel. It used about 1.6 million input and 0.54 million output tokens in the app calls and 0.36 and 0.10 million in the grader, with no errors and no retries. The proxy's weekly quota read 1% used before the smoke run and 1% after the full run.
+
 ## Document context in each request
 
 When the user sends a message, the browser builds a snapshot of the editor and sends it to our server next to the typed message. The snapshot holds the outline (every heading with its block ID), the relevant text blocks, and the highlight as a block ID plus character offsets. The server flattens it to plain text, which costs about 2.3× fewer tokens than Tiptap JSON, and attaches it to the latest user message for that one model call. MongoDB stores only what the user typed, so old copies of the document never pile up in the history.

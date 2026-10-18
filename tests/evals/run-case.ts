@@ -8,6 +8,7 @@ import {
   type DynamicToolUIPart,
   getToolName,
   isToolUIPart,
+  type LanguageModel,
   type LanguageModelMiddleware,
   readUIMessageStream,
   type ToolUIPart,
@@ -22,8 +23,13 @@ import { readEvalsAllowPaid, readGatewayApiKey } from "@/config/env"
 import type { ChatUIMessage } from "@/db/schemas/chat-message"
 import type { OutlineEntry, Section } from "@/lib/document-snapshot"
 import { TRANSFORM_DOCUMENT_TOOL, transformProgressSchema } from "@/lib/transform-document"
-import { streamChatTurn } from "@/services/chat"
-import { createConfiguredModel, createModelOptions, type ModelSettings } from "@/services/llm"
+import { type ChatTurn, streamChatTurn } from "@/services/chat"
+import {
+  createConfiguredCheckModel,
+  createConfiguredModel,
+  createModelOptions,
+  type ModelSettings,
+} from "@/services/llm"
 import { type CheckResult, findBlockBySnippet } from "@/tests/evals/checks"
 import type { Grade } from "@/tests/evals/grader"
 
@@ -64,9 +70,12 @@ export type CaseResult = {
 
 export type ScenarioRun = { model: string; startedAt: number; results: CaseResult[] }
 
-type Scenario<TestCase extends EvalCase> = {
+export type StreamTurn = (modelSettings: ModelSettings, turn: ChatTurn) => ReturnType<typeof streamChatTurn>
+
+export type Scenario<TestCase extends EvalCase> = {
   check: (testCase: TestCase, outcome: CaseOutcome) => CheckResult[]
   grade?: (testCase: TestCase, outcome: CaseOutcome) => Promise<Grade[]>
+  streamTurn?: StreamTurn
 }
 
 export type ModelRecorder = { calls: Tokens[]; errors: string[] }
@@ -166,14 +175,21 @@ export const recordModelCalls = (recorder: ModelRecorder): LanguageModelMiddlewa
 
 export const sumTokens = (calls: Tokens[]) => calls.reduce(addTokens, NO_TOKENS)
 
-export const createAppModel = () => {
-  const model = createConfiguredModel()
+const requireModel = (model?: LanguageModel) => {
   if (!model || typeof model === "string") throw new Error(NOT_CONFIGURED)
   return model
 }
 
+export const createAppModel = () => requireModel(createConfiguredModel())
+
+const createCheckModel = () => requireModel(createConfiguredCheckModel() ?? createConfiguredModel())
+
 const createAppModelSettings = (recorder: ModelRecorder): ModelSettings => ({
   model: wrapLanguageModel({ model: createAppModel(), middleware: recordModelCalls(recorder) }),
+  checkModel: wrapLanguageModel({
+    model: createCheckModel(),
+    middleware: recordModelCalls(recorder),
+  }),
   providerOptions: createModelOptions(randomUUID()),
 })
 
@@ -231,14 +247,14 @@ const toUserMessage = (text: string): ChatUIMessage => ({
 
 const waitForPendingCommits = () => new Promise((resolve) => setImmediate(resolve))
 
-const streamReply = async ({ instruction }: EvalCase, run: Run) => {
+const streamReply = async ({ instruction }: EvalCase, run: Run, streamTurn: StreamTurn) => {
   const turn = {
     history: [],
     message: toUserMessage(instruction),
     snapshot: buildDocumentSnapshot(run.editor),
     abortSignal: run.abortSignal,
   }
-  const stream = await streamChatTurn(createAppModelSettings(run.recorder), turn)
+  const stream = await streamTurn(createAppModelSettings(run.recorder), turn)
   const recordChatError = (error: unknown) => run.chatErrors.push(describeError(error))
   const messages = await Array.fromAsync(
     readUIMessageStream<ChatUIMessage>({ stream: applyAcceptedEdits(run.editor, stream), onError: recordChatError }),
@@ -317,17 +333,17 @@ const collectOutcome = (run: Run, message?: ChatUIMessage): CaseOutcome => {
 const isInfrastructureFailure = (run: Run, { error }: CaseOutcome) =>
   error !== undefined && run.recorder.errors.length > 0 && !run.abortSignal.aborted
 
-const runAttempt = (testCase: EvalCase) => {
+const runAttempt = (testCase: EvalCase, streamTurn: StreamTurn) => {
   const run = startRun(testCase)
-  return streamReply(testCase, run)
+  return streamReply(testCase, run, streamTurn)
     .then((message) => collectOutcome(run, message))
     .then((outcome) => ({ outcome, failedOnInfrastructure: isInfrastructureFailure(run, outcome) }))
     .finally(() => run.editor.destroy())
 }
 
-export const runCase = async (testCase: EvalCase) => {
-  const { outcome, failedOnInfrastructure } = await runAttempt(testCase)
-  return failedOnInfrastructure ? (await runAttempt(testCase)).outcome : outcome
+export const runCase = async (testCase: EvalCase, streamTurn: StreamTurn = streamChatTurn) => {
+  const { outcome, failedOnInfrastructure } = await runAttempt(testCase, streamTurn)
+  return failedOnInfrastructure ? (await runAttempt(testCase, streamTurn)).outcome : outcome
 }
 
 const NO_FINDINGS = { failedChecks: [], grades: [] }
@@ -354,7 +370,7 @@ const gradeCase = <TestCase extends EvalCase>(testCase: TestCase, outcome: CaseO
     )
 
 const runAndGrade = async <TestCase extends EvalCase>(testCase: TestCase, scenario: Scenario<TestCase>) => {
-  const outcome = await runCase(testCase)
+  const outcome = await runCase(testCase, scenario.streamTurn)
   if (outcome.error) return toResult(testCase, outcome, { ...NO_FINDINGS, error: outcome.error })
   const failedChecks = scenario.check(testCase, outcome).filter(({ passed }) => !passed)
   if (failedChecks.length > 0) return toResult(testCase, outcome, { ...NO_FINDINGS, failedChecks })
