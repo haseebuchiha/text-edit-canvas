@@ -48,7 +48,7 @@ const GATEWAY_CHAT_MODEL_IDS = [
   "deepseek/deepseek-v4-flash-vision-exp",
   "deepseek/deepseek-v4-flash",
   "deepseek/deepseek-v3.1",
-  "spacexai/grok-4.1-fast-reasoning",
+  "spacexai/grok-4.3",
   "spacexai/grok-4.7",
   "spacexai/grok-4.6",
   "spacexai/grok-4.5",

@@ -13,7 +13,7 @@ describe("chat models", () => {
       ["Claude", "claude-haiku-5.5"],
       ["Gemini", "gemini-3.8-flash"],
       ["DeepSeek", "deepseek-v4.1-flash"],
-      ["Grok", "grok-4.1-fast-reasoning"],
+      ["Grok", "grok-4.3"],
     ])
   })
 

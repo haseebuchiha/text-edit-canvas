@@ -131,7 +131,7 @@ The chat composer has a model menu. Its button shows the chosen provider's logo 
 - Claude: `anthropic/claude-haiku-5.5`, `anthropic/claude-sonnet-5.5`, `anthropic/claude-opus-5.5`, `anthropic/claude-opus-5`
 - Gemini: `google/gemini-3.8-flash`, `google/gemini-4-argon`, `google/gemini-3.7-flash`, `google/gemini-3.5-flash-lite`
 - DeepSeek: `deepseek/deepseek-v4.1-flash`, `deepseek/deepseek-v4-flash-vision-exp`, `deepseek/deepseek-v4-flash`, `deepseek/deepseek-v3.1`
-- Grok: `spacexai/grok-4.1-fast-reasoning`, `spacexai/grok-4.7`, `spacexai/grok-4.6`, `spacexai/grok-4.5`
+- Grok: `spacexai/grok-4.3`, `spacexai/grok-4.7`, `spacexai/grok-4.6`, `spacexai/grok-4.5`
 
 Each provider has its cheap default plus its newest models (by release date) in the public AI Gateway model list that support tool use and structured output, at most four in all. Left out: `gpt-6-astra`, anything priced at $10 / $50 per million tokens or more, `-pro` models, gpt-oss, Codex and coding-only models, and the `-fast`, `-batch` and dated copies of a listed model. The page offers only the models the current path serves, all twenty on the gateway and the four GPT models on the proxy, which lists all four in its `/v1/models`, and `/api/chat` answers 400 for any other. The chosen model runs the chat call and the section calls of a whole-document rewrite, and a request that names none falls back to `LLM_MODEL` or `AI_GATEWAY_MODEL`. Each reply saves and shows the model ID and its thinking: medium for OpenAI models, and default for the others, which ignore the OpenAI options below.
 

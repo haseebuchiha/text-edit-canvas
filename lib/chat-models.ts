@@ -132,12 +132,12 @@ export const CHAT_MODELS = [
     pricePerMillionTokens: { input: 0.25, output: 0.95 },
   },
   {
-    id: "grok-4.1-fast-reasoning",
+    id: "grok-4.3",
     provider: "Grok",
-    name: "4.1 fast reasoning",
+    name: "4.3",
     logo: GROK_LOGO,
-    gatewayModelId: "spacexai/grok-4.1-fast-reasoning",
-    pricePerMillionTokens: { input: 0.2, output: 0.5 },
+    gatewayModelId: "spacexai/grok-4.3",
+    pricePerMillionTokens: { input: 1.25, output: 2.5 },
   },
   {
     id: "grok-4.7",
