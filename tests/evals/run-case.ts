@@ -21,10 +21,12 @@ import { createEditorExtensions } from "@/components/editor/editor-extensions"
 import { contentStart, findTextBlock } from "@/components/editor/text-blocks"
 import { readEvalsAllowPaid, readGatewayApiKey } from "@/config/env"
 import type { ChatUIMessage } from "@/db/schemas/chat-message"
+import type { ChatModelId } from "@/lib/chat-models"
 import type { OutlineEntry, Section } from "@/lib/document-snapshot"
 import { TRANSFORM_DOCUMENT_TOOL, transformProgressSchema } from "@/lib/transform-document"
 import { type ChatTurn, streamChatTurn } from "@/services/chat"
 import {
+  createChatModel,
   createConfiguredCheckModel,
   createConfiguredModel,
   createModelOptions,
@@ -181,6 +183,8 @@ const requireModel = (model?: LanguageModel) => {
 }
 
 export const createAppModel = () => requireModel(createConfiguredModel())
+
+export const createNamedModel = (chatModelId: ChatModelId) => requireModel(createChatModel(chatModelId))
 
 const createCheckModel = () => requireModel(createConfiguredCheckModel() ?? createConfiguredModel())
 

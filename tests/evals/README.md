@@ -17,7 +17,7 @@ The evals send instructions through the app's real chat code and grade the resul
 - `labels/`: empty for now. See "Hand-labelling" below.
 - `results/`: one file per scenario from the last run. Git ignores this folder.
 - `strategies/`: runs the change-text, missing-part and rewrite-document cases through the three edit strategies the brief asks to compare ("Edit strategies" in `FINDINGS.md`). A, full rewrite: one call gets every block and returns every block's new text. B, section scope: the highlighted blocks, or the sections a first call picks from the outline, plus one neighbouring block on each side and the outline; the call returns new text for the sent blocks only. C: the app as it is. A and B stream structured output, turn each finished block that changed into a `replace_node` edit and apply it with `apply-edits.ts`. Each strategy and scenario writes `results/strategy-<strategy>-<scenario>.md` and a `.json` with the measures of every case. Only C has to reach 80%. `yarn evals` doesn't run them.
-- `REPORT.md`: the comparison of five models on the AI Gateway, from 18 October 2026.
+- `REPORT.md`: the comparison of eight models on the AI Gateway, from 18 and 19 October 2026.
 
 ## Scenarios
 
@@ -69,7 +69,7 @@ yarn evals --listTests              # lists the eval files and calls no model
 yarn evals --testMatch '**/tests/evals/strategies/*.strategy.ts'   # the three edit strategies
 ```
 
-The evals use the model the app is configured with, through `services/llm.ts`. They read `.env.local`, and a variable set in the shell wins over it. If the app is set up for the paid AI Gateway, the evals refuse to run unless you set `EVALS_ALLOW_PAID=1`. The grader runs on the same model as the app under test, at medium effort, with a strict pair-by-pair routine, and so does the rewrite check unless `AI_GATEWAY_CHECK_MODEL` or `LLM_CHECK_MODEL` is set. Switching the model switches every call. A model grades its own work, so pass rates of different models aren't strictly comparable. On 40 saved verdicts it agreed with gpt-6.1-sol 29 times.
+The evals use the model the app is configured with, through `services/llm.ts`. They read `.env.local`, and a variable set in the shell wins over it. If the app is set up for the paid AI Gateway, the evals refuse to run unless you set `EVALS_ALLOW_PAID=1`. The grader always runs on gpt-6-luna at medium effort, with a strict pair-by-pair routine, through the same path as the app: the gateway when `AI_GATEWAY_API_KEY` is set, the proxy otherwise. The rewrite check runs on the model under test unless `AI_GATEWAY_CHECK_MODEL` or `LLM_CHECK_MODEL` is set. On 40 saved verdicts it agreed with gpt-6.1-sol 29 times.
 
 `yarn test` runs the `checks.test.ts` files and never an eval.
 

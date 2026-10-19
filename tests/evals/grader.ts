@@ -6,8 +6,8 @@ import { createModelOptions } from "@/services/llm"
 import { type BlockPair, isChanged, isHeading } from "@/tests/evals/checks"
 import {
   type CaseOutcome,
-  createAppModel,
   createModelRecorder,
+  createNamedModel,
   describeShownReply,
   recordModelCalls,
   sumTokens,
@@ -22,6 +22,7 @@ export type Grade = { grader: GraderName; verdict: "pass" | "fail" | "unknown"; 
 
 type AnswerBrief = { instruction: string; reference: string; criteria: string[] }
 
+export const GRADER_MODEL = "gpt-6-luna"
 export const GRADER_EFFORT = "medium"
 const GRADER_TIMEOUT_MS = 5 * 60_000
 
@@ -140,7 +141,7 @@ const createGraderOptions = () => {
 const askGrader = async (grader: GraderName, prompt: string): Promise<Grade> => {
   const recorder = createModelRecorder()
   const { output } = await generateText({
-    model: wrapLanguageModel({ model: createAppModel(), middleware: recordModelCalls(recorder) }),
+    model: wrapLanguageModel({ model: createNamedModel(GRADER_MODEL), middleware: recordModelCalls(recorder) }),
     providerOptions: createGraderOptions(),
     instructions: GRADER_INSTRUCTIONS,
     prompt,

@@ -7,7 +7,7 @@ The short version. Per-round numbers are in [`TEST-RESULTS.md`](TEST-RESULTS.md)
 - **Editor: Tiptap**, with its free MIT packages only. Every block gets a stable ID for the edits, and review mode runs on two custom marks, so the paid Tracked Changes add-on isn't needed.
 - **Edit strategy: C, patch operations.** The model sends small edits on block IDs (`replace_text`, `replace_node`) and the server checks them. For targeted edits it costs about $0.50 per 1,000 edits and takes 4 to 6 s, against about $2 and 18 to 20 s for a full rewrite.
 - **Whole-document instructions: the section pipeline.** It writes a term sheet, rewrites the document part by part, then checks each part for changed meaning and repairs it. It's the most expensive path, but it passed the most cases on the strict rewrite test.
-- **Model: gpt-6-luna at medium effort.** It passed the most eval cases of five cheap models on the AI Gateway, for the lowest cost. gpt-6.1-sol is the step up, at about 19 times the price.
+- **Model: gpt-6-luna at medium effort.** It passed the most eval cases of eight cheap models on the AI Gateway, for the lowest cost. gpt-6.1-sol is the step up, at about 19 times the price.
 
 ## Results
 
@@ -48,19 +48,27 @@ A test case is one document, one instruction and the expected result. "One run p
 
 ### Models on the AI Gateway
 
-The full test suite, once per model, through the AI Gateway. "Spent" is what the gateway charged, including the AI grader.
+The full test suite, once per model, through the AI Gateway. "Spent" is what the gateway charged, including the AI grader. "Small task" and "Rewrite" are the average time per case in the suite. "First text" and "Text speed" come from a separate test: the same short rewrite request, sent three times to each model (see [`tests/evals/REPORT.md`](tests/evals/REPORT.md)).
 
-| Model | Passed (of 118) | Rewrites (of 20) | Spent |
-|---|--:|--:|--:|
-| gpt-6-luna | 108 (91.5%) | 14 | $0.35 |
-| claude-haiku-5.5 | 101 (85.6%) | 7 | $0.45 |
-| grok-4.3 | 100 (84.7%) | 6 | $4.51 |
-| deepseek-v4.1-flash | 99 (83.9%) | 4 | $1.17 |
-| gemini-3.8-flash | stopped, too expensive | — | $6.08 |
+| Model | Open weights | Passed (of 118) | Rewrites (of 20) | Spent | Small task | Rewrite | First text | Text speed |
+|---|---|--:|--:|--:|--:|--:|--:|--:|
+| gpt-6-luna | no | 108 (91.5%) | 14 | $0.35 | 6.8 s | 118 s | 4.9 s | 94 tokens/s |
+| claude-haiku-5.5 | no | 101 (85.6%) | 7 | $0.45 | 6.2 s | 93 s | 2.0 s | 196 tokens/s |
+| grok-4.3 | no | 100 (84.7%) | 6 | $4.51 | 19.2 s | 206 s | 15.7 s | 72 tokens/s |
+| deepseek-v4.1-flash | yes | 99 (83.9%) | 4 | $1.17 | 4.8 s | 172 s | 20.7 s | 204 tokens/s |
+| qwen3.8-27b | yes | 97 (82.2%) | 4 | $4.88 | 13.3 s | 321 s | 71.8 s | 72 tokens/s |
+| glm-5.3-flash | yes | 95 (80.5%) | 4 | $0.36 | 13.5 s | 116 s | 1.5 s | 62 tokens/s |
+| gemma-4-31b-it | yes | 87 (73.7%) | 0 | $0.19 | 8.0 s | 280 s | 9.1 s | 61 tokens/s |
+| gemini-3.8-flash | no | stopped, too expensive | — | $6.08 | 17.4 s | — | 11.1 s | 130 tokens/s |
 
-- On small edits and questions, four of the models were within one case of each other. Rewrites separated them.
-- gpt-6-luna graded the first three models. DeepSeek and Grok graded their own work, so their scores aren't strictly comparable.
+- On small edits and questions, five of the models passed 93 to 95 of 98. Rewrites separated them.
+- **qwen3.8-27b** is the model IONOS also hosts. It matched gpt-6-luna on small tasks but passed 4 of 20 rewrites. In 9 of the 16 failed rewrites the gateway returned a server error three times in a row and a part never came back. Of the 11 rewrites without errors, it passed 4.
+- **Qwen is slow because it thinks, not because it writes slowly.** It thinks about 20 times as long as luna before its first word, and that thinking is billed as output. Counting thinking, it produces tokens about as fast as luna, 62 against 64 per second. Setting its thinking to low cut it from about 5,000 to 870 tokens on the speed test.
+- **glm-5.3-flash ran without a single error**, at about luna's cost and rewrite time, and showed its first word fastest. It passed 4 of 20 rewrites, all failures on quality: four of its concise rewrites kept 96 to 98% of the text, and its translations and formal rewrites failed the grader. IONOS doesn't offer it.
+- **gemma-4-31b-it failed all 20 rewrites for a technical reason.** The gateway's Gemma doesn't accept the JSON format the rewrite pipeline asks for, so every part was rejected. The score says nothing about its writing. It answered questions worst of all, 28 of 37.
+- gpt-6-luna graded every model except DeepSeek and Grok, which graded their own work, so those two scores aren't strictly comparable. A rewrite case is cut off after 5 minutes and counts as failed.
 - The cheap Grok model, grok-4.1-fast-reasoning, was unavailable: the gateway answered "Not Found" on 18 October. We used grok-4.3 instead.
+- minimax-m3 was planned as a fourth open-weights model but skipped: the gateway credit ran too low.
 
 ### The eval suite
 

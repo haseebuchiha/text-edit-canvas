@@ -2,7 +2,7 @@ import { mkdirSync, writeFileSync } from "node:fs"
 import { join } from "node:path"
 import { diffWords } from "diff"
 import type { CheckResult, Evidence } from "@/tests/evals/checks"
-import { GRADER_EFFORT, type Grade } from "@/tests/evals/grader"
+import { GRADER_EFFORT, GRADER_MODEL, type Grade } from "@/tests/evals/grader"
 import {
   addTokens,
   type CaseResult,
@@ -120,7 +120,7 @@ const formatTotals = ({ results, startedAt }: ScenarioRun, passedCount: number) 
 const formatResults = (scenario: string, run: ScenarioRun, failed: CaseResult[]) =>
   [
     `# ${scenario}`,
-    `Model: ${run.model}. Grader: the same model at ${GRADER_EFFORT} effort. Started ${new Date(run.startedAt).toISOString()}.`,
+    `Model: ${run.model}. Grader: ${GRADER_MODEL} at ${GRADER_EFFORT} effort. Started ${new Date(run.startedAt).toISOString()}.`,
     formatFailedSection(failed),
     formatTotals(run, run.results.length - failed.length),
   ].join("\n\n")
